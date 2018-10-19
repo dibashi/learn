@@ -1,0 +1,12 @@
+﻿  stateblock.cpp
+  scene.cpp
+  resmanager.cpp
+  input.cpp
+  graphics.cpp
+  fileio.cpp
+  camera.cpp
+  application.cpp
+  正在生成代码...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(E:\NewProjects\git\muli3d\libappframework\Debug\libappframework.lib) does not match the Library's OutputFile property value (E:\NewProjects\git\muli3d\libappframework\lib\libappframeworkd.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1359,5): warning MSB8012: TargetName(libappframework) does not match the Library's OutputFile property value (libappframeworkd). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  libappframework.vcxproj -> E:\NewProjects\git\muli3d\libappframework\Debug\libappframework.lib

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Quelldateien\core">
+      <UniqueIdentifier>{7edf0041-f5ce-4072-b13b-4bb6d8a1d2a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\math">
+      <UniqueIdentifier>{72f78eda-351a-4d70-bdae-7ba2cba157c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\core">
+      <UniqueIdentifier>{3e7824c3-fb07-4761-9bea-5dfb895af229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\math">
+      <UniqueIdentifier>{424517df-a341-4e5a-8eeb-e7eb3615fd46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\m3dcore.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_baseshader.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_basetexture.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_cubetexture.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_device.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_indexbuffer.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_presenttarget.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_rendertarget.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_shaders.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_surface.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_texture.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_vertexbuffer.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_vertexformat.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_volume.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\m3dcore_volumetexture.cpp">
+      <Filter>Quelldateien\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\m3dmath_matrix44.cpp">
+      <Filter>Quelldateien\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\m3dmath_quaternion.cpp">
+      <Filter>Quelldateien\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\m3dmath_vector4.cpp">
+      <Filter>Quelldateien\math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\m3d.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\m3dbase.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\m3dtypes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_baseshader.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_basetexture.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_cubetexture.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_device.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_indexbuffer.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_presenttarget.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_primitiveassembler.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_rendertarget.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_shaders.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_surface.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_texture.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_vertexbuffer.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_vertexformat.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_volume.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\m3dcore_volumetexture.h">
+      <Filter>Headerdateien\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_common.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_matrix44.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_plane.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_quaternion.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_vector2.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_vector3.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\m3dmath_vector4.h">
+      <Filter>Headerdateien\math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\math\m3dmath_matrix44.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+    <None Include="include\math\m3dmath_plane.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+    <None Include="include\math\m3dmath_quaternion.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+    <None Include="include\math\m3dmath_vector2.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+    <None Include="include\math\m3dmath_vector3.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+    <None Include="include\math\m3dmath_vector4.inl">
+      <Filter>Headerdateien\math</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="license.txt" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+﻿app.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
+libpng.lib(pngread.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(png.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngrtran.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngrio.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngget.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(inflate.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngmem.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngerror.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngrutil.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngtrans.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(crc32.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(infblock.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(adler32.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(zutil.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(pngset.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(infcodes.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(inftrees.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(infutil.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+libpng.lib(inffast.obj) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+Debug\bubble.exe : fatal error LNK1281: 无法生成 SAFESEH 映像。

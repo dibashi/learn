@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML> 
+<html lang="en"> 
+<head>
+<title>Test of WebGL-mjs JavaScript Library</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="mjs.js"></script>
+<script type="text/javascript">
+
+function convertToString(array) {
+  var stringRep = '';
+  for (var i=0; i<array.length; i++) {
+    var stringRep = stringRep + array[i]+' ';
+  }   
+  return stringRep;
+}
+
+function testMjsJsLibrary() {
+  var u = V3.$(1,2,3);
+  var v = V3.$(4,5,6);
+
+  var s = V3.add(u,v);        // s = [5,7,9]
+  alert(convertToString(s));  // will alert [5,7,9]
+  
+  var d = V3.dot(u,v); // d = 1*4+2*5+3*6=32
+  alert(d);            // will alert 32
+  
+  var c = V3.cross(u,v);          
+  alert(convertToString(c)); //will alert [-3,6,-3]
+  
+  var I = M4x4.$(1,0,0,0,  // first column
+                 0,1,0,0,  // second column
+                 0,0,1,0,  // third column
+                 0,0,0,1); // fourth column
+  
+  var M = M4x4.$(1,0,0,0,  // first column
+                 0,1,0,0,  // second column
+                 0,0,1,0,  // third column
+                 2,3,4,1); // fourth column
+                 
+  var IM = M4x4.mul(I,M);
+  alert(convertToString(IM)); // will alert 1,0,0,0
+                              //            0,1,0,0,
+                              //            0,0,1,0,
+                              //            2,3,4,1
+                              
+  var T = M4x4.makeTranslate3(2,3,4);
+  alert(convertToString(T));  // will alert 1,0,0,0
+                              //            0,1,0,0,
+                              //            0,0,1,0,
+                              //            2,3,4,1
+}                             
+                              
+</script>                     
+</head>
+
+<body onload="testMjsJsLibrary();">
+  Simple web page to test WebGL-mjs JavaScript library. </br>
+  The page shows a couple of alerts with the result 
+  from vector and matrix maths. </br>
+  You need to read the source code with view source or or similar
+  to understand the results of the alerts.
+</body>
+
+</html>

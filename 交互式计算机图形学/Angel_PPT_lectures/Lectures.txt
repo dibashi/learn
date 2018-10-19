@@ -1,0 +1,141 @@
+                         Computer Graphics with WebGL
+                              Spring 2014
+
+                               Ed Angel
+
+                 Professor Emeritus of Computer Science
+                     University of New Mexico
+                          angel@cs.unm.edu
+                        www.cs.unm.edu/~angel
+
+This course was taught as an online course. The times following each lecture name is the time of video I created for that lecture.
+
+Text: Interactive Computer Graphics, 7th Edition, E. Angel and D. Shreiner, Pearson Education, 2015.
+
+Week 1: Introduction and Overview
+
+Angel_14_1_1: Course Overview (24:21)
+Angel_14_1_2: Course Outline (22:24)
+Angel_14_1_3: Sample WebGL Program (34:31)
+Angel_14_1_4: History of Computer Graphics (26:48)
+Angel_14_1_5: Image Formation (28:43)
+
+Reading: Chapter 1
+
+Week 2: Introduction to WebGL
+
+Angel_14_2_1: Models and Architecture (30:56)
+Angel_14_2_2: WebGL Background: History of Graphics Software  (27:27)
+Angel_14_2_3: WebGL Basics (19:48)
+Angel_14_2_4: A Complete Program (33:53)
+Angel_14_2_5: Discussion and First Assignment (17:51)
+
+Reading: Chapter 2
+
+Week 3: GLSL and Shaders
+
+Angel_14_3_1: Shaders 1 (15:28)	
+Angel 14_3_2:  Shaders 2 (27:26)
+Angel_14_3_3: Colors and Attributes (25:41)
+Angel_14_3_4: Reading and Initializing Shaders (11:33)
+Angel_14_2_5: Recursive Sierpinski Gasket (12:33)
+Angel_14_3_6: Three Dimensions and Hidden Surface Removal (10:06)
+
+Reading: Finish Chapter 2
+
+Week 4: Input and Interaction
+
+Angel_14_4_1: Input and Interaction (25:10)
+Angel_14_4_2: Animation (17:21)
+Angel_14_4_3: Callbacks and Event Listeners (24:34)
+Angel_14_4_4: Position Input (22:25)
+Angel_14_4_5: Picking (17:24)
+Angel_14_4_6: Geometry (35:54)
+
+Reading: Chapter 3
+
+Week 5: Geometry and Transformations
+
+Angel_14_5_1: Representation (18:05)
+Angel_14_5_2: Homogeneous Coordinates (22:53)
+Angel_14_5_3: Transformations (41:12)
+Angel_14_5_4: Transformations in WebGL (21:44)
+Angel_14_5_5: Applying Transformations (17:53)
+Angel_14_E1: Quaternions (26:32)
+
+Reading: Chapter 4
+
+Week 6: Modeling and Viewing
+
+Angel_14_6_1: Modeling (16:10)
+Angel_14_6_2: Rotating Cube (17:10)
+Angel_14_E2: The Virtual Trackball (15:26)
+Angel_14_6_3: Classical Viewing (34:54)
+Angel_14_6_4: Positioning the Camera (24:27)
+Angel_14_6_5: Projection Functions (27:49)
+ 
+Reading: Begin Chapter 5
+
+Week 7: Projection Matrices and Shadows
+
+Angel_14_7_1: Orthogonal Projection Matrices (20:16)
+Angel_14_7_2: Perspective Projection Matrices (16:58)
+Angel_14_7_3: Meshes (21:49)
+Angel_14_7_4: Shadows (24:23)
+Angel_14_7_5: Lighting and Shading 1 (39:58)
+
+Reading: Finish Chapter 5, begin Chapter 6.
+
+Week 8: Lighting and Shading
+
+Angel_14_8_1: Lighting and Shading 2 (23:19)
+Angel_14_8_2: Lighting in WebGL (26:47)
+Angel_14_8_3: Polygonal Shading (15:22)
+Angel_14_8_4: Per Vertex and Per Fragment Shading (17:00)
+Angel_14_E3: Marching Squares (25:52)
+
+Reading: Chapter 6
+
+Week 9: Buffers and Texture Mapping
+
+Angel_14_9_1: Buffers (24:34)
+Angel_14_9_2: BitBlt (16:02)
+Angel_14_9_3: Texture Mapping I (14:20)
+Angel_14_9_4: Texture Mapping II (16:08)
+Angel_14_9_5: WebGL Texture Mapping I (24:41)
+Angel_14_9_6: WebGL Texture Mapping II (31:51)
+
+Reading: Begin Chapter 7
+
+Week 10: Discrete Techniques
+
+Angel_14_10_1: Reflection and Environment Maps (27:49)
+Angel_14_10_2: Bump Maps (19:10)
+Angel_14_10_3: Compositing and Blending (30:47)
+Angel_14_10_4: Imaging Applications (29:18)
+Angel_14_10_5: Rendering the Mandelbrot Set (24:07)
+ 
+Reading: Finish Chapter 7
+
+Week 11: Off-Screen Rendering
+
+Angel_14_11_1: Framebuffer Objects (24:25)
+Angel_14_11_2: Render to Texture (15:40)
+Angel_14_11_3: Buffer Pingponging (24:46)
+Angel_14_11_4: Picking by Color (12:45)
+Angel_14_E4: Fractals (21:32) 
+
+Reading: Finish Chapter 7. Fractals are discussed in Chapter 10.
+
+Week 12: Hierarchy
+
+Angel_14_12_1: Hierarchy 1 (26:20)
+Angel_14_12_2: Hierarchy 2 (26:25)
+Angel_14_12_3: Scene Graphs 1 (23:27)
+Angel_14_12_4: Scene Graphs 2 (19:48)
+Angel_14_12_5: Rendering Overview (16:27)
+
+Reading: Chapter 9
+
+
+

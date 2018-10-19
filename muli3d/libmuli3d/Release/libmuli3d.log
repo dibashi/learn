@@ -1,0 +1,22 @@
+﻿  m3dcore.cpp
+  m3dcore_baseshader.cpp
+  m3dcore_basetexture.cpp
+  m3dcore_cubetexture.cpp
+  m3dcore_device.cpp
+src\core\m3dcore_device.cpp(2401): warning C4838: 从“int32”转换到“const uint32”需要收缩转换
+  m3dcore_indexbuffer.cpp
+  m3dcore_presenttarget.cpp
+  m3dcore_rendertarget.cpp
+  m3dcore_shaders.cpp
+  m3dcore_surface.cpp
+  m3dcore_texture.cpp
+  m3dcore_vertexbuffer.cpp
+  m3dcore_vertexformat.cpp
+  m3dcore_volume.cpp
+  m3dcore_volumetexture.cpp
+  m3dmath_matrix44.cpp
+  m3dmath_quaternion.cpp
+  m3dmath_vector4.cpp
+  正在生成代码...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(E:\NewProjects\git\mustLearn\GCMust\muli3d\libmuli3d\Release\libmuli3d.lib) does not match the Library's OutputFile property value (E:\NewProjects\git\mustLearn\GCMust\muli3d\libmuli3d\lib\libmuli3d.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  libmuli3d.vcxproj -> E:\NewProjects\git\mustLearn\GCMust\muli3d\libmuli3d\Release\libmuli3d.lib
