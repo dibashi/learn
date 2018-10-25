@@ -1,0 +1,67 @@
+<!-- Licensed under a BSD license. See license.html for license -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>WebGL - 3D Step 6 - Use Depth Buffer</title>
+<link type="text/css" href="resources/webgl-tutorials.css" rel="stylesheet" />
+</head>
+<body>
+<div class="description">
+Drag sliders to translate, rotate, and scale.
+</div>
+<canvas id="canvas"></canvas>
+<div id="uiContainer">
+  <div id="ui">
+    <div id="x"></div>
+    <div id="y"></div>
+    <div id="z"></div>
+    <div id="angleX"></div>
+    <div id="angleY"></div>
+    <div id="angleZ"></div>
+    <div id="scaleX"></div>
+    <div id="scaleY"></div>
+    <div id="scaleZ"></div>
+  </div>
+</div>
+</body>
+<!-- vertex shader -->
+<script id="3d-vertex-shader" type="x-shader/x-vertex">
+attribute vec4 a_position;
+attribute vec4 a_color;
+
+uniform mat4 u_matrix;
+
+varying vec4 v_color;
+
+void main() {
+  // Multiply the position by the matrix.
+  gl_Position = u_matrix * a_position;
+
+  // Pass the color to the fragment shader.
+  v_color = a_color;
+}
+</script>
+<!-- fragment shader -->
+<script id="3d-fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+// Passed in from the vertex shader.
+varying vec4 v_color;
+
+void main() {
+   gl_FragColor = v_color;
+}
+</script>
+<!--
+for most samples webgl-utils only provides shader compiling/linking and
+canvas resizing because why clutter the examples with code that's the same in every sample.
+See http://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html
+and http://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
+for webgl-utils, m3, m4, and webgl-lessons-ui.
+-->
+<script src="resources/webgl-utils.js"></script>
+<script src="resources/webgl-lessons-ui.js"></script>
+<script src="研究下.js"></script>
+</html>
