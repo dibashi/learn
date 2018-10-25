@@ -14,7 +14,7 @@ var VSHADER_SOURCE =
 var FSHADER_SOURCE =
   '#ifdef GL_ES\n' +
   'precision mediump float;\n' + // Precision qualifier (See Chapter 6)
-  '#endif GL_ES\n' +
+  '#endif\n' +
   'varying vec4 v_Color;\n' +    // Receive the data from the vertex shader
   'void main() {\n' +
   '  gl_FragColor = v_Color;\n' +
