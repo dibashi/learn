@@ -3,8 +3,10 @@
 var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' +
   'uniform mat4 u_xformMatrix;\n' +
+  'uniform mat4 u_tformMatrix;\n' +
+  'uniform mat4 u_sformMatrix;\n' +
   'void main() {\n' +
-  '  gl_Position = u_xformMatrix * a_Position;\n' +
+  '  gl_Position = u_tformMatrix*u_sformMatrix*u_xformMatrix * a_Position;\n' +
   '}\n';
 
 // Fragment shader program
@@ -14,7 +16,10 @@ var FSHADER_SOURCE =
   '}\n';
 
 // The rotation angle
-var ANGLE = 90.0;
+var ANGLE = 45.0;
+
+var TX = 0.0, TY = 0.0, TZ = 0.0;
+var Sx = 0.5, Sy =1.0, Sz = 1.0;
 
 function main() {
   // Retrieve <canvas> element
@@ -32,7 +37,7 @@ function main() {
     console.log('Failed to intialize shaders.');
     return;
   }
- 
+
   // Write the positions of vertices to a vertex shader
   var n = initVertexBuffers(gl);
   if (n < 0) {
@@ -46,11 +51,18 @@ function main() {
 
   // Note: WebGL is column major order
   var xformMatrix = new Float32Array([
-     cosB, sinB, 0.0, 0.0,
+    cosB, sinB, 0.0, 0.0,
     -sinB, cosB, 0.0, 0.0,
-      0.0,  0.0, 1.0, 0.0,
-      0.0,  0.0, 0.0, 1.0
+    0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0
   ]);
+
+  var tformMatrix = new Float32Array([
+    1.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.1,
+    TX, TY, TZ, 1.0
+  ])
 
   // Pass the rotation matrix to the vertex shader
   var u_xformMatrix = gl.getUniformLocation(gl.program, 'u_xformMatrix');
@@ -59,6 +71,26 @@ function main() {
     return;
   }
   gl.uniformMatrix4fv(u_xformMatrix, false, xformMatrix);
+
+  var u_tformMatrix = gl.getUniformLocation(gl.program, 'u_tformMatrix');
+  gl.uniformMatrix4fv(u_tformMatrix, false, tformMatrix);
+
+
+  // Note: WebGL is column major order
+  var sformMatrix = new Float32Array([
+    Sx, 0.0, 0.0, 0.0,
+    0.0, Sy, 0.0, 0.0,
+    0.0, 0.0, Sz, 0.0,
+    0.0, 0.0, 0.0, 1.0
+  ]);
+
+  // Pass the rotation matrix to the vertex shader
+  var u_sformMatrix = gl.getUniformLocation(gl.program, 'u_sformMatrix');
+  if (!u_xformMatrix) {
+    console.log('Failed to get the storage location of u_xformMatrix');
+    return;
+  }
+  gl.uniformMatrix4fv(u_sformMatrix, false, sformMatrix);
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0, 0, 0, 1);
@@ -72,7 +104,7 @@ function main() {
 
 function initVertexBuffers(gl) {
   var vertices = new Float32Array([
-    0, 0.5,   -0.5, -0.5,   0.5, -0.5
+    0, 0.1, -0.1, -0.1, 0.1, -0.1
   ]);
   var n = 3; // The number of vertices
 
