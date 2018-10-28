@@ -58,13 +58,13 @@ function keydown(ev, gl, n, u_projectMatrix, projectMatrix,nf) {
 
 
 function draw(gl, n, u_projectMatrix, projectMatrix,nf) {
-    projectMatrix.setOrtho(-1, 1, -1, 1, g_near, g_far);
+    projectMatrix.setOrtho(-0.5, 0.5, -0.5, 0.5, g_near, g_far);
     gl.uniformMatrix4fv(u_projectMatrix, false, projectMatrix.elements);
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, n);
 
-    nf.innerHTML = "g_near = " + g_near  + " g_far = " + g_far;
+    nf.innerHTML = "g_near = " + Math.round(g_near*100) /100 + " g_far = " + Math.round(g_far*100)/100;
 }
 
 
