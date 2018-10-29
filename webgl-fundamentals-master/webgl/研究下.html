@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>WebGL - 3D Step 6 - Use Depth Buffer</title>
+<title>WebGL - 3D Camera</title>
 <link type="text/css" href="resources/webgl-tutorials.css" rel="stylesheet" />
 </head>
 <body>
@@ -14,15 +14,7 @@ Drag sliders to translate, rotate, and scale.
 <canvas id="canvas"></canvas>
 <div id="uiContainer">
   <div id="ui">
-    <div id="x"></div>
-    <div id="y"></div>
-    <div id="z"></div>
-    <div id="angleX"></div>
-    <div id="angleY"></div>
-    <div id="angleZ"></div>
-    <div id="scaleX"></div>
-    <div id="scaleY"></div>
-    <div id="scaleZ"></div>
+    <div id="cameraAngle"></div>
   </div>
 </div>
 </body>
@@ -31,10 +23,9 @@ Drag sliders to translate, rotate, and scale.
 attribute vec4 a_position;
 attribute vec4 a_color;
 
-uniform mat4 u_matrix;
-
 varying vec4 v_color;
 
+uniform mat4 u_matrix;
 void main() {
   // Multiply the position by the matrix.
   gl_Position = u_matrix * a_position;
@@ -63,5 +54,8 @@ for webgl-utils, m3, m4, and webgl-lessons-ui.
 -->
 <script src="resources/webgl-utils.js"></script>
 <script src="resources/webgl-lessons-ui.js"></script>
-<script src="研究下.js"></script>
+<script src="./研究下.js">
+</script>
 </html>
+
+
