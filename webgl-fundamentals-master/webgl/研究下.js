@@ -3,7 +3,7 @@
 function main() {
   var canvas = document.getElementById("canvas");
   var gl = canvas.getContext("webgl");
-  console.log(gl);
+  //console.log(gl);
   // setup GLSL program
   var program = webglUtils.createProgramFromScripts(gl, ["3d-vertex-shader", "3d-fragment-shader"]);
   gl.useProgram(program);
@@ -46,7 +46,7 @@ function main() {
 
     //var matrix = lhM4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 402);
     var matrix = lhM4.orthographic(-200,200,-200,200,200,-200);
-    console.log(matrix);
+   // console.log(matrix);
     matrix = lhM4.translate(matrix, translation[0], translation[1], translation[2]);
 
 
@@ -91,6 +91,7 @@ function main() {
   function updateRotation(index) {
     return function (event, ui) {
       var angleInDegrees = ui.value;
+      console.log(angleInDegrees);
       var angleInRadians = angleInDegrees * Math.PI / 180;
       rotation[index] = angleInRadians;
       drawScene();
@@ -556,7 +557,7 @@ var lhM4 = {
     return lhM4.multiply(m, lhM4.zRotation(angleInRadians));
   },
   yRotate: function (m, angleInRadians) {
-    console.log(lhM4.yRotation(angleInRadians));
+   // console.log(lhM4.yRotation(angleInRadians));
     return lhM4.multiply(m, lhM4.yRotation(angleInRadians));
   },
   xRotate: function (m, angleInRadians) {
