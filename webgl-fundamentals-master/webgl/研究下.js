@@ -19,10 +19,7 @@ function main() {
   var matrixLocation = gl.getUniformLocation(program, 'u_matrix');
 
   gl.enable(gl.DEPTH_TEST);
-  //var u_color = gl.getUniformLocation(program, 'u_color');
-  //var a_color = gl.getAttribLocation(program,'a_color');
-  //var color = [Math.random(), Math.random(), Math.random(), 1];
-
+  gl.enable(gl.CULL_FACE);
   function radToDeg(r) {
     return r * 180 / Math.PI;
   }
@@ -44,11 +41,12 @@ function main() {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
     gl.enableVertexAttribArray(a_color);
-    gl.vertexAttribPointer(a_color, 3, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(a_color, 3, gl.UNSIGNED_BYTE, true, 0, 0);
 
 
-    var matrix = lhM4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 402);
-
+    //var matrix = lhM4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 402);
+    var matrix = lhM4.orthographic(-200,200,-200,200,200,-200);
+    console.log(matrix);
     matrix = lhM4.translate(matrix, translation[0], translation[1], translation[2]);
 
 
@@ -57,7 +55,7 @@ function main() {
     matrix = lhM4.zRotate(matrix, rotation[2]);
 
     matrix = lhM4.scale(matrix, scale[0], scale[1], scale[2]);
-    console.log(matrix);
+    //console.log(matrix);
     gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
 
 
@@ -111,33 +109,152 @@ function main() {
 function initGeometry(gl) {
   var vertices = new Float32Array([
 
+    // left column front
+   
+    0, 40, 0,
     0, 0, 0,
-    30, 0, 0,
-    0, 150, 0,
+    34.6, 20, 0,
 
-    0, 150, 0,
-    30, 0, 0,
-    30, 150, 0,
+    0, 0, 0,
+    0, 40, 0,
+   
+    34.6, 20, 0,
+    // 0, 150, -30,
+    // 30, 150, -30,
+    // 30, 0, -30,
 
-    // top rung
-    30, 0, 0,
-    100, 0, 0,
-    30, 30, 0,
+    // // top rung front
+    // 30, 0, -30,
+    // 30, 30, -30,
+    // 100, 0, -30,
+    // 30, 30, -30,
+    // 100, 30, -30,
+    // 100, 0, -30,
 
-    30, 30, 0,
-    100, 0, 0,
-    100, 30, 0,
+    // // middle rung front
+    // 30, 60, -30,
+    // 30, 90, -30,
+    // 67, 60, -30,
+    // 30, 90, -30,
+    // 67, 90, -30,
+    // 67, 60, -30,
 
-    // middle rung
-    30, 60, 0,
-    67, 60, 0,
-    30, 90, 0,
+    // // left column back
+    // 0, 0, -60,
+    // 30, 0, -60,
+    // 0, 150, -60,
+    // 0, 150, -60,
+    // 30, 0, -60,
+    // 30, 150, -60,
 
-    30, 90, 0,
-    67, 60, 0,
-    67, 90, 0
-  ])
-  var n = 18;
+    // // top rung back
+    // 30, 0, -60,
+    // 100, 0, -60,
+    // 30, 30, -60,
+    // 30, 30, -60,
+    // 100, 0, -60,
+    // 100, 30, -60,
+
+    // // middle rung back
+    // 30, 60, -60,
+    // 67, 60, -60,
+    // 30, 90, -60,
+    // 30, 90, -60,
+    // 67, 60, -60,
+    // 67, 90, -60,
+
+    // // top
+    // 0, 0, -30,
+    // 100, 0, -30,
+    // 100, 0, -60,
+    // 0, 0, -30,
+    // 100, 0, -60,
+    // 0, 0, -60,
+
+    // // top rung right
+    // 100, 0, -30,
+    // 100, 30, -30,
+    // 100, 30, -60,
+    // 100, 0, -30,
+    // 100, 30, -60,
+    // 100, 0, -60,
+
+    // // under top rung
+    // 30, 30, -30,
+    // 30, 30, -60,
+    // 100, 30, -60,
+    // 30, 30, -30,
+    // 100, 30, -60,
+    // 100, 30, -30,
+
+    // // between top rung and middle
+    // 30, 30, -30,
+    // 30, 60, -60,
+    // 30, 30, -60,
+    // 30, 30, -30,
+    // 30, 60, -30,
+    // 30, 60, -60,
+
+    // // top of middle rung
+    // 30, 60, -30,
+    // 67, 60, -60,
+    // 30, 60, -60,
+    // 30, 60, -30,
+    // 67, 60, -30,
+    // 67, 60, -60,
+
+    // // right of middle rung
+    // 67, 60, -30,
+    // 67, 90, -60,
+    // 67, 60, -60,
+    // 67, 60, -30,
+    // 67, 90, -30,
+    // 67, 90, -60,
+
+    // // bottom of middle rung.
+    // 30, 90, -30,
+    // 30, 90, -60,
+    // 67, 90, -60,
+    // 30, 90, -30,
+    // 67, 90, -60,
+    // 67, 90, -30,
+
+    // // right of bottom
+    // 30, 90, -30,
+    // 30, 150, -60,
+    // 30, 90, -60,
+    // 30, 90, -30,
+    // 30, 150, -30,
+    // 30, 150, -60,
+
+    // // bottom
+    // 0, 150, -30,
+    // 0, 150, -60,
+    // 30, 150, -60,
+    // 0, 150, -30,
+    // 30, 150, -60,
+    // 30, 150, -30,
+
+    // // left side
+    // 0, 0, -30,
+    // 0, 0, -60,
+    // 0, 150, -60,
+    // 0, 0, -30,
+    // 0, 150, -60,
+    // 0, 150, -30,
+
+    
+
+    // -20,-50,-250,
+    // 20,-50,-250, //白色
+    // 0,-10,-250,
+
+    // -20,-20,-399,
+    // 20,-20,-399, //彩色
+    // 0,20,-399,
+    
+  ]);
+  var n = 6;
 
 
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
@@ -145,34 +262,149 @@ function initGeometry(gl) {
 }
 
 function initColor(gl) {
-  var colors = new Float32Array([
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
+  var colors = new Uint8Array([
+    // left column front
+    200, 70, 120,
+    200, 70, 120,
+    200, 70, 120,
+    80, 70, 200,
+    80, 70, 200,
+    80, 70, 200,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
 
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
+    // // top rung front
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
 
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
+    // // middle rung front
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
+    // 200, 70, 120,
 
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
+    // // left column back
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
 
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
-    0.0, 0.5, 0.0,
+    // // top rung back
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
 
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
-    0.5, 0.0, 0.0,
+    // // middle rung back
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+    // 80, 70, 200,
+
+    // // top
+    // 70, 200, 210,
+    // 70, 200, 210,
+    // 70, 200, 210,
+    // 70, 200, 210,
+    // 70, 200, 210,
+    // 70, 200, 210,
+
+    // // top rung right
+    // 200, 200, 70,
+    // 200, 200, 70,
+    // 200, 200, 70,
+    // 200, 200, 70,
+    // 200, 200, 70,
+    // 200, 200, 70,
+
+    // // under top rung
+    // 210, 100, 70,
+    // 210, 100, 70,
+    // 210, 100, 70,
+    // 210, 100, 70,
+    // 210, 100, 70,
+    // 210, 100, 70,
+
+    // // between top rung and middle
+    // 210, 160, 70,
+    // 210, 160, 70,
+    // 210, 160, 70,
+    // 210, 160, 70,
+    // 210, 160, 70,
+    // 210, 160, 70,
+
+    // // top of middle rung
+    // 70, 180, 210,
+    // 70, 180, 210,
+    // 70, 180, 210,
+    // 70, 180, 210,
+    // 70, 180, 210,
+    // 70, 180, 210,
+
+    // // right of middle rung
+    // 100, 70, 210,
+    // 100, 70, 210,
+    // 100, 70, 210,
+    // 100, 70, 210,
+    // 100, 70, 210,
+    // 100, 70, 210,
+
+    // // bottom of middle rung.
+    // 76, 210, 100,
+    // 76, 210, 100,
+    // 76, 210, 100,
+    // 76, 210, 100,
+    // 76, 210, 100,
+    // 76, 210, 100,
+
+    // // right of bottom
+    // 140, 210, 80,
+    // 140, 210, 80,
+    // 140, 210, 80,
+    // 140, 210, 80,
+    // 140, 210, 80,
+    // 140, 210, 80,
+
+    // // bottom
+    // 90, 130, 110,
+    // 90, 130, 110,
+    // 90, 130, 110,
+    // 90, 130, 110,
+    // 90, 130, 110,
+    // 90, 130, 110,
+
+    // // left side
+    // 160, 160, 220,
+    // 160, 160, 220,
+    // 160, 160, 220,
+    // 160, 160, 220,
+    // 160, 160, 220,
+    // 160, 160, 220,
+    
+    // 255,255,255,
+    // 255,255,255,
+    // 255,255,255,
+
+    // 255,0,0,
+    // 0,255,0,
+    // 0,0,255,
   ]);
-  var n = 18;
+ 
   gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
-  return n;
+ 
 }
 
 var lhM4 = {
@@ -183,6 +415,26 @@ var lhM4 = {
       0, -2 / height, 0, 0,
       0, 0, 2 / depth, 0,
       -1, 1, 0, 1,
+    ];
+  },
+
+  orthographic: function (left, right, bottom, top, near, far) {
+
+    // if (left === right || top === bottom || near === far) {
+    //   throw 'null frustum';
+    // }
+    // if (near <= 0) {
+    //   throw 'near <= 0';
+    // }
+    // if (far <= 0) {
+    //   throw 'far <= 0';
+    // }
+
+    return [
+      2 / (right - left), 0, 0, 0,
+      0, 2 / (top - bottom), 0, 0,
+      0, 0, 2 / (near - far), 0,
+      (left + right)/(left - right), (bottom + top) / (bottom - top), (near + far) / (near - far), 1
     ];
   },
 
@@ -304,6 +556,7 @@ var lhM4 = {
     return lhM4.multiply(m, lhM4.zRotation(angleInRadians));
   },
   yRotate: function (m, angleInRadians) {
+    console.log(lhM4.yRotation(angleInRadians));
     return lhM4.multiply(m, lhM4.yRotation(angleInRadians));
   },
   xRotate: function (m, angleInRadians) {
