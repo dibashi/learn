@@ -12,7 +12,7 @@ function DataObj(id, question, A, B, C, D, result) {
 
 function convertStringToObj(strData, id) {
     //这里用的getAllSubStrIndex不是最好的方法，应该查到一次就返回，为了省事
-    var indexs = getAllSubStrIndex_once(strData, ['、', 'A.', 'B.', 'C.', 'D.', '【']);
+    var indexs = getAllSubStrIndex_once(strData, ['、', 'A.', 'B.', 'C.', 'D.', '答案：']);
     //console.log(indexs);
     var question = strData.substring(indexs[0].pos + indexs[0].length, indexs[1].pos);
 
@@ -21,19 +21,19 @@ function convertStringToObj(strData, id) {
     }
    
     var A = strData.substring(indexs[1].pos + indexs[1].length, indexs[2].pos);
-    if (A.length > 10) {
+    if (A.length > 20) {
         return null;
     }
     var B = strData.substring(indexs[2].pos + indexs[2].length, indexs[3].pos);
-    if (B.length > 10) {
+    if (B.length > 20) {
         return null;
     }
     var C = strData.substring(indexs[3].pos + indexs[3].length, indexs[4].pos);
-    if (C.length > 10) {
+    if (C.length > 20) {
         return null;
     }
     var D = strData.substring(indexs[4].pos + indexs[4].length, indexs[5].pos);
-    if (D.length > 10) {
+    if (D.length > 20) {
         return null;
     }
     var result = strData.charAt(strData.length - 1);
@@ -98,6 +98,8 @@ function trimHuanHang(dataStr) {
     dataStr = dataStr.replace(/\ +/g, "");
     //去掉回车换行  
     dataStr = dataStr.replace(/[\r\n]/g, "");
+    
+
     return dataStr;
 }
 
@@ -106,14 +108,14 @@ function main() {
     var pData = document.getElementById('data');
     var dataStr = pData.innerHTML;
     var dataStr = trimHuanHang(dataStr);
-    var indexs = getAllSubStrIndex(dataStr, ["【正确答案】：A", "【正确答案】：B", "【正确答案】：C", "【正确答案】：D"]);
+    var indexs = getAllSubStrIndex(dataStr, ["答案：A", "答案：B", "答案：C", "答案：D"]);
 
     var objs = [];
     var start = end = 0;
     var j = 0;//准备将长度超过10的题删除
     for (var i = 0; i < indexs.length; i++) {
         end = indexs[i].pos + indexs[i].length;
-        var obj = convertStringToObj(dataStr.substring(start, end), 198 + j);
+        var obj = convertStringToObj(dataStr.substring(start, end), 999 + j);
         start = end;
       
         if (!obj) {

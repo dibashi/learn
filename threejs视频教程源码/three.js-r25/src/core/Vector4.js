@@ -2,12 +2,18 @@
  * @author supereggbert / http://www.paulbrunt.co.uk/
  * @author philogb / http://blog.thejit.org/
  */
+/**
+ * color vec2 vec3 vec4 这几个封装类 内部数据极少 搭配了 几个操作函数
+ */
 
 THREE.Vector4 = function ( x, y, z, w ) {
 
 	this.x = x || 0;
 	this.y = y || 0;
 	this.z = z || 0;
+	/**
+	 * 如果w是0 它就必须被修改为1 其他随便 这是其次坐标的定义
+	 */
 	this.w = w || 1;
 
 };
@@ -79,7 +85,9 @@ THREE.Vector4.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * 创建了一个与此对象数值一模一样的对象
+	 */
 	clone: function () {
 
 		return new THREE.Vector4( this.x, this.y, this.z, this.w );

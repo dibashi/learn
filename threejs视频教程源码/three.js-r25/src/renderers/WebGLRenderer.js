@@ -33,8 +33,10 @@ THREE.WebGLRenderer = function () {
 
 	var l, ll, lightColor, lightPosition, lightIntensity, light;
 
+		//这种写法是一个技巧，如果length等于0 就传false 不开启灯光
+		//如果length不等于0 就传true 开启灯光
 		_gl.uniform1i( _program.enableLighting, scene.lights.length );
-
+		//根绝场景中的灯光个数，循环传递uniform变量值
 		for ( l = 0, ll = scene.lights.length; l < ll; l++ ) {
 
 			light = scene.lights[ l ];
@@ -362,6 +364,12 @@ THREE.WebGLRenderer = function () {
 		_program.projectionMatrixArray = new Float32Array( camera.projectionMatrix.flatten() );
 
 		//_normalMatrix = THREE.Matrix4.makeInvert3x3( object.matrix ).transpose();
+		/**
+		 * 这里可能有bug 光是在世界坐标系下定义的，这里的转置逆矩阵 是视图矩阵的转置逆矩阵
+		 * 我觉得应该是 object.matrix的转置逆矩阵 不知作者为何把我认为正确的给注释掉了
+		 * 或许是因为光不是在世界坐标系下定义的 又或者其他 源码还没怎么看。
+		 */
+		
 		_normalMatrix = THREE.Matrix4.makeInvert3x3( _modelViewMatrix ).transpose();
 		_program.normalMatrixArray = new Float32Array( _normalMatrix.m );
 
@@ -377,23 +385,25 @@ THREE.WebGLRenderer = function () {
 
 		var o, ol, object;
 
+		//渲染之前 先清空颜色、深度缓冲区
 		if ( this.autoClear ) {
 
 			this.clear();
 
 		}
-
+		//更新相机矩阵
 		camera.autoUpdateMatrix && camera.updateMatrix();
+		//相机数据 参入着色器
 		_gl.uniform3f( _program.cameraPosition, camera.position.x, camera.position.y, camera.position.z );
-
+		//将光源数据传入着色器
 		this.setupLights( scene );
-
+		//一个物体 一个着色器 还是 分类 一批物体一个着色器，若一批用一个着色器 要跟换着色器里的数据
 		for ( o = 0, ol = scene.objects.length; o < ol; o++ ) {
 
 			object = scene.objects[ o ];
-
+			//将所有矩阵数据 传入着色器
 			this.setupMatrices( object, camera );
-
+			//到目前 几乎所有的uniform变量都已经传入 就差物体自身的attribute变量了，该如何传入，如何切换 就是下面代码要做的
 			if ( object instanceof THREE.Mesh ) {
 
 				this.renderMesh( object, camera );

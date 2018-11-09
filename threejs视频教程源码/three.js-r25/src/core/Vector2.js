@@ -2,7 +2,9 @@
  * @author mr.doob / http://mrdoob.com/
  * @author philogb / http://blog.thejit.org/
  */
-
+/**
+ * 就两个值 其他都是函数，放入prototype中复用
+ */
 THREE.Vector2 = function ( x, y ) {
 
 	this.x = x || 0;

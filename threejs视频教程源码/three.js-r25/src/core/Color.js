@@ -14,7 +14,9 @@ THREE.Color = function ( hex ) {
 	this.setHex( hex );
 
 }
-
+/**
+ * 这种写法应该少了指向构造函数的指针
+ */
 THREE.Color.prototype = {
 
 	setRGBA: function ( r, g, b, a ) {
@@ -63,6 +65,10 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * 
+	 *这种运算的意义是为了光照。
+	 */
 	multiplySelfRGB: function ( color ) {
 
 		this.r *= color.r;
@@ -77,6 +83,9 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * 这里的rgba 是[0,1]范围的数
+	 */
 	updateRGBA: function () {
 
 		this.a = ( this.hex >> 24 & 255 ) / 255;

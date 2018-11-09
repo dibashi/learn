@@ -1,7 +1,10 @@
 /**
  * @author mr.doob / http://mrdoob.com/
  */
-
+/**
+ * 6个值 真正确定此长方形的是4个值 左下坐标 右上坐标
+ * 疑惑在 为什么作者把函数放在了内部 是为了闭包访问？
+ */
 THREE.Rectangle = function () {
 
 	var _x1, _y1, _x2, _y2,
@@ -73,7 +76,9 @@ THREE.Rectangle = function () {
 		resize();
 
 	};
-
+	/**
+	 * 好奇怪不知道要做什么 lhtodo
+	 */
 	this.addPoint = function ( x, y ) {
 
 		if ( _isEmpty ) {
@@ -143,7 +148,12 @@ THREE.Rectangle = function () {
 
 	}
 	*/
-
+	/**
+	 * https://blog.csdn.net/szfhy/article/details/49740191解释的很清楚
+	 * 两个矩形中心点距离x 必须小于 两个矩形宽度和的一半
+	 * 距离y 必须小于 两个矩形高度和的一半
+	 * 这里作者是另一种方法https://blog.csdn.net/wongson/article/details/45314551
+	 */
 	this.instersects = function ( r ) {
 
 		return Math.min( _x2, r.getX2() ) - Math.max( _x1, r.getX1() ) >= 0 && Math.min( _y2, r.getY2() ) - Math.max( _y1, r.getY1() ) >= 0;
