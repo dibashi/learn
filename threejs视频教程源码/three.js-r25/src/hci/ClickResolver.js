@@ -1,4 +1,7 @@
-
+/**
+ * HCI是Human-Computer Interaction的缩写，意思是人机交互，
+ * 指人与计算机之间传递、交换信息的媒介和对话接口，是计算机系统的重要组成部分。
+ */
 THREE.ClickResolver = function( camera, scene ) {
 
 	this.camera = camera;
