@@ -105,29 +105,52 @@ function trimHuanHang(dataStr) {
 
 
 function main() {
-    var pData = document.getElementById('data');
-    var dataStr = pData.innerHTML;
-    var dataStr = trimHuanHang(dataStr);
-    var indexs = getAllSubStrIndex(dataStr, ["答案：A", "答案：B", "答案：C", "答案：D"]);
+    // var pData = document.getElementById('data');
+    // var dataStr = pData.innerHTML;
+    // var dataStr = trimHuanHang(dataStr);
+    // var indexs = getAllSubStrIndex(dataStr, ["答案：A", "答案：B", "答案：C", "答案：D"]);
 
-    var objs = [];
-    var start = end = 0;
-    var j = 0;//准备将长度超过10的题删除
-    for (var i = 0; i < indexs.length; i++) {
-        end = indexs[i].pos + indexs[i].length;
-        var obj = convertStringToObj(dataStr.substring(start, end), 999 + j);
-        start = end;
+    // var objs = [];
+    // var start = end = 0;
+    // var j = 0;//准备将长度超过10的题删除
+    // for (var i = 0; i < indexs.length; i++) {
+    //     end = indexs[i].pos + indexs[i].length;
+    //     var obj = convertStringToObj(dataStr.substring(start, end), 999 + j);
+    //     start = end;
       
-        if (!obj) {
-            continue
-        } else {
-            j++;
-            objs.push(obj);
+    //     if (!obj) {
+    //         continue
+    //     } else {
+    //         j++;
+    //         objs.push(obj);
+    //     }
+    // }
+
+    // var resultString = JSON.stringify(objs);
+    // console.log(resultString);
+
+    console.log(questionLibs);
+    var newQuestionLib = [];
+    var id = 0;
+    for(var i = 0, l= questionLibs.length; i<l; i++) {
+        if(questionLibs[i].A.length<12 && questionLibs[i].B.length<12 && questionLibs[i].C.length <12 && questionLibs[i].D.length<12) {
+            var item = {
+                'id': id + "",
+                'question': questionLibs[i].question,
+                'result': questionLibs[i].result,
+                'A': questionLibs[i].A,
+                'B': questionLibs[i].B,
+                'C': questionLibs[i].C,
+                'D': questionLibs[i].D
+            }
+            newQuestionLib.push(item);
+            id++;
         }
     }
+    
+    var dataStr = JSON.stringify(newQuestionLib);
 
-    var resultString = JSON.stringify(objs);
-    console.log(resultString);
+    console.log(dataStr);
 }
 
 
