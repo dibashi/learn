@@ -48,26 +48,26 @@ function main() {
     var gl = getWebGLContext(canvas);
 
     var solidProgram = createProgram(gl, SOLID_VSHADER_SOURCE, SOLID_FSHADER_SOURCE);
-    //var textureProgram = createProgram(gl, TEXTURE_VSHADER_SOURCE, TEXTURE_FSHADER_SOURCE);
+    var textureProgram = createProgram(gl, TEXTURE_VSHADER_SOURCE, TEXTURE_FSHADER_SOURCE);
 
     solidProgram.a_PositionLoc = gl.getAttribLocation(solidProgram, 'a_Position');
     solidProgram.a_NormalLoc = gl.getAttribLocation(solidProgram, 'a_Normal');
     solidProgram.u_MVPMatrixLoc = gl.getUniformLocation(solidProgram, 'u_MVPMatrix');
     solidProgram.u_NormalMatrixLoc = gl.getUniformLocation(solidProgram, 'u_NormalMatrix');
 
-    // textureProgram.a_PositionLoc = gl.getAttribLocation(textureProgram, 'a_Position');
-    // textureProgram.a_NormalLoc = gl.getAttribLocation(textureProgram, 'a_Normal');
-    // textureProgram.a_TexCoordLoc = gl.getAttribLocation(textureProgram, 'a_TexCoord');
-    // textureProgram.u_MVPMatrixLoc = gl.getUniformLocation(textureProgram, 'u_MVPMatrix');
-    // textureProgram.u_NormalMatrixLoc = gl.getUniformLocation(textureProgram, 'u_NormalMatrix');
-    // textureProgram.u_SamplerLoc = gl.getUniformLocation(textureProgram, 'u_Sampler');
+    textureProgram.a_PositionLoc = gl.getAttribLocation(textureProgram, 'a_Position');
+    textureProgram.a_NormalLoc = gl.getAttribLocation(textureProgram, 'a_Normal');
+    textureProgram.a_TexCoordLoc = gl.getAttribLocation(textureProgram, 'a_TexCoord');
+    textureProgram.u_MVPMatrixLoc = gl.getUniformLocation(textureProgram, 'u_MVPMatrix');
+    textureProgram.u_NormalMatrixLoc = gl.getUniformLocation(textureProgram, 'u_NormalMatrix');
+    textureProgram.u_SamplerLoc = gl.getUniformLocation(textureProgram, 'u_Sampler');
 
     var VPMatrix = new Matrix4();
     VPMatrix.setPerspective(30, canvas.width / canvas.height, 1.0, 100);
     VPMatrix.lookAt(0, 0, 15, 0, 0, 0, 0, 1, 0);
 
     var cube = initCubeData(gl);
-    //initTextureData(gl,textureProgram);
+    initTextureData(gl,textureProgram);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
@@ -75,8 +75,9 @@ function main() {
     var currentAngle = 0;
     var tick = function () {
         currentAngle = animate(currentAngle);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         drawSolidCube(gl, solidProgram, cube,  currentAngle,VPMatrix);
-        // drawTextureCube(gl, textureProgram, cube,  currentAngle,VPMatrix);
+        drawTextureCube(gl, textureProgram, cube,  currentAngle,VPMatrix);
         requestAnimationFrame(tick);
     }
     tick();
@@ -157,7 +158,7 @@ function initTextureData(gl, program) {
     var texture = gl.createTexture();
     var image = new Image();
     image.onload = function () {
-        gl.pixelStorei(gl.UNPANCK_FLIP_Y_WEBGL, 1);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -165,7 +166,7 @@ function initTextureData(gl, program) {
         gl.useProgram(program);
         gl.uniform1i(program.u_SamplerLoc, 0);
     };
-    image.src = '../resource/7herbs.jpg';
+    image.src = './resources/7herbs.jpg';
 }
 
 function initArrayBufferForLaterUse(gl, data, num, type) {
@@ -191,15 +192,16 @@ function drawSolidCube(gl, program, cube,  currentAngle,VPMatrix) {
     initAttributeVariable(gl, program.a_PositionLoc, cube.positionBuffer);
     initAttributeVariable(gl, program.a_NormalLoc, cube.normalBuffer);
 
-    drawBox(gl, program, cube, currentAngle, VPMatrix);
+    drawBox(gl, program, cube, currentAngle, VPMatrix,-2);
 }
 
 var g_MVPMatrix = new Matrix4();
 var g_NormalMatrix = new Matrix4();
 var g_ModelMatrix = new Matrix4();
-function drawBox(gl, program, cube,  currentAngle, VPMatrix) {
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    g_ModelMatrix.setRotate(currentAngle, 0, 1, 0);
+function drawBox(gl, program, cube,  currentAngle, VPMatrix,tp) {
+   
+    g_ModelMatrix.setTranslate(tp,0,0);
+    g_ModelMatrix.rotate(currentAngle, 0, 1, 0);
     g_MVPMatrix.set(VPMatrix);
     g_MVPMatrix.multiply(g_ModelMatrix);
     g_NormalMatrix.setInverseOf(g_ModelMatrix).transpose();
@@ -224,5 +226,5 @@ function drawTextureCube(gl, program, cube, currentAngle,VPMatrix) {
     initAttributeVariable(gl, program.a_NormalLoc, cube.normalBuffer);
     initAttributeVariable(gl, program.a_TexCoordLoc, cube.texCoordBuffer);
 
-    drawBox(gl, program, cube, currentAngle, VPMatrix);
+    drawBox(gl, program, cube, currentAngle, VPMatrix,2);
 }
