@@ -1,0 +1,4 @@
+beatPerSecond,2.333333,,
+beatPerBar,4,,
+include,songInfoCSV_OnBeatAction_Plane
+include,songInfoCSV_Staging

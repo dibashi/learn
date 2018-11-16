@@ -1,0 +1,521 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第三章　勇者以外的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[C3-7D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	vs_dragon	1
+
+	dialog	Folk2		剧毒的大蝎子后下一个是吐火的龙吗？感觉越来越乱了。
+	dialog	Folk1		哎，确实越来越糟糕了。
+	dialog	Folk1		这样下去的话，是不是不久后超古代生物兵器就该出现了？
+	dialog	FolkWoman	真是，看样子大灾难要来了……。
+	dialog	Elder		恩……。
+	dialog	FolkGirl	大灾难是什么？
+	dialog	FolkWoman	远古预言书中些的，魔王复活时的情形。
+	dialog	Elder		但是，预言书中也记载了魔王复活时打败它的勇者。
+	dialog	Elder		魔王的复活已经发生了，勇者到底行不行还不知道。
+End
+	;; 长老×村民２
+	[C3-7E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	vs_dragon	1
+	
+		call-event	C3-7D-0
+	End
+	;; 长老×女性
+	[C3-7F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	vs_dragon	1
+	
+		call-event	C3-7D-0
+	End
+	;; 长老×女子
+	[C3-7G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	vs_dragon	1
+	
+		call-event	C3-7D-0
+	End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-7H-0]
+Begin
+	target		Elder
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+
+	dialog	Elder		奇怪，最近总感觉到一种莫名的气氛。
+	dialog	Elder		不是邪恶的感觉。应该不是恶灵……。
+	dialog	WaterSpirit	不愧时村长。只可惜灵感能力还不够。
+	dialog	WaterSpirit	勇者可以看到我。
+	dialog	WaterSpirit	提前10年了啊～。
+	dialog	WaterSpirit	普通人是看不见我的。
+	dialog	Elder		哦，明白了，可能是我想多了……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-7I-0]
+Begin
+	target		Elder
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	Elder	真的！恶龙出现了！
+	dialog	Dragon	哈！！（喜）
+	dialog	Elder	赶快去帮勇者先生吧，真叫人担心！
+	dialog	Elder	打败那些怪物吧！
+	text			长老非常高兴！
+	text			但是，MP还不够！
+	dialog	Elder	今天就这么样吧，再见！
+
+	move	Elder	InitialPlace_Elder	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-9E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-9E	0
+
+	dialog	Folk1	龙啊。
+	dialog	Folk2	龙啊。
+	dialog	Folk1	突然就出现了。
+	dialog	Folk2	以前从来没见过那样的东西。
+	dialog	Folk1	牙齿尖尖的？
+	dialog	Folk2	吐着火焰。
+	dialog	Folk1	……。
+	dialog	Folk1	不。
+	dialog	Folk2	啊。
+	dialog	Folk1	勇者先生真可怜……。
+	dialog	Folk2	勇者先生真可怜……。
+	set	Folk1	C3-9E	1
+End
+[C3-9E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-9E	1
+
+	dialog	Folk2	啊，我只是想捡那些骨头。
+	dialog	Folk1	都已经焦了吧。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-10F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10F		0
+
+	dialog	Folk1		勇者先生的麻烦真是越来越多了。
+	dialog	FolkWoman	是呢……。
+	dialog	FolkWoman		不过，这个地方的龙还是比较弱小的。
+	dialog	FolkWoman	吐出火焰的温度大概在摄氏1000度到1500度之间。
+	dialog	Folk1		你懂的真多。
+	dialog	FolkWoman	它还不能将最强的生物水熊虫烧死。
+	dialog	FolkWoman	但是换作冬天王都里的灰龙就不一样了……
+	dialog	FolkWoman	据说那种龙吐出火焰的温度，从9000度到10000度之间。
+	dialog	FolkWoman	遇到这种龙，水熊虫一瞬间就消失了。
+	dialog	Folk1		啊，不用说水熊虫了……。
+	dialog	Folk1		不管那种龙，我们人类一旦遇到就完了。
+
+	set		Folk1	C3-10F		1
+End
+[C3-10F-1]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10F		1
+
+	dialog	Folk1		勇者先生，你还好吗……。
+	dialog	FolkWoman	我们也帮不上什么忙。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-10G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10G		0
+
+	dialog	FolkGirl	到底是什么动物？
+	dialog	Folk1		好像是圆形的什么。
+	dialog	FolkGirl	圆圆的？
+	dialog	Folk1		对，上面好像还刻着什么花纹。
+	dialog	FolkGirl	这样。
+	dialog	Folk1		是呢。
+	dialog	FolkGirl	哪里喷火？
+	dialog	Folk1		火焰？……呃，屁股喷出火焰！
+	dialog	FolkGirl	呃……	（真的假的）。
+
+	set		Folk1	C3-10G		1
+End
+[C3-10G-1]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10G		1
+
+	dialog	FolkGirl	那个，龙真的在天上飞吗？
+	dialog	Folk1		恩，一边旋转一边飞。
+	dialog	Folk1		脚也会喷出火焰！
+	dialog	FolkGirl	轰……	
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-10H-0]
+Begin
+	target		Folk1
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10H	0
+
+	dialog	Folk1		啊，英雄一个人战斗。
+	dialog	WaterSpirit	一个人也太少点了吧。
+	dialog	Folk1		不过他很强。
+	dialog	Folk1		噢噢，加油！
+	dialog	Folk1		无法想象被打败的勇者，大家会绝望的……
+	dialog	Folk1		啊，勇者先生……	You Shall Return…….
+	dialog	Folk1		啊！
+	dialog	Folk1		让我们祈祷吧！
+	dialog	Folk1		让我们期待。
+	dialog	WaterSpirit	要是有魔力就好了。
+	dialog	WaterSpirit	那家伙确实很强。
+
+	set	Folk1	C3-10H	1
+End
+[C3-10H-1]
+Begin
+	target		Folk1
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Folk1	C3-10H	1
+
+	dialog	WaterSpirit	（咒语）……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-10I-0]
+Begin
+	target		Folk1
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	Folk1	啊，这是什么？这么大的蜥蜴……。
+	dialog	Dragon	啊！！（憤）
+	dialog	Folk1	蜥，蜥蜴才怪！快跑！
+	text			村里的男子，逃跑了！
+	move	Folk1	InitialPlace_Folk1	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-12F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12F	0
+
+	dialog	Folk2		按照预言书的说法……。
+	dialog	FolkWoman	恩？
+	dialog	Folk2		勇者是怎么打败魔王的呢，这个有提到吗？
+	dialog	FolkWoman	哦这样啊。只提到了经历各种艰难困苦，迂回曲折最终打败魔王。
+	dialog	FolkWoman	这只龙也就是艰难困苦的一部分吧。
+	dialog	Folk2		身中剧毒，驱赶害虫，这些也都是吧。
+	dialog	FolkWoman	恩。确实是。
+	dialog	FolkWoman	……怎么了？
+	dialog	Folk2		勇者真是了不起，我想。
+	dialog	FolkWoman	……（祈祷吧……）。
+
+	set	Folk2	C3-12F	1
+End
+[C3-12F-1]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12F	1
+
+	dialog	Folk2		呀，我想来想去，
+	dialog	Folk2		我这种人可当不了勇者。
+	dialog	FolkWoman	恩，我也是呢。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-12G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12G	0
+
+	dialog	FolkGirl	你觉得恶龙会去袭击村庄吗？
+	dialog	Folk2		怎么说呢。有研究说，龙是一种性格慎重的动物，不太袭击人类。
+
+	set		Folk2	C3-12G	1
+End
+[C3-12G-1]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12G	1
+
+	dialog	Folk2		……那个，提到这个龙，最近这里出现的神秘的人影，听说了吗？
+	dialog	FolkGirl	神秘的火蜥蜴？
+	dialog	Folk2		眼下，比起那些什么龙，我还是更关心Soitsu。
+	dialog	FolkGirl	神秘的火蜥蜴……	应该说的就是龙吧？
+	dialog	Folk2		恩？
+	dialog	FolkGirl	恩？
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-12H-0]
+Begin
+	target		Folk2
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12H	0
+
+	dialog	Folk2		!?
+	dialog	Folk2		又来了！和前几天一样的感觉……。
+	dialog	Folk2		这是什么感觉？
+	dialog	WaterSpirit	哦！可能是太敏感了吧。
+	dialog	Folk2		但是，这里就只有我一个人……。
+	dialog	Folk2		看来真的是受到诅咒了。下次去问问村里的姐姐。
+	dialog	WaterSpirit	这家伙已经发现了我的踪影。
+
+	set	Folk2	C3-12H	1
+End
+[C3-12H-1]
+Begin
+	target		Folk2
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Folk2	C3-12H	1
+
+	dialog	Folk2		另外，脸颊⋯⋯好像被魔芋一样的东西碰了一下……。
+	dialog	WaterSpirit	喂！我的双手，怎么会被你形容成魔芋！
+	dialog	Folk2		啊！好像有什么看不见的魔芋！到底是什么！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-12I-0]
+Begin
+	target		Folk2
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	Folk2	这是⋯⋯ 龙!?
+	dialog	Dragon	啊！！（慨）
+	dialog	Folk2	比想象中更恐怖……	啊！
+	text			村子的年轻人，逃跑了！
+
+	move	Folk2	InitialPlace_Folk2	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-14G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	FolkWoman	C3-14G	0
+
+	dialog	FolkGirl	恶龙，它为什么这么厉害！
+	dialog	FolkWoman	恩，不过这里的恶龙，其实更接近火蜥蜴。
+	dialog	FolkGirl	人影……。
+	dialog	FolkWoman	火蜥蜴有个焦作炎腺的特殊机关，可以吐出火焰。
+	dialog	FolkGirl	吐出火焰……	人影……。
+	dialog	FolkGirl	为什么这么可怕。
+	dialog	FolkGirl	……为什么变成了吐火的人影？
+	dialog	FolkWoman	诶？
+	dialog	FolkGirl	诶？
+	dialog	FolkWoman	说的是火蜥蜴吗？
+	dialog	FolkGirl	恩。说的是人影。
+
+	set	FolkWoman	C3-14G	1
+End
+[C3-14G-1]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	FolkWoman	C3-14G	1
+
+	dialog	FolkGirl	（这次的事情，姐姐是一点也不知道啊）
+	dialog	FolkGirl	勇者先生是在和一个吐火的人影对手作战吗……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-14H-0]
+Begin
+	target		FolkWoman
+	target		WaterSpirit
+	condition	Hero		vs_dragon	1
+	condition	FolkWoman	C3-14H	0
+
+	dialog	FolkWoman	哎，又来了……。
+	dialog	FolkWoman	最近，总感觉又什么奇怪的东西在接近……。
+	dialog	FolkWoman	但不是邪恶的感觉。
+	dialog	WaterSpirit	哦！　难道她能看到我？
+	dialog	FolkWoman	你，是心灵……	不，是精灵吗？
+	dialog	FolkWoman	并且，是守护我们的守护灵吗？
+	dialog	WaterSpirit	真厉害！你能听见吗？我是泉精。
+	dialog	WaterSpirit	在泉水里出生，长大的，圣水的化身。
+	dialog	FolkWoman	……哦哦我能听见。果然是一种神灵，动物灵？
+	dialog	WaterSpirit	喂！
+
+	set	FolkWoman	C3-14H	1
+End
+[C3-14H-1]
+Begin
+	target		FolkWoman
+	target		WaterSpirit
+	condition	Hero		vs_dragon	1
+	condition	FolkWoman	C3-14H	1
+
+	dialog	FolkWoman	又无法听见了。不过，下次会更好的。幽灵先生。
+	dialog	WaterSpirit	……是心灵……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-14I-0]
+Begin
+	target		FolkWoman
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	FolkWoman	啊，龙，龙？！
+	text				村里的女人，逃跑了！
+	text				可是，周围又追来了！
+	dialog	Dragon		啊！！（余）
+	dialog	FolkWoman	快跑快跑……
+	text				村里的女人，逃跑了！
+
+	move	FolkWoman	InitialPlace_FolkWoman	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女子×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-16H-0]
+Begin
+	target		FolkGirl
+	target		WaterSpirit
+	condition	Hero		vs_dragon	1
+	condition	FolkGirl	C3-16H	0
+
+	dialog	WaterSpirit	啊，小女孩。
+	dialog	FolkGirl	你好！
+	dialog	WaterSpirit	又出来玩了吗？
+	dialog	FolkGirl	恩，昨天我听说了以前的故事。
+	dialog	WaterSpirit	哦？
+	dialog	WaterSpirit	那是我刚出生是，祖父听说的故事。
+	dialog	FolkGirl	嗯嗯。
+	dialog	WaterSpirit	祖父去山上砍柴的时候……
+
+	text				泉精一直非常认真地听着。
+
+	dialog	WaterSpirit	……也就是说，你的祖父召唤了大魔道士……。
+	dialog	WaterSpirit	为了对付那些无意识的集合体……。
+	dialog	WaterSpirit	然后成功封印了利用深层潜在恶意的大魔王！
+	dialog	WaterSpirit	……诶？那个，人呢？
+	dialog	WaterSpirit	居然睡着了。好可爱的样子……。
+
+	set	FolkGirl	C3-16H	1
+End
+[C3-16H-1]
+Begin
+	target		FolkGirl
+	target		WaterSpirit
+	condition	Hero		vs_dragon	1
+	condition	FolkGirl	C3-16H	1
+
+
+	dialog	WaterSpirit	和这孩子聊天，好像少了点什么奇特的想法……。
+	dialog	WaterSpirit	下次增加一些吧。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女子×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-14I-0]
+Begin
+	target		FolkGirl
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	FolkGirl	这是……这是龙!? 哇！
+	dialog	Dragon		啊！！（惊）
+	text				女子逃跑了！
+
+	move	FolkGirl	InitialPlace_FolkGirl	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 泉精×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-18I-0]
+Begin
+	target		WaterSpirit
+	target		Dragon
+	condition	Hero	vs_dragon	1
+	condition	WaterSpirit	C3-18I	0
+
+	dialog	Dragon		恩？
+	dialog	WaterSpirit	啊！
+	dialog	WaterSpirit	我的天敌出现了。
+	dialog	WaterSpirit	面对它，无论我多高尚的精灵，好像一下就快蒸发了。
+	dialog	WaterSpirit	还是在没被发现之前，快跑吧。
+
+	set	WaterSpirit	C3-18I	1
+End
+[C3-18I-1]
+Begin
+	target		WaterSpirit
+	target		Dragon
+	condition	Hero	vs_dragon	1
+	condition	WaterSpirit	C3-18I	1
+
+	dialog	Dragon		啊！！（识）
+	dialog	WaterSpirit	啊，怎么突然这样！
+	dialog	Dragon		啊！！（炎）
+	dialog	WaterSpirit	啊，好热，好热！
+	dialog	WaterSpirit	啊……	好可怕的气体。
+	dialog	WaterSpirit	体温瞬间超过100度了……。
+
+End

@@ -1,0 +1,617 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第二章　勇者以外的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-8D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	vs_scorpion	0
+
+	dialog	Elder		接下来，按惯例召开村民会议。
+	dialog	Folk1		我整理了一下当前的问题，好像非常棘手。
+	dialog	Folk2		对手是有剧毒的蝎子。我们却没有穿青铜铠甲的卫士。
+	dialog	Folk1		面对剧毒的攻击我们该怎么办？
+	dialog	FolkWoman	有什么可以解毒吗？
+	dialog	Elder		呃……。
+	dialog	Folk1		如果有解药的话，以后就不用害怕了。
+	dialog	FolkWoman	……（应该会有的）
+End
+	;; 长老×村民２
+	[C2-8E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	vs_scorpion	0
+	
+		call-event	C2-8D-0
+	End
+	;; 长老×女性
+	[C2-8F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	vs_scorpion	0
+	
+		call-event	C2-8D-0
+	End
+	;; 长老×女子
+	[C2-8G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	vs_scorpion	0
+	
+		call-event	C2-8D-0
+	End
+
+[C2-9D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	vs_scorpion	1
+
+	dialog	Folk1		就在刚才，我们的勇者和怪物交战了。
+	dialog	FolkGirl	勇者先生，因为剧毒的关系都站不稳了⋯⋯
+	dialog	Elder		……据说，当初大魔道士中了剧毒时，神秘精灵曾经救过大魔道士。
+	dialog	Elder		那个精灵住的泉水好像就是西南边的那股泉水……。
+	dialog	Elder		后来，那泉水就有很强的解毒作用了。
+	dialog	FolkWoman	勇者先生的体力只要能够支撑他走到泉水就行了……。
+	dialog	Folk2		花子！
+End
+	;; 长老×村民２
+	[C2-9E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C2-9D-0
+	End
+	;; 长老×女性
+	[C2-9F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C2-9D-0
+	End
+	;; 长老×女子
+	[C2-9G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C2-9D-0
+	End
+
+[C2-10D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	vs_scorpion	2
+
+	dialog	Elder		大家听好了！
+	dialog	Elder		勇者先生复活了！
+	text	众人“哦！”
+	dialog	Folk1		我就觉得应该没事的。
+	dialog	Folk2		我也是这样认为。绝对绝对，深信不疑。
+	dialog	Folk1		哈！
+	dialog	FolkWoman	这些男人……。
+	dialog	FolkGirl	谢天谢地……勇者先生……。
+End
+	;; 长老×村民２
+	[C2-10E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	vs_scorpion	2
+	
+		call-event	C2-10D-0
+	End
+	;; 长老×女性
+	[C2-10F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	vs_scorpion	2
+	
+		call-event	C2-10D-0
+	End
+	;; 长老×女子
+	[C2-10G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	vs_scorpion	2
+	
+		call-event	C2-10D-0
+	End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-8H-0]
+Begin
+	target		Elder
+	target		KingScorpion
+
+	dialog	Elder			什么！　竟然在这种地方遇到这怪物！
+	dialog	KingScorpion	哈哈！（喜）
+	dialog	Elder			啊，毒针！不要啊！
+	text	长老逃跑了！
+
+	move	Elder	InitialPlace_Elder	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-10I-0]
+Begin
+	target		Elder
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+
+	dialog	Elder	恩，感觉好像有什么东西，但是看不见。
+	dialog	Elder	有谁在这里吗？
+	dialog	Elder	……。
+	dialog	Elder	可能是我想多了。
+
+	dialog	WaterSpirit	好吧，你说对了。
+	dialog	WaterSpirit	普通人是看不见我的。
+	dialog	WaterSpirit	而且，谁都不相信我的存在。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	vs_scorpion	0
+
+	dialog	Folk2	呜呜，花子……。
+	dialog	Folk1	确实很遗憾，不过事到如今哭也没有用的……。
+	dialog	Folk2	呜呜，本来可以解毒的……。
+	dialog	Folk1	这种时候你还笑！	……那个，你想说什么？
+	dialog	Folk1	有一只老鼠，被大蝎子当作晚餐吃了。
+	dialog	Folk1	老鼠溜到它的家中，正好……。
+	dialog	Folk1	奇怪，它吃了中了毒的老鼠。
+	dialog	Folk1	它自己当然不怕自己的毒！
+	dialog	Folk1	啊！
+	dialog	Folk2	……。
+	dialog	Folk2	……啊。
+	dialog	Folk1	啊……。
+End
+	;; 村民１×村民２
+	[C1-12E-0]
+	Begin
+		target		Folk1
+		target		Folk2
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C1-11E-0
+	End
+
+[C1-13E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	vs_scorpion	2
+
+	dialog	Folk2	……。
+	dialog	Folk1	哦，有好消息。
+	dialog	Folk1	勇者先生，以后可以要小心一些了。
+	dialog	Folk2	我已经失败了。没有青铜铠甲就是不行啊……。
+	dialog	Folk1	不是的，你要振作起来。
+	dialog	Folk1	千万不要放弃！
+	dialog	Folk2	……(突然间象变了一个人……）。
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	vs_scorpion	0
+
+	dialog	Folk1		因为帝王蝎那件事，我的朋友现在变的很消极。
+	dialog	FolkWoman	是吗，那真遗憾。
+	dialog	Folk1		我应该做点什么呢？
+	dialog	FolkWoman	你还是多陪在他身边吧。
+	dialog	FolkWoman	除了给他勇气和力量，其他可能也没有了……。
+	dialog	Folk1		明白了！
+	dialog	FolkWoman	……（喂）。
+End
+	;; 村民１×女性
+	[C1-12F-0]
+	Begin
+		target		Folk1
+		target		FolkWoman
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C1-11F-0
+	End
+
+[C1-13F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkWoman	你看到勇者先生了吗？
+	dialog	Folk1		啊，看见了看见了，好像精神不错呢。
+	dialog	FolkWoman	我也感觉到了。大概是有什么精灵在保护着勇者先生呢。
+	dialog	Folk1		精灵？是妖怪之类的吗？
+	dialog	FolkWoman	不，精灵是高尚的物种……。
+	dialog	Folk1		那精灵应该是一个非常漂亮的美女吧！
+	dialog	FolkWoman	……你为什么这样认为？
+	dialog	Folk1		一般不都是这样吗，哈哈！
+	dialog	FolkWoman	……（这都什么啊）……。
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	vs_scorpion	0
+
+	dialog	FolkGirl	勇者先生可以打败帝王蝎吗？
+	dialog	Folk1		相信他。
+	dialog	FolkGirl	加油啊，勇者先生。
+End
+	;; 村民１×女子
+	[C1-12G-0]
+	Begin
+		target		Folk1
+		target		FolkGirl
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C1-11G-0
+	End
+
+[C1-13G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkGirl	那个！刚才我看到勇者先生了！和之前完全变了一个人！真是让我惊讶！
+	dialog	Folk1		是呢，我也看到了。让我们拭目以待吧。
+	dialog	Folk1		信心真的是非常重要……。
+	dialog	FolkGirl	恩……。
+	dialog	FolkGirl	……（是啊，不过，怎么说呢……）。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-11H-0]
+Begin
+	target		Folk1
+	target		KingScorpion
+
+	dialog	Folk1			啊，这家伙怎么出现在这里！
+	dialog	KingScorpion	哈！（喜）
+	dialog	Folk1			快跑！不要啊！
+	text	村子里的男人逃跑了！
+
+	move	Folk1	InitialPlace_Folk1	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-13I-0]
+Begin
+	target		Folk1
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk1	C2-13I	0
+
+	dialog	Folk1		？　好像有什么东西……
+	dialog	Folk1		……是老鼠吧？
+	dialog	WaterSpirit	果然是普通人，看不到我的影子。
+	dialog	WaterSpirit	这样也挺好。
+	set	Folk1	C2-13I	1
+
+End
+[C2-13I-1]
+Begin
+	target		Folk1
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk1	C2-13I	1
+
+	dialog	WaterSpirit	呼－
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-14F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	vs_scorpion	0
+
+	dialog	FolkWoman	请振作起来。勇者先生一定会帮我们的。
+	dialog	Folk2		……说的是。我不能再这么低落了……。
+	dialog	FolkWoman	对啊！你的花子看到了会高兴的！
+	dialog	Folk2		……。
+	dialog	Folk2		花子……。
+	dialog	FolkWoman	……（别再总提起花子了…	以后注意……）。
+End
+	;; 村民２×女性
+	[C1-15F-0]
+	Begin
+		target		Folk2
+		target		FolkWoman
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C1-14F-0
+	End
+[C1-16F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkWoman	请振作起来。
+	dialog	FolkWoman	我相信勇者先生一定能打败那些怪物！
+	dialog	Folk2		是啊，最近见过他的人都这么认为。
+	dialog	Folk2		……是呢。让我们期待吧。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-14G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	vs_scorpion	0
+
+	dialog	FolkGirl	勇者先生一定能打败那些怪物！
+	dialog	FolkGirl	请振作起来。
+	dialog	Folk2		你这么小年级还能鼓励我，我真没用。
+	dialog	Folk2		振作起来吧。
+End
+	;; 村民１×女子
+	[C1-15G-0]
+	Begin
+		target		Folk2
+		target		FolkGirl
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C1-14G-0
+	End
+[C1-14G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkGirl	那个！刚才看到了勇者先生！真是变了一个人！
+	dialog	FolkGirl	现在的勇者先生，肯定可以轻易打败大蝎子！
+	dialog	Folk2		轻易打败。那真是值得期待。
+	dialog	FolkGirl	是呢！爸爸也说了！轻而易举！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-14H-0]
+Begin
+	target		Folk2
+	target		KingScorpion
+
+	dialog	Folk2			这家伙来报仇的吗!?
+	dialog	KingScorpion	啊！（哀）
+	dialog	Folk2			我，我可不好吃啊！
+	text	村子的年轻人，逃跑了！
+
+	move	Folk2	InitialPlace_Folk2	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-16I-0]
+Begin
+	target		Folk2
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-16I	0
+
+	dialog	Folk2		!?
+	dialog	Folk2		恩，怎么回事，好像有什么锐利的目光在看着……。
+	dialog	Folk2		……不知道不知道。什么也没看到，什么也没听到。
+	dialog	WaterSpirit	喂！真是没礼貌。
+	dialog	Folk2		哇，真可怕。
+	dialog	WaterSpirit	真是没礼貌的人！哼哼！
+
+	set	Folk2	C2-16I	1
+End
+[C2-16I-1]
+Begin
+	target		Folk2
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-16I	1
+
+	dialog	Folk2		呃，难道被诅咒了吗!?……
+	dialog	WaterSpirit	喂！我可没有那么卑鄙！
+	dialog	Folk2		呃，总感觉有些不对劲。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-17G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	vs_scorpion	0
+
+	dialog	FolkWoman	诶，怎么了，有什么担心的事情吗？
+	dialog	FolkGirl	我，相信勇者先生一定能打败大蝎子，不过还是有些不好的预感。
+	dialog	FolkWoman	你想太多啦。勇者先生一定能打败怪物的。
+	dialog	FolkGirl	恩……	（加油啊勇者先生，好紧张……）。
+End
+	;; 女性×女子
+	[C2-18G-0]
+	Begin
+		target		FolkWoman
+		target		FolkGirl
+		condition	Hero	vs_scorpion	1
+	
+		call-event	C2-17G-0
+	End
+[C2-19G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkWoman	看到勇者先生了吗？
+	dialog	FolkGirl	恩！	整个人比以前更坚强了……。
+	dialog	FolkGirl	怎么说呢，反正就是变化了！
+	dialog	FolkWoman	你也这么认为是吧？	跟我想的一样。
+	dialog	FolkGirl	是呢，变了一个人！
+	dialog	FolkWoman	呵呵。
+	dialog	FolkGirl	爸爸说他一定能打败怪物。
+	dialog	FolkWoman	……恩，是……
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-17H-0]
+Begin
+	target		FolkWoman
+	target		KingScorpion
+
+	dialog	FolkWoman		啊！
+	text	村子里的女人，逃跑了！
+	text	但是，周围又来了！
+	dialog	KingScorpion	哈！（楽）
+	dialog	FolkWoman		……别高兴得太早了！
+	text	村子里的女人，逃跑了！
+
+	move	FolkWoman	InitialPlace_FolkWoman	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-19I-0]
+Begin
+	target		FolkWoman
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-19I	0
+
+	dialog	WaterSpirit	哼，哼♫
+	dialog	FolkWoman	……哪里的歌声！
+	dialog	WaterSpirit	！
+	dialog	WaterSpirit	能听见我的声音!?
+	dialog	FolkWoman	刚才听见了一阵歌声……。
+	dialog	WaterSpirit	〜安〜静〜下〜来♫
+	dialog	FolkWoman	啊，声音慢慢小了……。
+	dialog	FolkWoman	又听不见了！
+	dialog	FolkWoman	……。
+	dialog	WaterSpirit	……那个，我是音痴，还是不唱了吧。
+
+	set	Folk2	C2-19I	1
+End
+[C2-19I-1]
+Begin
+	target		FolkWoman
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-19I	1
+
+	dialog	WaterSpirit	突然听到声音，确实很奇怪。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女子×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-20H-0]
+Begin
+	target		FolkGirl
+	target		KingScorpion
+
+	dialog	FolkGirl		啊！
+	dialog	KingScorpion	哈！（惊）
+	text	女子逃跑了！
+
+	move	FolkGirl	InitialPlace_FolkGirl	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女子×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-22I-0]
+Begin
+	target		FolkGirl
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-22I	0
+
+	dialog	WaterSpirit	啊，好可爱的女孩。
+	dialog	FolkGirl	？
+	dialog	WaterSpirit	……不过，她应该看不见我的啊。
+	dialog	FolkGirl	……能看见哟。
+	dialog	WaterSpirit	啊！不可思议！
+	dialog	FolkGirl	你好……	你是谁？
+	dialog	WaterSpirit	我，我是泉精。
+	dialog	WaterSpirit	……。
+	dialog	WaterSpirit	……那个。
+	dialog	FolkGirl	什么？
+	dialog	WaterSpirit	如果可以的话，我想和你做朋友。
+	dialog	FolkGirl	好啊，请多多关照！
+
+	set	Folk2	C2-22I	1
+End
+[C2-22I-1]
+Begin
+	target		FolkGirl
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-22I	1
+
+	dialog	WaterSpirit	玩些什么好呢？
+	dialog	FolkGirl	泉精喜欢玩什么呢？
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 帝王蝎×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-25I-0]
+Begin
+	target		KingScorpion
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-25I	0
+
+	dialog	KingScorpion	什么声音？
+	dialog	WaterSpirit		嘿嘿，你也看不见我的。
+	dialog	WaterSpirit		真象恶作剧。
+	dialog	KingScorpion	什么？（呆）
+	dialog	WaterSpirit		真是愚蠢！
+
+	set	Folk2	C2-25I	1
+End
+[C2-25I-1]
+Begin
+	target		KingScorpion
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+	condition	Folk2	C2-25I	1
+
+	dialog	WaterSpirit		哈哈，看你怎么办！
+	dialog	KingScorpion	什么？（呆）
+End
+

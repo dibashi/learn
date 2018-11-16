@@ -1,0 +1,341 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第一章　勇者的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-00]
+Begin
+	prologue
+	fadein	1.0
+
+	dialog	Folk1		啊，它又出现了！
+
+	play	rpg_system06
+	show	KillerBee
+
+	dialog	KillerBee	轰(警）
+	dialog	Folk1		来吧……这家伙，最近经常出现……。
+	dialog	Folk1		是吗，难道它想在这里做窝？
+	dialog	KillerBee	轰(嘲）
+	dialog	Folk1		啊，放了我吧⋯⋯。
+
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×长老
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3C-0]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	C1-3C	0
+
+	dialog	Elder	恩，怎么了？我用的吗？
+	dialog	Elder	不是。说说这个村子的事情吧。
+	dialog	Elder	这个村子是被称作旧世纪的魔法大战的终结地。
+	dialog	Elder	传说中伟大的大魔道士把大魔王封在这里。
+
+	set		Hero	C1-3C	1
+End
+
+[C1-3C-1]
+Begin
+	target		Hero
+	target		Elder
+	condition	Hero	C1-3C	1
+
+	dialog	Elder	啊，那是什么动静。
+	dialog	Elder	啊，又听见这个声音了。
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3D-0]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	C1-3D	0
+
+	dialog	Folk1	最近，总有很多蜜蜂在家的周围嗡嗡飞来飞去。
+	dialog	Folk1	如果做了窝可就不好了。需要阻止它。！
+
+	set		Hero	C1-3D	1
+End
+
+[C1-3D-1]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	C1-3D	1
+
+	dialog	Folk1	拜托了。好好在家里呆着不要出去。
+	dialog	Folk1	那只大蜜蜂在干什么！
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	has_torch	0
+
+	dialog	Folk2	从古到今，用来对付虫子的最好武器，就是火和烟。
+	dialog	Folk2	东边的森林里，有很多坚硬易燃的木材。
+
+	set			Hero	has_torch	1		;; ←木材出现
+End
+[C1-4E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	has_torch	1
+
+	dialog	Folk2	从古到今，用来对付虫子的最好武器，就是火和烟。
+	dialog	Folk2	东边的森林里，有很多坚硬易燃的木材。
+
+	;;set			Hero	has_torch	1		;; ←木材出现
+End
+
+[C1-5E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	has_torch	2
+	condition	Hero	C1-5E		0
+
+	dialog	Folk2	哦，这种木材！是从东边森林取回来的。
+
+	set		Hero	C1-5E		1
+End
+
+[C1-5E-1]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	has_torch	2
+	condition	Hero	C1-5E		1
+
+	dialog	Folk2	对不起，怎么制作火把，我是个门外汉……。
+End
+
+[C1-6E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	has_torch	3
+
+	dialog	Folk2	做好了火把了！真期待接下来的战斗。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	has_torch	0
+
+	dialog	FolkWoman	我听说被称作杀人蜂的大蜜蜂，非常厌恶火和烟。
+End
+	;; 勇者×女性
+	[C1-3F-0-1]
+	Begin
+		target		Hero
+		target		FolkWoman
+		condition	Hero	has_torch	1
+	
+		call-event	C1-3F-0
+	End
+
+[C1-4F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	has_torch	2
+
+	dialog	FolkWoman	这个木材⋯⋯	确实，可以容易做成火把。
+	dialog	FolkWoman	将浸过灯油的布卷在木材上⋯⋯好啦，一个崭新的火把完成了。
+
+	set		Hero	has_torch	3  	;; ←火把入手
+	play		rpg_system13
+
+	text		勇者将火把握在手上了！
+End
+
+[C1-5F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	has_torch	3
+
+	dialog	FolkWoman	有了这个火把我们就可以驱赶大蜜蜂了。
+	dialog	FolkWoman	有劳您了，勇者先生。
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	has_torch	0
+
+	dialog	FolkGirl	你好！
+	dialog	FolkGirl	爸爸说别人说话时要认真有礼貌地听着。
+	dialog	FolkGirl	再见～。
+End
+	;; 勇者×女子
+	[C1-3G-0-1]
+	Begin
+		target		Hero
+		target		FolkGirl
+		condition	Hero	has_torch	1
+	
+		call-event	C1-3G-0
+	End
+
+[C1-4G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	has_torch	2
+
+	dialog	FolkGirl	勇者先生，你拿着木棒，要去哪里？
+	dialog	FolkGirl	……恐怕是出大事了！
+	dialog	FolkGirl	村里的女孩感到奇怪了
+End
+
+[C1-5G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	has_torch	3
+
+	dialog	FolkGirl	啊，拿到火把了！现在应该可以打败虫子了！
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-3H-0]
+Begin
+	target		Hero
+	target		KillerBee
+	condition	Hero	has_torch	0
+	condition	Hero	C1-3H		0
+
+	dialog	KillerBee	轰(怒）
+	text		吓唬杀人蜂。别过来！
+
+	move	Hero	InitialPlace_Hero	0.5
+	set		Hero	C1-3H	1
+End
+
+[C1-3H-1]
+Begin
+	target		Hero
+	target		KillerBee
+	condition	Hero	has_torch	0
+	condition	Hero	C1-3H		1
+
+	text		杀人蜂突然飞起来，毒针刺进去！
+	text		勇者倒下了……。
+	move	Hero	InitialPlace_Hero	0.5
+End
+
+	[C1-4H-0]
+	Begin
+		target		Hero
+		target		KillerBee
+		condition	Hero	has_torch	1
+		condition	Hero	C1-3H		0
+	
+		call-event	C1-3H-0
+	End
+	[C1-4H-1]
+	Begin
+		target		Hero
+		target		KillerBee
+		condition	Hero	has_torch	1
+		condition	Hero	C1-3H		1
+	
+		call-event	C1-3H-1
+	End
+
+	[C1-5H-0]
+	Begin
+		target		Hero
+		target		KillerBee
+		condition	Hero	has_torch	2
+		condition	Hero	C1-3H		0
+	
+		call-event	C1-3H-0
+	End
+	[C1-5H-1]
+	Begin
+		target		Hero
+		target		KillerBee
+		condition	Hero	has_torch	2
+		condition	Hero	C1-3H		1
+	
+		call-event	C1-3H-1
+	End
+
+[C1-5H-0]
+Begin
+	target		Hero
+	target		KillerBee
+	condition	Hero	has_torch	3
+
+	dialog	KillerBee	轰(泪水）
+	text		火把的火焰和烟，使杀人蜂的动作变迟钝了！
+
+	message		Hero	battle	KillerBee
+
+	play		rpg_system05
+	hide		KillerBee
+
+	text		勇者击败了杀人蜂！
+
+	fadeout		1.0
+	text		第一章　结束
+
+	load		c02_main	c02_sub		;; 跳转到第二章的脚本
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×东边森林的树木１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5H-0]
+Begin
+	target		Hero
+	target		M16_Tree1
+	condition	Hero	has_torch	1
+
+	text		勇者，检查脚下！
+	text		发现了木材！
+	text		可是，咔嚓一下折断了！
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×东边森林的树木１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5H-0]
+Begin
+	target		Hero
+	target		M16_Tree2
+	condition	Hero	has_torch	1
+
+	text		勇者，检查脚下！
+	text		发现了木材！
+
+	play		rpg_system08
+	text		勇者拿到了很好的木材！
+
+	set			Hero	has_torch	2	;; ←木材到手
+End

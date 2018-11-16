@@ -1,0 +1,176 @@
+fileFormatVersion: 2
+guid: 75f3f8f21c679154abfcf24a9d8c2af0
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: abdomen1
+    100002: abdomen2
+    100004: chest
+    100006: head
+    100008: head_end
+    100010: Hips
+    100012: KillerBee
+    100014: KillerBee_body
+    100016: KillerBee_wing
+    100018: leg_L
+    100020: leg_L_end
+    100022: leg_L_end 1
+    100024: leg_R
+    100026: leg_R_end
+    100028: leg_R_end 1
+    100030: //RootNode
+    100032: wing_L
+    100034: wing_R
+    400000: abdomen1
+    400002: abdomen2
+    400004: chest
+    400006: head
+    400008: head_end
+    400010: Hips
+    400012: KillerBee
+    400014: KillerBee_body
+    400016: KillerBee_wing
+    400018: leg_L
+    400020: leg_L_end
+    400022: leg_L_end 1
+    400024: leg_R
+    400026: leg_R_end
+    400028: leg_R_end 1
+    400030: //RootNode
+    400032: wing_L
+    400034: wing_R
+    4300000: KillerBee_body
+    4300002: KillerBee_wing
+    7400000: M03_KillerBee_m_idle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: KillerBee_body
+    13700002: KillerBee_wing
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: M03_KillerBee_m_idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hips
+        weight: 1
+      - path: Hips/abdomen1
+        weight: 1
+      - path: Hips/abdomen1/abdomen2
+        weight: 1
+      - path: Hips/chest
+        weight: 1
+      - path: Hips/chest/head
+        weight: 1
+      - path: Hips/chest/head/head_end
+        weight: 1
+      - path: Hips/chest/leg_L
+        weight: 1
+      - path: Hips/chest/leg_L/leg_L_end
+        weight: 1
+      - path: Hips/chest/leg_R
+        weight: 1
+      - path: Hips/chest/leg_R/leg_R_end
+        weight: 1
+      - path: Hips/chest/wing_L
+        weight: 1
+      - path: Hips/chest/wing_L/leg_L_end 1
+        weight: 1
+      - path: Hips/chest/wing_R
+        weight: 1
+      - path: Hips/chest/wing_R/leg_R_end 1
+        weight: 1
+      - path: KillerBee
+        weight: 1
+      - path: KillerBee/KillerBee_body
+        weight: 1
+      - path: KillerBee/KillerBee_wing
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

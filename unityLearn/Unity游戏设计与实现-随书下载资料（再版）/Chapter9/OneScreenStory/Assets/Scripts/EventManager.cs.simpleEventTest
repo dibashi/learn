@@ -1,0 +1,197 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+
+/// <summary>游戏内事件管理类</summary>
+public class EventManager : MonoBehaviour
+{
+	//==============================================================================================
+	// MonoBehaviour 相关的方法／成员变量
+
+	/// <summary>游戏开始时读取的脚本文件名</summary>
+	public string m_firstScriptFile = "events.txt";
+
+	public enum STEP {
+
+		NONE = -1,
+
+		LOAD_SCRIPT = 0,			//!< 载入脚本文件（load 指令）
+
+		WAIT_TRIGGER,				//!< 等待事件触发
+		EXECUTE_EVENT,				//!< 事件执行
+
+		NUM,
+	};
+
+	private	STEP	m_step     = STEP.NONE;
+	private STEP	m_nextStep = STEP.NONE;
+
+	private	Event	m_activeEvent = null;
+	private	int		m_activeEventIndex = -1;
+
+	/// <summary>事件结束后继续执行的评价事件（evaluate-event 指令）</summary>
+	private int		m_nextEvaluatingEventIndex = -1;
+
+	private string[] m_nextScriptFiles = null;
+
+	/// <summary>启动方法</summary>
+	private void Start()
+	{
+		this.m_soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
+		// -------------------------------------------- //
+		// 生成用于测试的事件
+
+		// 登场角色
+		string[]	targets = { "Hero", "Elder" };
+
+		// 指令
+		string[][]	actions = { 
+			new string[] { "text", 		"事件测试" },
+			new string[] { "dialog", 	"Hero",	"你好" },
+		 };
+
+		// 创建事件
+		this.m_activeEvent = new Event(targets, null, actions, false, false, "test-event");
+
+		// 开始执行事件
+		this.m_activeEvent.start();
+
+		this.m_isExecuting = true;
+	}
+
+	void	Update()
+	{
+		// 执行事件直到最后
+		if(!this.m_activeEvent.isDone()) {
+
+			// 执行事件
+			this.m_activeEvent.execute(this);
+
+		} else {
+
+			// 事件执行结束后，清空文本
+			TextManager.get().hide();
+			this.m_isExecuting = false;
+		}
+	}
+
+	//==============================================================================================
+	// 公开方法
+
+	public Event	getActiveEvent()
+	{
+		return(this.m_activeEvent);
+	}
+
+	/// <summary>取得事件的索引</summary>
+	public int getEventIndexByName( string eventName )
+	{
+		return Array.FindIndex( m_events, x => x.getEventName() == eventName );
+	}
+
+	/// <summary>设定事件结束后继续执行的评价事件索引（evaluate-event）</summary>
+	public void setNextEvaluatingEventIndex( int eventIndex )
+	{
+		m_nextEvaluatingEventIndex = eventIndex;
+	}
+
+	/// <summary>设定下一个读取的脚本文件</summary>
+	public void setNextScriptFiles( string[] fileNames )
+	{
+		m_nextScriptFiles = fileNames;
+	}
+
+	/// <summary>追加接触对象</summary>
+	/// <param name="gameObject">接触事件</param>
+	public void addContactingObject( BaseObject baseObject )
+	{
+		string name = baseObject.name;
+		if ( !m_contactingObjects.Contains( name ) )
+		{
+			m_contactingObjects.Add( name );
+		}
+	}
+
+	/// <summary>判断是否正在执行中</summary>
+	/// <returns>事件是否正在执行中</returns>
+	public bool isExecutingEvents()
+	{
+		return m_isExecuting;
+	}
+
+	/// <summary>取得事件的索引</summary>
+	/// <param name="eventName">事件的名称</param>
+	/// <returns>事件的索引</returns>
+	public int	GetEventIndexByName(string eventName)
+	{
+		int		index = Array.FindIndex(this.m_events, x => x.getEventName() == eventName);
+
+		return(index);
+	}
+
+	/// <summary>强行开始执行事件 （call-event）</summary>
+	public void startEvent( int eventIndex )
+	{
+		m_activeEvent      = m_events[ eventIndex ];
+		m_activeEventIndex = eventIndex;
+		m_nextStep         = STEP.EXECUTE_EVENT;
+	}
+
+	/// <summary>返回声音管理器</summary>
+	/// <returns>声音管理器</returns>
+	public SoundManager	getSoundManager()
+	{
+		return(m_soundManager);
+	}
+
+	// ================================================================ //
+	// 实例
+
+	protected static EventManager	instance = null;
+
+	public static EventManager	get()
+	{
+		if(instance == null) {
+
+			GameObject	go = GameObject.FindGameObjectWithTag("System");
+
+			if(go == null) {
+
+				Debug.Log("Can't find \"System\" GameObject.");
+
+			} else {
+
+				instance = go.GetComponent<EventManager>();
+			}
+		}
+		return(instance);
+	}
+
+	//==============================================================================================
+	// 非公开变量
+
+	/// <summary>事件创建完毕标记</summary>
+	private bool m_hasCreatedEvents = false;
+
+	/// <summary>存储事件信息的对象</summary>
+	private Event[] m_events = new Event[ 0 ];
+
+	/// <summary>开场事件的评价／执行标记</summary>
+	private bool m_isPrologue = false;
+
+	/// <summary>接触对象列表</summary>
+	private List< string > m_contactingObjects = new List< string >();
+
+	/// <summary>事件是否正在执行中</summary>
+	private bool m_isExecuting = false;
+
+	/// <summary>声音管理器</summary>
+	private SoundManager	m_soundManager = null;
+
+	/// <summary>淡入淡出管理器</summary>
+	private FadeInOutManager	m_fadeInOutManager = null;
+}

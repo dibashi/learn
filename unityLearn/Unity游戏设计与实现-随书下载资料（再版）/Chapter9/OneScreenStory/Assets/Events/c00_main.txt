@@ -1,0 +1,161 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场　勇者的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-2C]
+Begin
+	prologue
+	fadein	1.0
+	dialog	Elder	欢迎来到此地。勇者先生。
+	dialog	Elder	感觉怪怪的，这里有一种黑暗的气氛越来越浓。
+	dialog	Elder	到底发生了什么，现在还不知道。
+	dialog	Elder	村子里很多人都感觉到了变化。你没有听说什么吗。
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×长老
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-5C-0]
+Begin
+	target	Hero
+	target	Elder
+
+	condition	Hero	C0-5C	0
+
+	dialog	Elder	首先从搜集信息开始吧。
+	dialog	Elder	拜托了，勇者先生。
+
+	set		Hero	C0-5C	1
+End
+
+[C0-5C-1]
+Begin
+	target		Hero
+	target		Elder
+	condition	Hero	C0-5C	1
+
+	dialog	Elder	那么，准备好了吗？
+
+	choice	Hero	C0-Hero-is_ready	是	否	
+	continue
+End
+
+[C0-5C-2]
+Begin
+	target		Hero
+	target		Elder
+	condition	Hero	C0-Hero-is_ready	1
+	condition	Hero	C0-5C	1
+
+	set		Hero	C0-5C	2
+
+	fadeout	1.0
+	text	开场　结束
+	load	c01_main	c01_sub		;; 通往第一章的脚本
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-5D-0]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	C0-5D	0
+
+	dialog	Folk1	哦，这就是传说中的勇者。
+	dialog	Folk1	这是一个很小的国家。
+	dialog	Folk1	啊，请多多关照。
+
+	set		Hero	C0-5D	1
+End
+
+[C0-5D-1]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	C0-5D	1
+
+	dialog	Folk1	从这里一直往东，是国王住的首都⋯⋯
+	dialog	Folk1	这里是距离很远的农村。
+	dialog	Folk1	倒是很悠闲呢。
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-5E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	C0-5E	0
+
+	dialog	Folk2	啊，你好，勇者先生。
+	dialog	Folk2	国王特意派你来，应该是什么非常要紧的事情吧。
+	dialog	Folk2	将会发生什么呢……。
+
+	set		Hero	C0-5E	1
+End
+
+[C0-5E-1]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	C0-5E	1
+
+	dialog	Folk2	就算是这样⋯⋯
+	dialog	Folk2	勇者先生可是所有人的希望啊。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-5F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	C0-5F	0
+
+	dialog	FolkWoman	勇者先生，你好。
+	dialog	FolkWoman	这里虽然是一个小村子。但是村里流传的“远古的预言书”……
+	dialog	FolkWoman	有人说这是一个新传说的开始。
+
+	set		Hero	C0-5F	1
+End
+[C0-5F-1]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	C0-5F	1
+
+	dialog	FolkWoman	远古的预言书⋯⋯
+	dialog	FolkWoman	是这片土地流传下来的古老传统。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-5G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	C0-5G	0
+
+	dialog	FolkGirl	你好！
+	dialog	FolkGirl	有什么不明白的地方，请随时说话！
+
+	set		Hero	C0-5G	1
+End
+[C0-5G-1]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	C0-5G	1
+
+	dialog	FolkGirl	和村民说话时，有时第一次和第二次的内容都不一样⋯⋯爸爸这样说。
+	dialog	FolkGirl	这意味着什么，真不好理解……。
+End
+
+

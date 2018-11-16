@@ -1,0 +1,337 @@
+fileFormatVersion: 2
+guid: 2f7375bee4f9f094582aa570c4d8a066
+timeCreated: 1457591911
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: hand
+    100002: hand_all
+    100004: hitosashi01
+    100006: hitosashi02
+    100008: hitosashi03
+    100010: hitosashi_end
+    100012: ko01
+    100014: ko01 1
+    100016: ko02
+    100018: ko03
+    100020: kusuri01
+    100022: kusuri02
+    100024: kusuri03
+    100026: kusuri_end
+    100028: //RootNode
+    100030: naka01
+    100032: naka02
+    100034: naka03
+    100036: naka_end
+    100038: oya01
+    100040: oya02
+    100042: oya_end
+    400000: hand
+    400002: hand_all
+    400004: hitosashi01
+    400006: hitosashi02
+    400008: hitosashi03
+    400010: hitosashi_end
+    400012: ko01
+    400014: ko01 1
+    400016: ko02
+    400018: ko03
+    400020: kusuri01
+    400022: kusuri02
+    400024: kusuri03
+    400026: kusuri_end
+    400028: //RootNode
+    400030: naka01
+    400032: naka02
+    400034: naka03
+    400036: naka_end
+    400038: oya01
+    400040: oya02
+    400042: oya_end
+    4300000: hand
+    7400000: M20_magichand01_release
+    7400002: M20_magichand01_picking
+    7400004: M20_magichand01_pick
+    9500000: //RootNode
+    13700000: hand
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: M20_magichand01_release
+      takeName: Take 001
+      firstFrame: 2
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hand
+        weight: 1
+      - path: hand_all
+        weight: 1
+      - path: hand_all/hitosashi01
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03/hitosashi_end
+        weight: 1
+      - path: hand_all/ko01
+        weight: 1
+      - path: hand_all/ko01/ko02
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03/ko01 1
+        weight: 1
+      - path: hand_all/kusuri01
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03/kusuri_end
+        weight: 1
+      - path: hand_all/naka01
+        weight: 1
+      - path: hand_all/naka01/naka02
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03/naka_end
+        weight: 1
+      - path: hand_all/oya01
+        weight: 1
+      - path: hand_all/oya01/oya02
+        weight: 1
+      - path: hand_all/oya01/oya02/oya_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: M20_magichand01_picking
+      takeName: Take 001
+      firstFrame: 5
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hand
+        weight: 1
+      - path: hand_all
+        weight: 1
+      - path: hand_all/hitosashi01
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03/hitosashi_end
+        weight: 1
+      - path: hand_all/ko01
+        weight: 1
+      - path: hand_all/ko01/ko02
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03/ko01 1
+        weight: 1
+      - path: hand_all/kusuri01
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03/kusuri_end
+        weight: 1
+      - path: hand_all/naka01
+        weight: 1
+      - path: hand_all/naka01/naka02
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03/naka_end
+        weight: 1
+      - path: hand_all/oya01
+        weight: 1
+      - path: hand_all/oya01/oya02
+        weight: 1
+      - path: hand_all/oya01/oya02/oya_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: M20_magichand01_pick
+      takeName: Take 001
+      firstFrame: 15
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hand
+        weight: 1
+      - path: hand_all
+        weight: 1
+      - path: hand_all/hitosashi01
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03
+        weight: 1
+      - path: hand_all/hitosashi01/hitosashi02/hitosashi03/hitosashi_end
+        weight: 1
+      - path: hand_all/ko01
+        weight: 1
+      - path: hand_all/ko01/ko02
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03
+        weight: 1
+      - path: hand_all/ko01/ko02/ko03/ko01 1
+        weight: 1
+      - path: hand_all/kusuri01
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03
+        weight: 1
+      - path: hand_all/kusuri01/kusuri02/kusuri03/kusuri_end
+        weight: 1
+      - path: hand_all/naka01
+        weight: 1
+      - path: hand_all/naka01/naka02
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03
+        weight: 1
+      - path: hand_all/naka01/naka02/naka03/naka_end
+        weight: 1
+      - path: hand_all/oya01
+        weight: 1
+      - path: hand_all/oya01/oya02
+        weight: 1
+      - path: hand_all/oya01/oya02/oya_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

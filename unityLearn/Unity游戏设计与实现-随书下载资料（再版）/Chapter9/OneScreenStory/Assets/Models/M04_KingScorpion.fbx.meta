@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: 836d836734935444282f45733fba5dc8
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: chest
+    100002: claw01_L
+    100004: claw01_R
+    100006: claw02_L
+    100008: claw02_R
+    100010: claw_L_end
+    100012: claw_R_end
+    100014: hips
+    100016: King_Scorpion
+    100018: legs_end
+    100020: //RootNode
+    100022: tail01
+    100024: tail02
+    100026: tail03
+    100028: tail04
+    400000: chest
+    400002: claw01_L
+    400004: claw01_R
+    400006: claw02_L
+    400008: claw02_R
+    400010: claw_L_end
+    400012: claw_R_end
+    400014: hips
+    400016: King_Scorpion
+    400018: legs_end
+    400020: //RootNode
+    400022: tail01
+    400024: tail02
+    400026: tail03
+    400028: tail04
+    4300000: King_Scorpion
+    7400000: M04_KingScorpion_m_idle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: King_Scorpion
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: M04_KingScorpion_m_idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: King_Scorpion
+        weight: 1
+      - path: legs_end
+        weight: 1
+      - path: legs_end/hips
+        weight: 1
+      - path: legs_end/hips/chest
+        weight: 1
+      - path: legs_end/hips/chest/claw01_L
+        weight: 1
+      - path: legs_end/hips/chest/claw01_L/claw02_L
+        weight: 1
+      - path: legs_end/hips/chest/claw01_L/claw02_L/claw_L_end
+        weight: 1
+      - path: legs_end/hips/chest/claw01_R
+        weight: 1
+      - path: legs_end/hips/chest/claw01_R/claw02_R
+        weight: 1
+      - path: legs_end/hips/chest/claw01_R/claw02_R/claw_R_end
+        weight: 1
+      - path: legs_end/hips/tail01
+        weight: 1
+      - path: legs_end/hips/tail01/tail02
+        weight: 1
+      - path: legs_end/hips/tail01/tail02/tail03
+        weight: 1
+      - path: legs_end/hips/tail01/tail02/tail03/tail04
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

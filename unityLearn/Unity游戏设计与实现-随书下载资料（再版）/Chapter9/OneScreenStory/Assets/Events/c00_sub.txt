@@ -1,0 +1,204 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场　勇者以外的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-6D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Elder	C0-6D	0
+
+	dialog	Elder		喂，大家注意，这位是来我们村子的勇者先生⋯⋯
+	dialog	Folk1		哦。
+	dialog	Elder		有什么想知道的，想了解的，即使琐碎也没关系。
+	dialog	Elder		都可以一一和勇者先生交流！
+	dialog	FolkGirl	什么都可以吗？
+	dialog	Elder		对，即使琐碎也没有关系。
+	dialog	Folk2		那么，这个勇者真的没问题吗？
+	dialog	FolkWoman	你说什么呢？
+	dialog	Folk2		不是，他穿的铠甲，好像不是青铜的⋯⋯
+	dialog	Folk1		你都关注些什么啊。
+	dialog	Elder		笨蛋！不管什么样的勇者，最初的铠甲不都是皮的吗。
+	dialog	Elder		就这样。解散！
+
+	text	所有村民「哦」
+
+	set		Elder	C0-6D	1
+End
+[C0-6D-1]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Elder	C0-6D	1
+
+	dialog	Elder	不要随意从外观上作出判断！
+	dialog	Folk1	哦。
+End
+
+	;; 长老×村民２
+	[C0-6E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Elder	C0-6D	0
+	
+		call-event	C0-6D-0
+	End
+	[C0-6E-1]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Elder	C0-6D	1
+	
+		call-event	C0-6D-1
+	End
+	;; 长老×女性
+	[C0-6F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Elder	C0-6D	0
+	
+		call-event	C0-6D-0
+	End
+	[C0-6F-1]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Elder	C0-6D	1
+	
+		call-event	C0-6D-1
+	End
+	;; 长老×女孩
+	[C0-6G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Elder	C0-6D	0
+	
+		call-event	C0-6D-0
+	End
+	[C0-6G-1]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Elder	C0-6D	1
+	
+		call-event	C0-6D-1
+	End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-7E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Folk1	C0-7E	0
+
+	dialog	Folk1	看到了吗？这次来的勇者先生。
+	dialog	Folk2	看到了。他穿的铠甲，好像是件便宜货啊。
+	dialog	Folk1	这个……	还是因为现在国家的预算不足吧……。
+	dialog	Folk2	虽然不知道他来干什么，但是这样真的不要紧吗……。
+
+	set		Folk1	C0-7E	1
+End
+[C0-7E-1]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Folk1	C0-7E	1
+
+	dialog	Folk2	不好了……。
+	dialog	Folk1	什么情况呀。
+	dialog	Folk1	出现了恐怖的情况⋯⋯。
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-7F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Folk1	C0-7F	0
+
+	dialog	Folk1		哦，还好吧？
+	dialog	FolkWoman	又见面了。今天也去散步吗？
+	dialog	Folk1		啊，走三步退两步⋯⋯
+	dialog	FolkWoman	……。
+
+	set		Folk1	C0-7F	1
+End
+[C0-7F-1]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Folk1	C0-7F	1
+
+	dialog	Folk1		人生这事，其实就是这样啦。
+	dialog	FolkWoman	恩，是。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-7G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+
+	dialog	FolkGirl	你好。
+	dialog	Folk1		总是很有干劲呢。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-8F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Folk2	C0-8F	0
+
+	dialog	FolkWoman	好久不见。
+	dialog	Folk2		啊，好久不见。
+	dialog	FolkWoman	真是好天气呢。
+	dialog	Folk2		是啊。这种天气正适合跟叔叔去放牛吃草呢。
+
+	set		Folk2	C0-8F	1
+End
+[C0-8F-1]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Folk2	C0-8F	1
+
+	dialog	FolkWoman	叔叔他还好吗？
+	dialog	Folk2		恩。托您的福。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-8G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+
+	dialog	FolkGirl	你好。
+	dialog	Folk2	总是很有干劲呢。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C0-8G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+
+	dialog	FolkGirl	你好。
+	dialog	FolkWoman	今天也要打起精神来。
+End
+

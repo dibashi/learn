@@ -1,0 +1,295 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第三章　勇者的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C3-2C-0]
+Begin
+	prologue
+
+	move	Hero	ClosePlace_Folk2	0.0
+
+	fadein	1.0
+
+	dialog	Folk2	哦，谢谢你，勇者先生。
+	dialog	Folk2	这下，花子也可以安息了。
+	dialog	Folk2	事实上，我们从来没有见过那么巨大的蝎子。
+	dialog	Folk2	可能是森林深处发生了异变，它就逃到村子里来了……。
+
+	play	rpg_system06
+	show	Dragon
+
+	set	Hero	vs_dragon	1
+End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×长老
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5C-0]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5C	0
+
+	dialog	Elder	啊，谢谢你解决了村民的麻烦。
+	dialog	Elder	不过，我不知道你听说了没有，森林深处出现了巨大的龙。
+	dialog	Elder	最近几十年，从来没见过这种龙出现……。	
+	dialog	Elder	听说那种龙是守护着某种宝物。
+	dialog	Elder	这样的话，估计是挺麻烦的……。
+
+	set		Hero	C1-5C	1
+	set		Hero	talk_to_elder	1
+	evaluate-event	C1-23C-0
+End
+[C1-5C-1]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5C	1
+
+	dialog	Elder	它守护着宝物，被称为保卫龙……
+	dialog	Elder	靠近它的人都会被认为是敌人，都会被攻击。
+	dialog	Elder	除非有怪物猎人，否则真是麻烦……。
+
+	set		Hero	talk_to_elder	1
+	evaluate-event	C1-23C-0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5D-0]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5D	0
+
+	dialog	Folk1	喂，勇者先生。
+	dialog	Folk1	西北森林的深处，出现了巨大的恶龙，村民们可能有麻烦了。
+
+	set		Hero	C1-5D	1
+	set		Hero	talk_to_folk1	1
+	evaluate-event	C1-23C-0
+End
+
+[C1-5D-1]
+Begin
+	target		Hero
+	target		Folk1
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5D	1
+
+	dialog	Folk1	长着那么大的角，真是吓死我了。
+
+	set		Hero	talk_to_folk1	1
+	evaluate-event	C1-23C-0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5E	0
+
+	dialog	Folk2	如果是野生动物的话，不出现天敌的话，肯定不会跑出来的。
+	dialog	Folk2	到底，森林深处发生了什么……。
+
+	set		Hero	C1-5E	1
+End
+[C1-5E-1]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5E	1
+
+	dialog	Folk2	天敌⋯⋯估计有更可怕的东西，连蝎子都被赶出来了。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5F	0
+
+	dialog	FolkWoman	我听说龙在吐火时，通过长角来排除热量。
+	dialog	FolkWoman	如果可以把长角折断的话，龙的力量应该会变弱吧。
+
+	set		Hero	C1-5F	1
+	set		Hero	talk_to_folkwoman	1
+	evaluate-event	C1-23C-0
+End
+[C1-5F-1]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5F	1
+
+	dialog	FolkWoman	到底，怎么才能把那么硬的角打碎呢……。
+	set		Hero	talk_to_folkwoman	1
+	evaluate-event	C1-23C-0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5G	0
+
+	dialog	FolkGirl	你好！
+	dialog	FolkGirl	要弄碎硬物，自然是找更硬的物体呀！
+
+	set		Hero	C1-5G	1
+	set		Hero	talk_to_folkgirl	1
+	evaluate-event	C1-23C-0
+End
+[C1-5G-1]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5G	1
+
+	dialog	FolkGirl	如果碰撞的时候碎了，那可就输了。别说我没有提醒你哦！
+	set		Hero	talk_to_folkgirl	1
+	evaluate-event	C1-23C-0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-5H-0]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5H	0
+
+	dialog	WaterSpirit	……过来玩吗？
+	dialog	WaterSpirit	啊，好像什么也没有。
+	dialog	WaterSpirit	……///
+	dialog	WaterSpirit	啊，好无聊，没有人过来！
+	dialog	WaterSpirit	不开心！
+
+	set		Hero	C1-5H	1
+End
+[C1-5H-1]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_dragon	1
+	condition	Hero	C1-5H	1
+
+	dialog	WaterSpirit	那么，真的想玩吗？
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×喇叭龙
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-6I-0]
+Begin
+	target		Hero
+	target		Dragon
+	condition	Hero	vs_dragon	1
+
+	dialog	Dragon	啊！！（怒）
+
+	message	Hero	battle	Dragon
+
+	text	喇叭龙猛烈地吐出火焰！
+	text	火焰包围着勇者的身体！
+	text	勇者倒下了……。
+
+	move	Hero	InitialPlace_Hero	0.5
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 强制事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-23C-0]
+Begin
+	target			Hero
+	target			*		;; 任何人
+	condition		Hero	talk_to_elder		1
+	condition		Hero	talk_to_folk1		1
+	condition		Hero	talk_to_folkwoman	1
+	condition		Hero	talk_to_folkgirl	1
+
+	text		勇者和森林中出现的恶龙对抗过程中，发现除非破坏它的长角使它变弱，否则没有其他办法取胜。
+	text		但是，还没有发现有效的手段来实现这个过程……。
+
+	fadeout	1.0
+	move	Elder		InitialPlace_Elder		0.0
+	move	Folk1		InitialPlace_Folk1		0.0
+	move	Folk2		InitialPlace_Folk2		0.0
+	move	FolkWoman	InitialPlace_FolkWoman	0.0
+	move	FolkGirl	InitialPlace_FolkGirl	0.0
+	move	Hero		ClosePlace_FolkWoman	0.0
+	fadein	1.0
+
+	dialog	FolkWoman		啊，勇者先生，再见。
+	dialog	FolkWoman		不怕你笑话，我把家里的钥匙丢了，没有钥匙，我进不去。
+	dialog	FolkWoman		听说每天的这个时候，就有奇怪的人影在家附近出现。
+	dialog	FolkWoman		如果有盗贼的话就麻烦了，比如在夜晚来临之前，找到钥匙……。
+
+	text					村民们「沙沙…」
+
+
+	play	rpg_system06
+	show	DevilSoldier
+
+	dialog	Folk1			危险！这是什么啊！
+	dialog	Folk2			我的牛！
+	dialog	FolkGirl		爸爸！ 救命啊！
+
+	dialog	DevilSoldier	我是奉我主人大魔王令过来传话的。
+	dialog	DevilSoldier	愚蠢的人类。我很快就要从1000年的沉睡中醒来了。
+	dialog	DevilSoldier	那以后你们好好期待着充满破坏和绝望的世界吧。
+
+	play	rpg_system06
+	hide	DevilSoldier
+
+	dialog	Elder			……大魔王……。
+	dialog	Elder			终于来了…… 灾难就要开始了。
+
+	fadeout	4.0
+
+	;; （暂）结束
+	text	To Be Continued...
+
+	text	单画面传说 制作人员
+	text	游戏设计
+	text	中野敦
+	text	あすなこうじ
+	text	程序设计
+	text	太田篤志
+	text	中野敦
+	text	岩田永司
+	text	加藤政樹
+	text	美术设计
+	text	永谷真之
+	text	音效设计
+	text	坂本節朗
+	text	矢野義人
+	text	剧本
+	text	永谷真之
+	text	end
+	text	后续内容会在「Uni mini hon」网站上公开。有关信息请参考随书光盘内的ReadMe.txt 文件。
+
+	;; 无法执行操作（因为事件位结束）
+	fadeout	Infinity
+
+End
+

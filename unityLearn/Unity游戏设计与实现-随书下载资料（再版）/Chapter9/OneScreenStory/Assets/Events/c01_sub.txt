@@ -1,0 +1,478 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第一章　勇者以外的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-7D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	has_torch	0
+
+	dialog	Folk1		哦，长老先生。
+	dialog	Elder		哦，你好。
+	dialog	Folk1		家里周围都住着大蜜蜂，没有办法从家里出来。
+	dialog	Folk1		今天，我小心翼翼地左看右看，总算是出来了。
+	dialog	Folk2		那可是真是艰难呢。
+	dialog	Elder		哎，真是痛苦呢。
+	dialog	Folk1		真希望那一只只的蜜蜂能放过我。
+	dialog	FolkWoman	……。
+	dialog	Elder		……真是非常痛苦啊。
+End
+	[C1-7D-0-1]
+	Begin
+		target		Elder
+		target		Folk1
+		condition	Hero	has_torch	1
+	
+		call-event	C1-7D-0
+	End
+	[C1-7D-0-2]
+	Begin
+		target		Elder
+		target		Folk1
+		condition	Hero	has_torch	2
+	
+		call-event	C1-7D-0
+	End
+	;; 长老×村民２
+	[C1-7E-0-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	has_torch	0
+	
+		call-event	C1-7D-0
+	End
+	[C1-7E-0-1]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	has_torch	1
+	
+		call-event	C1-7D-0
+	End
+	[C1-7E-0-2]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	has_torch	2
+	
+		call-event	C1-7D-0
+	End
+	;; 长老×女性
+	[C1-7F-0-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	has_torch	0
+	
+		call-event	C1-7D-0
+	End
+	[C1-7F-0-1]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	has_torch	1
+	
+		call-event	C1-7D-0
+	End
+	[C1-7F-0-2]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	has_torch	2
+	
+		call-event	C1-7D-0
+	End
+	;; 长老×女子
+	[C1-7G-0-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	has_torch	0
+	
+		call-event	C1-7D-0
+	End
+	[C1-7G-0-1]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	has_torch	1
+	
+		call-event	C1-7D-0
+	End
+	[C1-7G-0-2]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	has_torch	2
+	
+		call-event	C1-7D-0
+	End
+[C1-8D-0]
+Begin
+	target		Elder
+	target		Folk1
+	condition	Hero	has_torch	3
+
+	dialog	Folk2		大家都听说了吗？
+	dialog	Elder		什么。
+	dialog	Folk2		勇者先生去向大蜜蜂挑战了！
+	dialog	Folk1		哦，就是带那个火把。
+	dialog	FolkWoman	是呢。
+	dialog	Elder		那么应该可以驱赶这些来骚扰的大蜜蜂了吧。
+	dialog	Folk1		真希望能把那个大蜜蜂打败扔出去。
+	dialog	FolkWoman	……。
+End
+	;; 长老×村民２
+	[C1-8E-0]
+	Begin
+		target		Elder
+		target		Folk2
+		condition	Hero	has_torch	3
+	
+		call-event	C1-8D-0
+	End
+	;; 长老×女性
+	[C1-8F-0]
+	Begin
+		target		Elder
+		target		FolkWoman
+		condition	Hero	has_torch	3
+	
+		call-event	C1-8D-0
+	End
+	;; 长老×女子
+	[C1-8G-0]
+	Begin
+		target		Elder
+		target		FolkGirl
+		condition	Hero	has_torch	3
+	
+		call-event	C1-8D-0
+	End
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 长老×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-7H-0]
+Begin
+	target		Elder
+	target		KillerBee
+
+	dialog	Elder		不好了！那家伙往这里飞来了！
+	dialog	KillerBee	轰(嘲）
+	dialog	Elder		啊，不好，快跑！
+	text	长老逃走了！
+
+	move	Elder	InitialPlace_Elder	1.0
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-9E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	has_torch	0
+
+	dialog	Folk2	勇者先生，感觉怎么样？
+	dialog	Folk1	不太好，对方非常狡猾……
+	dialog	Folk1	现在还没有什么进展。
+	dialog	Folk2	是不是因为没有青铜铠甲⋯⋯。
+	dialog	Folk1	青铜铠甲？啊哈哈。
+End
+	[C1-9E-0-1]
+	Begin
+		target		Folk1
+		target		Folk2
+		condition	Hero	has_torch	1
+	
+		call-event	C1-9E-0
+	End
+	[C1-9E-0-2]
+	Begin
+		target		Folk1
+		target		Folk2
+		condition	Hero	has_torch	2
+	
+		call-event	C1-9E-0
+	End
+
+[C1-10E-0]
+Begin
+	target		Folk1
+	target		Folk2
+	condition	Hero	has_torch	3
+
+	dialog	Folk2	对了，今天看到勇者了。
+	dialog	Folk2	好像看起来气色还不错。
+	dialog	Folk1	哦，是吗。可能是有了什么进展吧。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-9F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	has_torch	0
+
+	dialog	Folk1		希望勇者先生能帮我赶跑那些蜜蜂。
+	dialog	FolkWoman	是吗。那可不太容易呢。
+	dialog	Folk1		让我们来祈祷吧。
+	dialog	FolkWoman	祈祷？
+	dialog	Folk1		祈祷这些蜜蜂早日被赶跑。啊哈哈。
+	dialog	FolkWoman	……。
+End
+	[C1-9F-0-1]
+	Begin
+		target		Folk1
+		target		FolkWoman
+		condition	Hero	has_torch	1
+	
+		call-event	C1-9F-0
+	End
+	[C1-9F-0-2]
+	Begin
+		target		Folk1
+		target		FolkWoman
+		condition	Hero	has_torch	2
+	
+		call-event	C1-9F-0
+	End
+[C1-10F-0]
+Begin
+	target		Folk1
+	target		FolkWoman
+	condition	Hero	has_torch	3
+
+	dialog	FolkWoman	刚才帮勇者先生做了一个火把。
+	dialog	Folk1		是吗，谢谢你。
+	dialog	Folk1		那么，接下来就看勇者先生的了。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-9G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	has_torch	0
+
+	dialog	FolkGirl	那个大蜜蜂，真是太可怕了⋯⋯。
+	dialog	Folk1		不要靠近它。
+	dialog	Folk1		勇者先生一定已经做了什么。再等等把它消灭了就好了。
+End
+	[C1-9G-0-1]
+	Begin
+		target		Folk1
+		target		FolkGirl
+		condition	Hero	has_torch	1
+	
+		call-event	C1-9G-0
+	End
+	[C1-9G-0-2]
+	Begin
+		target		Folk1
+		target		FolkGirl
+		condition	Hero	has_torch	2
+	
+		call-event	C1-9G-0
+	End
+[C1-10G-0]
+Begin
+	target		Folk1
+	target		FolkGirl
+	condition	Hero	has_torch	3
+
+	dialog	FolkGirl	大叔，怎么了？
+	dialog	Folk1		哦，我听说勇者先生能够驱赶大蜜蜂。
+	dialog	FolkGirl	哇，太好了！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民１×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-9H-0]
+Begin
+	target		Folk1
+	target		KillerBee
+
+	dialog	Folk1		不好，蜜蜂过来了！
+	dialog	KillerBee	轰！（快速）
+	dialog	Folk1		这家伙……好像愤怒了！别靠近我！
+	text	村里的男子，逃跑了！
+
+	move	Folk1	InitialPlace_Folk1	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	has_torch	0
+
+	dialog	Folk2		这恐怖的蜜蜂，害我们现在什么也做不了……。
+	dialog	FolkWoman	啊，是呢，那蜜蜂真是叫人头疼。
+	dialog	Folk2		勇者先生，快帮我们早日打败它吧。
+End
+	[C1-11F-0-1]
+	Begin
+		target		Folk2
+		target		FolkWoman
+		condition	Hero	has_torch	1
+	
+		call-event	C1-11F-0
+	End
+	[C1-11F-0-2]
+	Begin
+		target		Folk2
+		target		FolkWoman
+		condition	Hero	has_torch	2
+	
+		call-event	C1-11F-0
+	End
+[C1-12F-0]
+Begin
+	target		Folk2
+	target		FolkWoman
+	condition	Hero	has_torch	3
+
+	dialog	FolkWoman	刚才，有人帮勇士做了火把。
+	dialog	Folk2		哦，那位女士帮忙做的。
+	dialog	Folk2		那么现在可以驱赶蜜蜂了呢。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	has_torch	0
+
+	dialog	FolkGirl	那个大蜜蜂太恐怖了……。
+	dialog	Folk2		千万别靠近它。
+	dialog	Folk2		勇者一定会打败它的。再忍受一阵子吧。
+End
+	[C1-11G-0-1]
+	Begin
+		target		Folk2
+		target		FolkGirl
+		condition	Hero	has_torch	1
+	
+		call-event	C1-11G-0
+	End
+	[C1-11G-0-2]
+	Begin
+		target		Folk2
+		target		FolkGirl
+		condition	Hero	has_torch	2
+	
+		call-event	C1-11G-0
+	End
+[C1-12G-0]
+Begin
+	target		Folk2
+	target		FolkGirl
+	condition	Hero	has_torch	3
+
+	dialog	FolkGirl	哥哥，怎么了？
+	dialog	Folk2		听说勇者先生可以驱赶大蜜蜂了。
+	dialog	Folk2		哇，太好了！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 村民２×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-11H-0]
+Begin
+	target		Folk2
+	target		KillerBee
+
+	dialog	Folk2		我不是你的对手啊！
+	dialog	KillerBee	嗡！（笑）
+	dialog	Folk2		啊，救命啊……。
+	text	村子里的年轻人，逃跑了！
+
+	move	Folk2	InitialPlace_Folk2	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-13G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	has_torch	0
+
+	dialog	FolkGirl	那个大蜜蜂太恐怖了……。
+	dialog	FolkWoman	千万别靠近它。
+	dialog	FolkWoman	勇者一定会打败它的。再忍受一阵子吧。
+End
+	[C1-13G-0-1]
+	Begin
+		target		FolkWoman
+		target		FolkGirl
+		condition	Hero	has_torch	1
+	
+		call-event	C1-13G-0
+	End
+	[C1-13G-0-2]
+	Begin
+		target		FolkWoman
+		target		FolkGirl
+		condition	Hero	has_torch	2
+	
+		call-event	C1-13G-0
+	End
+[C1-13G-0]
+Begin
+	target		FolkWoman
+	target		FolkGirl
+	condition	Hero	has_torch	3
+
+	dialog	FolkGirl	姐姐，怎么了？
+	dialog	FolkWoman	那个，我已经告诉勇者如何驱赶大蜜蜂的方法了。他一定能很好掌握。
+	dialog	FolkGirl	哇，太好了！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女性×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-13H-0]
+Begin
+	target		FolkWoman
+	target		KillerBee
+
+	dialog	FolkWoman		啊，杀人蜂来了！
+	text	村子的女人，逃跑了！
+	text	可是，周围都被包围了！
+	dialog	KillerBee		嗡！（感）
+	dialog	FolkWoman		这，这个怪物！走开……。
+	text	村子的女人，逃跑了！
+
+	move	FolkWoman	InitialPlace_FolkWoman	1.0
+
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 女子×杀人蜂
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C1-15H-0]
+Begin
+	target		FolkGirl
+	target		KillerBee
+
+	dialog	FolkGirl		啊！又来了！
+	dialog	KillerBee		嗡！（惊）
+	text	女子逃跑了！
+
+	move	FolkGirl	InitialPlace_FolkGirl	1.0
+
+End

@@ -1,0 +1,459 @@
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 第二章　勇者的事件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 开场
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-2C]
+Begin
+	prologue
+	fadein	1.0
+
+	dialog	Folk1	哦！真的把它们赶走了！
+	dialog	Folk1	太好了。如果有什么我能做的，一定出力！
+	dialog	Folk1	这样说的话，普遍兄弟的话你也会照做吗？
+	dialog	Folk1	虽然不知道具体做什么，不过如果是去攻击家畜什么的……。
+
+	play	rpg_system06
+	show	KingScorpion
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×长老
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5C-0]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5C	0
+
+	dialog	Elder	哦，勇者先生，真是帮了村民大忙了。
+	dialog	Elder	真是帮忙了。这个……	刚才说到哪了……。
+	dialog	Elder	魔王被大魔道士封起来时，曾留下过不详的预言。
+	dialog	Elder	1000年后，我一定会苏醒。愚蠢的人类们，那时估计还在讴歌和平的美好吧。
+	dialog	Elder	今年正好是魔王被封至今1000年……。
+	dialog	Elder	那么，这正是魔王复活的预言年啊。
+
+	set		Hero	C2-5C	1
+End
+[C2-5C-1]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5C	1
+
+	dialog	Elder	喂，那是什么啊。
+	dialog	Elder	啊，又听见了。
+End
+[C2-6C-0]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion				1
+	condition	Hero	is_water_spirit_appear	0	;; 事实上打算让 condition	WaterSpirit	is_appear	等于 0
+
+	dialog	Elder	哦，不要紧吧勇者先生。
+	dialog	Elder	解毒药在哪里不知道，不过听说在西南方向存在的泉水可以解毒。
+	dialog	Elder	最重要的，那泉水周围总是有谜一样的气氛，没有人敢去……。
+
+	play	rpg_system05
+	show	WaterSpirit
+
+	set		Hero	is_water_spirit_appear	1
+End
+
+[C2-6C-0-1]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion				1
+	condition	Hero	is_water_spirit_appear	1
+
+	dialog	Elder	哦，不要紧吧勇者先生。
+	dialog	Elder	解毒药在哪里不知道，不过听说在西南方向存在的泉水可以解毒。
+	dialog	Elder	最重要的，那泉水周围总是有谜一样的气氛，没有人敢去……。
+
+End
+
+[C2-7C-0]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7C	0
+
+	dialog	Elder	总算好一些了。
+	dialog	Elder	稍微休息一些吧……
+	dialog	Elder	请找找有什么击退那些蝎子的的方法！
+
+	set	Hero	C2-7C	1
+End
+[C2-7C-1]
+Begin
+	target	Hero
+	target	Elder
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7C	1
+
+	dialog	Elder	拜托了，勇者先生。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民１
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5D-0]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5D	0
+
+	dialog	Folk1	听到我说的话了吗？旁边兄弟的话也给我听好了。
+	dialog	Folk1	啊，听见了！
+
+	set		Hero	C2-5D	1
+End
+[C2-5D-1]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5D	1
+
+	dialog	Folk1	想起来了，那歌蝎子。正是那些攻击家畜的家伙。
+	dialog	Folk1	毒针非常厉害，千万别被它刺到。
+	dialog	Folk1	你也是这样想的吧？
+End
+[C2-6D-0]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-6D	0
+
+	dialog	Folk1	哦，勇者先生，脸色不错啊。
+	dialog	Folk1	接下来我们应该怎么做？
+	dialog	Folk1	啊，这个听你的安排。
+
+	set		Hero	C2-6D	1
+End
+[C2-6D-1]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-6D	1
+
+	dialog	Folk1	长老……长老知道些什么吗？
+	dialog	Folk1	说来惭愧，没有什么。
+End
+[C2-7D-0]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7D	0
+
+	dialog	Folk1	这次好叫人担心。真是要命啊。
+	dialog	Folk1	什么东西能帮上忙的都拿来用。可是我好像一点用也没用。
+	dialog	Folk1	不过下一次你就能派上用场啦。
+
+	set		Hero	C2-7D	1
+End
+[C2-7D-1]
+Begin
+	target	Hero
+	target	Folk1
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7D	1
+
+	dialog	Folk1	可是，我真的不知道应该怎么做。好像今天又帮不上忙了。
+	dialog	Folk1	别再这么说了！听见了吗？听见了吗？
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×村民２
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5E	0
+
+	dialog	Folk2	喂，勇者先生，请听我说！
+	dialog	Folk2	我以便宜的价格买入了西边的荒地，和花子一起在那里开垦……。
+	dialog	Folk2	不知道从哪里来的大蝎子，突然攻击我们。
+	dialog	Folk2	我虽然活了下来，可是我最重要的亲人花子却……。
+	dialog	Folk2	拜托了！我要为花子报仇！呜呜呜
+
+	set	Hero	C2-5E	1
+End
+[C2-5E-1]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5E	1
+
+	dialog	Folk2	呜呜，花子……。
+End
+[C2-6E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_scorpion	1
+
+	dialog	Folk2	勇者先生！ 你这是怎么了……。
+	dialog	Folk2	啊，我想把蝎子的毒洗去！
+	dialog	Folk2	啊！怎么会这样。不光是花子，勇者先生也……。
+	dialog	Folk2	花子……。
+
+End
+[C2-7E-0]
+Begin
+	target		Hero
+	target		Folk2
+	condition	Hero	vs_scorpion	2
+
+	dialog	Folk2	勇者先生。你不要紧吧？
+	dialog	Folk2	哦！　卡米！	感谢你。
+	dialog	Folk2	那么，这次让我们把这些讨厌的大蝎子打败吧！
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女性
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5F	0
+
+	dialog	FolkWoman	蝎子的毒叫做神经毒，被刺中后直接会被麻痹……。
+	dialog	FolkWoman	听说很多人就这样死了。
+
+	set	Hero	C2-5F	1
+End
+[C2-5F-1]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_scorpion	0
+	condition	Hero	C2-5F	1
+
+	dialog	FolkWoman	遇到蝎子的时候，请小心一些。
+End
+[C2-6F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_scorpion	1
+
+	dialog	FolkWoman	现在情况怎么样，勇者先生？
+	dialog	FolkWoman	蝎子的毒叫做神经毒，被刺中后直接会被麻痹……。
+	dialog	FolkWoman	听说很多人就这样死了。
+	dialog	FolkWoman	我们算是幸运的了。如果早些时候不做处理的话……。
+
+End
+[C2-7F-0]
+Begin
+	target		Hero
+	target		FolkWoman
+	condition	Hero	vs_scorpion	2
+
+	dialog	FolkWoman	勇者先生……上天保佑啊……。
+	dialog	FolkWoman	中了蝎子的剧毒，现在感到特别疼痛……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×女子
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_scorpion	0
+
+	dialog	FolkGirl	你好！
+	dialog	FolkGirl	爸爸说，男人即使失败了也不能失去战斗的勇气。
+	dialog	FolkGirl	男人真是辛苦啊～。
+	dialog	FolkGirl	加油～。
+End
+[C2-6G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-6G	0
+
+	dialog	FolkGirl	啊！脸色怎么了！象黄土一样！
+	dialog	FolkGirl	爸爸！勇者先生他，勇者先生他！
+	set	Hero	C2-6G	1
+End
+[C2-6G-1]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-6G	1
+
+	dialog	FolkGirl	怎么了怎么了！
+End
+[C2-7G-0]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7G	0
+
+	dialog	FolkGirl	要紧吗？真是担心啊。
+	dialog	FolkGirl	不过，勇者先生的脸色和之前有些变化了！
+	dialog	FolkGirl	等等看能不能恢复？
+	set	Hero	C2-7G	1
+End
+[C2-7G-1]
+Begin
+	target		Hero
+	target		FolkGirl
+	condition	Hero	vs_scorpion	2
+	condition	Hero	C2-7G	1
+
+	dialog	FolkGirl	等待恢复……。
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×帝王蝎
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-5H-0]
+Begin
+	target		Hero
+	target		KingScorpion
+	condition	Hero	vs_scorpion	0
+
+	dialog	KingScorpion	啊！！（怒）
+
+	message	Hero	battle	KingScorpion		;;	战斗
+
+	text	帝王蝎挥动了它的毒针！
+	text	毒针刺入了勇者的身体！
+	text	勇者倒下来……。
+
+	fadeout	2.0
+
+	text	勇者在和帝王蝎的战斗中失败了，中了剧毒！
+	text	由村里的女人先照顾他……。
+
+	set	Hero	vs_scorpion	1
+
+	move	Hero	ClosePlace_FolkWoman	0.0
+
+	fadein	1.0
+
+	;;evaluate-event	C2-6F-0
+	;; move 指令后的 evaluate-event 不发生作用（发生接触的对象不会被更新）
+	;; ，因此把时间的内容拷贝过来。
+	dialog	FolkWoman	现在感觉怎么样了，勇者先生
+	dialog	FolkWoman	蝎子的毒叫做神经毒，被刺中后直接会被麻痹……。
+	dialog	FolkWoman	听说很多人就这样死了。
+	dialog	FolkWoman	我们算是幸运的了。如果早些时候不做处理的话……。
+End
+[C2-6H-0]
+Begin
+	target		Hero
+	target		KingScorpion
+	condition	Hero	vs_scorpion	1
+
+	dialog	KingScorpion	啊！！（侮）
+
+	message	Hero	battle	KingScorpion
+
+	text	帝王蝎挥动了它的毒针！
+	text	毒针刺入了勇者的身体！
+	text	勇者倒下来……。
+	move	Hero	InitialPlace_Hero	0.5
+End
+[C2-7H-0]
+Begin
+	target		Hero
+	target		KingScorpion
+	condition	Hero	vs_scorpion	2
+
+	dialog	KingScorpion	啊!?（焦）
+
+	message	Hero	battle	KingScorpion
+
+	play	rpg_system05
+	hide	KingScorpion
+
+	text	勇者打败了帝王蝎子！
+
+	fadeout	1.0
+
+	text	第二章　结束
+	load	c03_0_main	c03_0_sub		;; 跳转到第三章的脚本
+End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 勇者×泉精
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[C2-6I-0-0]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	1
+
+	dialog	WaterSpirit	你来这里做什么！
+	dialog	WaterSpirit	哦，你中毒了！
+
+	continue
+End
+[C2-6I-0-1]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	1
+
+	dialog	WaterSpirit	快喝了这泉水。
+
+	choice	Hero	C2-is_drink_water	是	否
+	continue
+End
+
+[C2-6I-1]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-is_drink_water	1
+
+	text	勇者捧着泉水，一口气喝了很多。
+	text	体内的剧毒被一点点消除了……。
+
+	play	rpg_system13
+	text	现在，对于毒性攻击的耐性显著提升了！
+
+	set	Hero	vs_scorpion	2
+End
+[C2-6I-2]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	1
+	condition	Hero	C2-is_drink_water	2
+
+	dialog	WaterSpirit	虽然这么说，不过不是马上就产生效果。
+	dialog	WaterSpirit	啊，如果你觉得我骗你，可以再喝一些看看。
+
+	call-event	C2-6I-0-1
+End
+
+[C2-7I-0]
+Begin
+	target		Hero
+	target		WaterSpirit
+	condition	Hero	vs_scorpion	2
+
+	dialog	WaterSpirit	呃，如果有什么其他我可以帮忙的事情，也可以跟我说。
+	dialog	WaterSpirit	别误会。
+End
+
+

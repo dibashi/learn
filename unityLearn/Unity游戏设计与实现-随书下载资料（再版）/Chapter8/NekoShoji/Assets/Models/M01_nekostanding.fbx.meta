@@ -1,0 +1,169 @@
+fileFormatVersion: 2
+guid: 126d9e2262faf5346a82e3e14a603ba4
+timeCreated: 1457495301
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ALL_ROOT
+    100002: Head
+    100004: Hips
+    100006: Jawl
+    100008: Leg_L
+    100010: Leg_R
+    100012: //RootNode
+    100014: neko_body_model
+    100016: neko_hige_model
+    100018: neko_model
+    100020: Paw_L
+    100022: Paw_R
+    100024: Spine01
+    100026: Spine02
+    100028: tail_01
+    100030: tail_02
+    400000: ALL_ROOT
+    400002: Head
+    400004: Hips
+    400006: Jawl
+    400008: Leg_L
+    400010: Leg_R
+    400012: //RootNode
+    400014: neko_body_model
+    400016: neko_hige_model
+    400018: neko_model
+    400020: Paw_L
+    400022: Paw_R
+    400024: Spine01
+    400026: Spine02
+    400028: tail_01
+    400030: tail_02
+    4300000: neko_hige_model
+    4300002: neko_body_model
+    7400000: M01_nekostanding
+    9500000: //RootNode
+    13700000: neko_body_model
+    13700002: neko_hige_model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: M01_nekostanding
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ALL_ROOT
+        weight: 1
+      - path: ALL_ROOT/Hips
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine01
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine01/Head
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine01/Head/Jawl
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine01/Paw_L
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine01/Paw_R
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine02
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine02/Leg_L
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine02/Leg_R
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine02/tail_01
+        weight: 1
+      - path: ALL_ROOT/Hips/Spine02/tail_01/tail_02
+        weight: 1
+      - path: ALL_ROOT/neko_model
+        weight: 1
+      - path: ALL_ROOT/neko_model/neko_body_model
+        weight: 1
+      - path: ALL_ROOT/neko_model/neko_hige_model
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

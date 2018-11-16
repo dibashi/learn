@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: dfe4e291d1b8e4edc981eac2b7ba3e58
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - messageTexture_Good: {fileID: 2800000, guid: 530425bec6c5147f49402cf92ddfd000,
+      type: 3}
+  - messageTexture_Slower: {fileID: 2800000, guid: ca6418565f16e4ece8e579687ddb3194,
+      type: 3}
+  - messageTexture_Faster: {fileID: 2800000, guid: 7b3e634ea431a495e93e1a1c36ef1cbc,
+      type: 3}
+  - messageTexture_MoreHB: {fileID: 2800000, guid: 476cc58ffdcbb47648756db224257e29,
+      type: 3}
+  - headbangingIcon: {fileID: 10300, guid: 0000000000000000e000000000000000, type: 0}
+  - beatPositionIcon: {fileID: 10300, guid: 0000000000000000e000000000000000, type: 0}
+  executionOrder: -5
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
