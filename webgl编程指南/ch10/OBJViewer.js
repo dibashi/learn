@@ -73,7 +73,7 @@ function main() {
   viewProjMatrix.lookAt(0.0, 500.0, 200.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
   // Start reading the OBJ file
-  readOBJFile('cube.obj', gl, model, 60, true);
+  readOBJFile('a1.obj', gl, model, 60, true);
 
   var currentAngle = 0.0; // Current rotation angle [degree]
   var tick = function() {   // Start drawing
