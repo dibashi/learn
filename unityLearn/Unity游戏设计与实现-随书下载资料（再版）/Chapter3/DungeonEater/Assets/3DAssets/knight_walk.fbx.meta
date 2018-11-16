@@ -1,0 +1,289 @@
+fileFormatVersion: 2
+guid: 93529f605447a714e8fe5797f9f5633b
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: arm_L
+    100002: arm_R
+    100004: finger_L
+    100006: finger_R
+    100008: foot_L
+    100010: foot_R
+    100012: hand_L
+    100014: hand_R
+    100016: head
+    100018: hip
+    100020: kata_L
+    100022: kata_R
+    100024: knight
+    100026: //RootNode
+    100028: leg_L
+    100030: leg_R
+    100032: momo_L
+    100034: momo_R
+    100036: mune
+    100038: neck
+    100040: pCylinder11
+    100042: pCylinder20
+    100044: pCylinder21
+    100046: pCylinder22
+    100048: polySurface12
+    100050: polySurface13
+    100052: polySurface14
+    100054: polySurface15
+    100056: polySurface16
+    100058: polySurface17
+    100060: polySurface5
+    100062: polySurface9
+    100064: pSphere16
+    100066: pSphere20
+    100068: root
+    100070: root1
+    100072: toe_L
+    100074: toe_R
+    400000: arm_L
+    400002: arm_R
+    400004: finger_L
+    400006: finger_R
+    400008: foot_L
+    400010: foot_R
+    400012: hand_L
+    400014: hand_R
+    400016: head
+    400018: hip
+    400020: kata_L
+    400022: kata_R
+    400024: knight
+    400026: //RootNode
+    400028: leg_L
+    400030: leg_R
+    400032: momo_L
+    400034: momo_R
+    400036: mune
+    400038: neck
+    400040: pCylinder11
+    400042: pCylinder20
+    400044: pCylinder21
+    400046: pCylinder22
+    400048: polySurface12
+    400050: polySurface13
+    400052: polySurface14
+    400054: polySurface15
+    400056: polySurface16
+    400058: polySurface17
+    400060: polySurface5
+    400062: polySurface9
+    400064: pSphere16
+    400066: pSphere20
+    400068: root
+    400070: root1
+    400072: toe_L
+    400074: toe_R
+    4300000: polySurface5
+    4300002: polySurface15
+    4300004: polySurface13
+    4300006: polySurface14
+    4300008: polySurface16
+    4300010: pSphere16
+    4300012: pSphere20
+    4300014: pCylinder11
+    4300016: pCylinder21
+    4300018: polySurface9
+    4300020: polySurface12
+    4300022: pCylinder20
+    4300024: pCylinder22
+    4300026: polySurface17
+    7400000: knight_m_walk
+    7400002: knight_m_walk_u
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: pCylinder11
+    13700002: pCylinder20
+    13700004: pCylinder21
+    13700006: pCylinder22
+    13700008: polySurface12
+    13700010: polySurface13
+    13700012: polySurface14
+    13700014: polySurface15
+    13700016: polySurface16
+    13700018: polySurface17
+    13700020: polySurface5
+    13700022: polySurface9
+    13700024: pSphere16
+    13700026: pSphere20
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: knight_m_walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .502392352
+        functionName: PlayStepSound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4931f136f66c3142960aacd2b4c53f5,
+          type: 3}
+        floatParameter: 1.05999994
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: PlayStepSound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4931f136f66c3142960aacd2b4c53f5,
+          type: 3}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: knight
+        weight: 1
+      - path: knight/pCylinder11
+        weight: 1
+      - path: knight/pCylinder20
+        weight: 1
+      - path: knight/pCylinder21
+        weight: 1
+      - path: knight/pCylinder22
+        weight: 1
+      - path: knight/polySurface5
+        weight: 1
+      - path: knight/polySurface9
+        weight: 1
+      - path: knight/polySurface12
+        weight: 1
+      - path: knight/polySurface13
+        weight: 1
+      - path: knight/polySurface14
+        weight: 1
+      - path: knight/polySurface15
+        weight: 1
+      - path: knight/polySurface16
+        weight: 1
+      - path: knight/polySurface17
+        weight: 1
+      - path: knight/pSphere16
+        weight: 1
+      - path: knight/pSphere20
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/hip
+        weight: 1
+      - path: root/hip/momo_L
+        weight: 1
+      - path: root/hip/momo_L/leg_L
+        weight: 1
+      - path: root/hip/momo_L/leg_L/foot_L
+        weight: 1
+      - path: root/hip/momo_L/leg_L/foot_L/toe_L
+        weight: 1
+      - path: root/hip/momo_R
+        weight: 1
+      - path: root/hip/momo_R/leg_R
+        weight: 1
+      - path: root/hip/momo_R/leg_R/foot_R
+        weight: 1
+      - path: root/hip/momo_R/leg_R/foot_R/toe_R
+        weight: 1
+      - path: root/hip/mune
+        weight: 1
+      - path: root/hip/mune/kata_L
+        weight: 1
+      - path: root/hip/mune/kata_L/arm_L
+        weight: 1
+      - path: root/hip/mune/kata_L/arm_L/hand_L
+        weight: 1
+      - path: root/hip/mune/kata_L/arm_L/hand_L/finger_L
+        weight: 1
+      - path: root/hip/mune/kata_R
+        weight: 1
+      - path: root/hip/mune/kata_R/arm_R
+        weight: 1
+      - path: root/hip/mune/kata_R/arm_R/hand_R
+        weight: 1
+      - path: root/hip/mune/kata_R/arm_R/hand_R/finger_R
+        weight: 1
+      - path: root/hip/mune/neck
+        weight: 1
+      - path: root/hip/mune/neck/head
+        weight: 1
+      - path: root1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .100000001
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

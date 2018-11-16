@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: ba04a76c52cdfec43a1131d897d6151f
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: arm_L
+    100002: arm_R
+    100004: ax
+    100006: body
+    100008: chest
+    100010: cloth1
+    100012: cloth2
+    100014: cloth3
+    100016: cloth4
+    100018: cloth5
+    100020: face
+    100022: finger_L
+    100024: finger_R
+    100026: ghost
+    100028: //RootNode
+    100030: hair1
+    100032: hair2
+    100034: hand
+    100036: hand_L
+    100038: hand_R
+    100040: head
+    100042: hip
+    100044: kata_L
+    100046: kata_R
+    100048: neck
+    100050: root2
+    100052: root_ghost
+    400000: arm_L
+    400002: arm_R
+    400004: ax
+    400006: body
+    400008: chest
+    400010: cloth1
+    400012: cloth2
+    400014: cloth3
+    400016: cloth4
+    400018: cloth5
+    400020: face
+    400022: finger_L
+    400024: finger_R
+    400026: ghost
+    400028: //RootNode
+    400030: hair1
+    400032: hair2
+    400034: hand
+    400036: hand_L
+    400038: hand_R
+    400040: head
+    400042: hip
+    400044: kata_L
+    400046: kata_R
+    400048: neck
+    400050: root2
+    400052: root_ghost
+    4300000: face
+    4300002: body
+    4300004: ax
+    4300006: hand
+    7400000: ghost_m_attack
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: ax
+    13700002: body
+    13700004: face
+    13700006: hand
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ghost_m_attack
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ghost
+        weight: 1
+      - path: ghost/ax
+        weight: 1
+      - path: ghost/body
+        weight: 1
+      - path: ghost/face
+        weight: 1
+      - path: ghost/hand
+        weight: 1
+      - path: root2
+        weight: 1
+      - path: root_ghost
+        weight: 1
+      - path: root_ghost/hip
+        weight: 1
+      - path: root_ghost/hip/chest
+        weight: 1
+      - path: root_ghost/hip/chest/kata_L
+        weight: 1
+      - path: root_ghost/hip/chest/kata_L/arm_L
+        weight: 1
+      - path: root_ghost/hip/chest/kata_L/arm_L/hand_L
+        weight: 1
+      - path: root_ghost/hip/chest/kata_L/arm_L/hand_L/finger_L
+        weight: 1
+      - path: root_ghost/hip/chest/kata_R
+        weight: 1
+      - path: root_ghost/hip/chest/kata_R/arm_R
+        weight: 1
+      - path: root_ghost/hip/chest/kata_R/arm_R/hand_R
+        weight: 1
+      - path: root_ghost/hip/chest/kata_R/arm_R/hand_R/finger_R
+        weight: 1
+      - path: root_ghost/hip/chest/neck
+        weight: 1
+      - path: root_ghost/hip/chest/neck/head
+        weight: 1
+      - path: root_ghost/hip/chest/neck/head/hair1
+        weight: 1
+      - path: root_ghost/hip/chest/neck/head/hair1/hair2
+        weight: 1
+      - path: root_ghost/hip/cloth1
+        weight: 1
+      - path: root_ghost/hip/cloth1/cloth2
+        weight: 1
+      - path: root_ghost/hip/cloth1/cloth2/cloth3
+        weight: 1
+      - path: root_ghost/hip/cloth1/cloth2/cloth3/cloth4
+        weight: 1
+      - path: root_ghost/hip/cloth1/cloth2/cloth3/cloth4/cloth5
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .150000006
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
