@@ -71,6 +71,13 @@ THREE.WebGLRenderer = function () {
 
 	};
 
+	//仔细阅读代码后，发现这是一个性能极低的写法！
+	//每帧都要执行渲染 
+	//渲染的时候会遍历所有mesh
+	//渲染每个mesh的时候要遍历所有的面
+	//对于每个面 要传入这么多的数据
+	//所有面传完 一个mesh结束 drawElements
+	//所有mesh传完 一个场景结束 之前已经传过 Light 和 Matrix数据了
 	this.createBuffers = function (object, mf) {
 
 		var f, fl, fi, face, vertexNormals, normal, uv, v1, v2, v3, v4,
@@ -86,6 +93,11 @@ THREE.WebGLRenderer = function () {
 
 			vertexIndex = 0;
 
+			//逐面形成数据集合 
+			//最终形成三个数组 
+			//vertexArray ->position
+			//normalArray ->normal
+			//uvArray ->uv
 		for (f = 0, fl = materialFaceGroup.faces.length; f < fl; f++) {
 
 			fi = materialFaceGroup.faces[f];
@@ -94,9 +106,10 @@ THREE.WebGLRenderer = function () {
 			vertexNormals = face.vertexNormals;
 			normal = face.normal;
 			uv = object.geometry.uvs[fi];
-
+			//面如果是face3类型 就直接根据顶点索引 取到顶点数据
+			//塞入vertexArray
 			if (face instanceof THREE.Face3) {
-
+				//object-->geometry-->vertices-->position!!内部数据结构
 				v1 = object.geometry.vertices[face.a].position;
 				v2 = object.geometry.vertices[face.b].position;
 				v3 = object.geometry.vertices[face.c].position;
@@ -105,6 +118,7 @@ THREE.WebGLRenderer = function () {
 				vertexArray.push(v2.x, v2.y, v2.z);
 				vertexArray.push(v3.x, v3.y, v3.z);
 
+				//将法线数据插入数组中 若已经有三个 也就是逐顶点发现 对象插入
 				if (vertexNormals.length == 3) {
 
 					normalArray.push(vertexNormals[0].x, vertexNormals[0].y, vertexNormals[0].z);
@@ -112,13 +126,13 @@ THREE.WebGLRenderer = function () {
 					normalArray.push(vertexNormals[2].x, vertexNormals[2].y, vertexNormals[2].z);
 
 				} else {
-
+					//没有三个 其实是只有一个 还是逐顶点 但是每个顶点的发现一样
 					normalArray.push(normal.x, normal.y, normal.z);
 					normalArray.push(normal.x, normal.y, normal.z);
 					normalArray.push(normal.x, normal.y, normal.z);
 
 				}
-
+				//纹理坐标逐个插入 前提是要有纹理坐标
 				if (uv) {
 
 					uvArray.push(uv[0].u, uv[0].v);
@@ -126,18 +140,21 @@ THREE.WebGLRenderer = function () {
 					uvArray.push(uv[2].u, uv[2].v);
 
 				}
-
+				//顶点索引数组 将来肯定要绑定到 ELEMENTS_ARRAY_BUFFER
 				faceArray.push(vertexIndex, vertexIndex + 1, vertexIndex + 2);
 
 				// TODO: don't add lines that already exist (faces sharing edge)
-
+				//这三根线的索引也传入 drawElements的参数必然是gl.LINES 否则不会这么传索引
 				lineArray.push(vertexIndex, vertexIndex + 1);
 				lineArray.push(vertexIndex, vertexIndex + 2);
 				lineArray.push(vertexIndex + 1, vertexIndex + 2);
-
+				//一次用三个顶点索引
 				vertexIndex += 3;
 
-			} else if (face instanceof THREE.Face4) {
+			} 
+			//面由四个顶点组成，某些情况下这种数据结构更好用
+			//要划分为两个三角形(a,b,c,d)-->(a,b,c) (a,c,d);
+			else if (face instanceof THREE.Face4) {
 
 				v1 = object.geometry.vertices[face.a].position;
 				v2 = object.geometry.vertices[face.b].position;
@@ -149,6 +166,7 @@ THREE.WebGLRenderer = function () {
 				vertexArray.push(v3.x, v3.y, v3.z);
 				vertexArray.push(v4.x, v4.y, v4.z);
 
+				//法线数据插入
 				if (vertexNormals.length == 4) {
 
 					normalArray.push(vertexNormals[0].x, vertexNormals[0].y, vertexNormals[0].z);
@@ -164,7 +182,7 @@ THREE.WebGLRenderer = function () {
 					normalArray.push(normal.x, normal.y, normal.z);
 
 				}
-
+				//uv
 				if (uv) {
 
 					uvArray.push(uv[0].u, uv[0].v);
@@ -173,48 +191,52 @@ THREE.WebGLRenderer = function () {
 					uvArray.push(uv[3].u, uv[3].v);
 
 				}
-
+				//和我上方预测的方法一致
 				faceArray.push(vertexIndex, vertexIndex + 1, vertexIndex + 2);
 				faceArray.push(vertexIndex, vertexIndex + 2, vertexIndex + 3);
 
 				// TODO: don't add lines that already exist (faces sharing edge)
-
+				//四边形 一共5根线 边框和对角线
+				//对角线一定要注意 是上方两个三角形的分界线
 				lineArray.push(vertexIndex, vertexIndex + 1);
-				lineArray.push(vertexIndex, vertexIndex + 2);
+				lineArray.push(vertexIndex, vertexIndex + 2); //对角线
 				lineArray.push(vertexIndex, vertexIndex + 3);
 				lineArray.push(vertexIndex + 1, vertexIndex + 2);
 				lineArray.push(vertexIndex + 2, vertexIndex + 3);
-
+				//一定要+4 一次用4个顶点索引
 				vertexIndex += 4;
 			}
 		}
 
+		//什么也没有就不会传了，如果我来写，这部分我是必然忘掉判断的
+		//似乎不会造成问题，但是性能上肯定很烂
 		if (!vertexArray.length) {
 
 			return;
 
 		}
 
+		//传入position
 		materialFaceGroup.__webGLVertexBuffer = _gl.createBuffer();
 		_gl.bindBuffer(_gl.ARRAY_BUFFER, materialFaceGroup.__webGLVertexBuffer);
 		_gl.bufferData(_gl.ARRAY_BUFFER, new Float32Array(vertexArray), _gl.STATIC_DRAW);
-
+		//传入normal
 		materialFaceGroup.__webGLNormalBuffer = _gl.createBuffer();
 		_gl.bindBuffer(_gl.ARRAY_BUFFER, materialFaceGroup.__webGLNormalBuffer);
 		_gl.bufferData(_gl.ARRAY_BUFFER, new Float32Array(normalArray), _gl.STATIC_DRAW);
-
+		//传入uv
 		materialFaceGroup.__webGLUVBuffer = _gl.createBuffer();
 		_gl.bindBuffer(_gl.ARRAY_BUFFER, materialFaceGroup.__webGLUVBuffer);
 		_gl.bufferData(_gl.ARRAY_BUFFER, new Float32Array(uvArray), _gl.STATIC_DRAW);
-
+		//传入索引 ELEMENT_ARRAY_BUFFER
 		materialFaceGroup.__webGLFaceBuffer = _gl.createBuffer();
 		_gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, materialFaceGroup.__webGLFaceBuffer);
 		_gl.bufferData(_gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(faceArray), _gl.STATIC_DRAW);
-
+		//若还打算画上线框 那么 线的索引也要传入
 		materialFaceGroup.__webGLLineBuffer = _gl.createBuffer();
 		_gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, materialFaceGroup.__webGLLineBuffer);
 		_gl.bufferData(_gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(lineArray), _gl.STATIC_DRAW);
-
+		//数组长度 drawElements要使用
 		materialFaceGroup.__webGLFaceCount = faceArray.length;
 		materialFaceGroup.__webGLLineCount = lineArray.length;
 
@@ -363,12 +385,14 @@ THREE.WebGLRenderer = function () {
 			materialFaceGroup = object.materialFaceGroup[mf];
 
 			// initialise on the first access
+			//非常关键的性能优化方案，第一次传数据的时候 这个变量是未定义的
+			//经过createBuffers后 已经 传过数据了 之后就再也不会传了
 			if (!materialFaceGroup.__webGLVertexBuffer) {
 
 				this.createBuffers(object, mf);
 
 			}
-
+			//上方代码确保数据已经传入 接下来绘制出来
 			for (m = 0, ml = object.material.length; m < ml; m++) {
 
 				meshMaterial = object.material[m];

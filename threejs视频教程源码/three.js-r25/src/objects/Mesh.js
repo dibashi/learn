@@ -27,6 +27,18 @@ THREE.Mesh = function ( geometry, material, normUVs ) {
 THREE.Mesh.prototype = new THREE.Object3D();
 THREE.Mesh.prototype.constructor = THREE.Mesh;
 
+
+/**
+ * 平面几何体在绘制的过程中， 由sortFacesByMaterial 函数处理生成几何体组。
+
+首先根据材质对几何体分组，
+
+     材质编号_当前材质几何体组编号  作为几何体组的标识。
+
+    接着将相应的平面块 压入到对应的几何体组中。
+
+   控制每个几何体组的定点个数 小于 65535.
+ */
 THREE.Mesh.prototype.sortFacesByMaterial = function () {
 
 	// TODO

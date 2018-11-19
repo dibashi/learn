@@ -19,7 +19,7 @@ var Cube = function (width, height, depth) {
 	v(  width_half, -height_half,  depth_half );
 	v( -width_half, -height_half,  depth_half );
 	v( -width_half,  height_half,  depth_half );
-
+	//可见face4 内部是顶点的索引 本身没有顶点数据
 	f4( 0, 1, 2, 3 );
 	f4( 4, 7, 6, 5 );
 	f4( 0, 4, 5, 1 );
@@ -28,7 +28,7 @@ var Cube = function (width, height, depth) {
 	f4( 4, 0, 3, 7 );
 
 	function v(x, y, z) {
-
+		//face的顶点索引从这个数组里取数据
 		scope.vertices.push( new THREE.Vertex( new THREE.Vector3( x, y, z ) ) );
 	}
 
