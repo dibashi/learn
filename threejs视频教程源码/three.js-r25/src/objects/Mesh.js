@@ -1,23 +1,25 @@
 /**
  * @author mr.doob / http://mrdoob.com/
  */
-
+//mesh里面有 物体的模型矩阵 顶点坐标 uvs 法线 以及材质（颜色）
 THREE.Mesh = function ( geometry, material, normUVs ) {
-
+	//获得模型矩阵
 	THREE.Object3D.call( this );
-
+	//获得顶点坐标，纹理坐标，法线，面索引（由顶点索引组成）
 	this.geometry = geometry;
+	//面颜色，是否画出网格线？线颜色，初步理解 todo!!!1
 	this.material = material instanceof Array ? material : [ material ];
-
+	//这四个变量未测试 未知
 	this.flipSided = false;
 	this.doubleSided = false;
 
 	this.overdraw = false;
-
+	
 	this.materialFaceGroup = {};
+	
 	this.sortFacesByMaterial();
 	if( normUVs ) this.normalizeUVs();
-
+	//计算AABB框
 	this.geometry.computeBoundingBox();
 
 };

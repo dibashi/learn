@@ -1,7 +1,8 @@
 /**
  * @author mr.doob / http://mrdoob.com/
  */
-
+//内部存有两个集合，一个是光源结合，一个是3D对象集合 对这些集合增删改查
+//个人觉得 场景也应该是对象 这样可以进行层次模型管理
 THREE.Scene = function () {
 
 	this.objects = [];

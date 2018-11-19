@@ -1,3 +1,4 @@
+//环境光
 THREE.AmbientLight = function ( hex ) {
 
 	THREE.Light.call( this, hex );

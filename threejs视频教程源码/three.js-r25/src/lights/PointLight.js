@@ -1,3 +1,6 @@
+
+
+//点光源 颜色 位置 强度
 THREE.PointLight = function ( hex, intensity ) {
 
 	THREE.Light.call( this, hex );

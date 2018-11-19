@@ -4,7 +4,9 @@
  */
 
 var Sphere = function ( radius, segments_width, segments_height, smooth ) {
-
+//call ( )允许为不同的对象分配和调用属于一个对象的函数/方法。
+//可以让call()中的对象调用当前对象所拥有的function。你可以使用call()来实现继承：写一个方
+//法，然后让另外一个新的对象来继承它（而不是在新对象中再写一次这个方法）。
 	THREE.Geometry.call( this );
 
 	var gridX = segments_width || 8,
