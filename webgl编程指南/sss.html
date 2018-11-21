@@ -23,11 +23,17 @@
         //     alert(false);
         // }
         var o = new Object();
-        o.name = {a:'aaa'};
-        var t = o.name;
-        t.smallName = 'ppp';
+        // o.name = {a:'aaa'};
+        // var t = o.name;
+        // t.smallName = 'ppp';
+        // console.log(o);
+        // console.log(t);
+            var object3DId = 0;
+        addProperty.call(o);
         console.log(o);
-        console.log(t);
+        function addProperty() {
+            Object.defineProperty( this, 'id', { value: object3DId ++ } );
+        }
     </script>
 </body>
 
