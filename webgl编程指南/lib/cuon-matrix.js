@@ -596,6 +596,7 @@ Matrix4.prototype.setLookAt = function(eyeX, eyeY, eyeZ, centerX, centerY, cente
   fy *= rlf;
   fz *= rlf;
 
+  //叉乘方向解释 3d数学基础：图形与游戏开发p53
   // Calculate cross product of f and up.
   sx = fy * upZ - fz * upY;
   sy = fz * upX - fx * upZ;
@@ -612,6 +613,18 @@ Matrix4.prototype.setLookAt = function(eyeX, eyeY, eyeZ, centerX, centerY, cente
   uy = sz * fx - sx * fz;
   uz = sx * fy - sy * fx;
 
+  //这里的逆是这样的逻辑 1 先改变坐标系 使其为 右手 z轴取负
+  //2 转置（正交矩阵转置等于其逆矩阵）
+  //3 平移回原点
+  //https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-3d-camera.html
+  /**
+   * 首先我们需要知道相机的期望位置，将它叫做 cameraPosition， 
+   * 然后需要知道看向或对准的目标位置，将它叫做 target。 如果将 target 减去
+   *  cameraPosition 就会得到相机的朝向， 将它叫做 zAxis。
+   * 由于我们知道相机看向的是 -Z 方向， 
+   * 所以可以用另一种方式相减 cameraPosition - target，
+   *  将结果单位化后直接赋给矩阵的 z 区域。
+   */
   // Set to this.
   e = this.elements;
   e[0] = sx;
