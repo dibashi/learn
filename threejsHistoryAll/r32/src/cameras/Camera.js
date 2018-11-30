@@ -44,6 +44,7 @@ THREE.Camera = function ( fov, aspect, near, far ) {
 
 	};
 
+	//更新视图矩阵
 	this.updateMatrix = function () {
 
 		this.matrix.lookAt( this.position, this.target.position, this.up );

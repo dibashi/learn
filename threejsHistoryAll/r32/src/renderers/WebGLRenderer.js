@@ -4,6 +4,14 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
+ /**
+  * 这是webgl渲染器，有几个点再看代码前要分析一下
+  * 一个是scene，里面有各种3d对象，3d对象由几何体和材质组成
+  * scene里面还有light，用于和材质进行交互
+  * 3d对象还会有什么呢？有自己的模型矩阵
+  * 接下来是camera 拥有投影矩阵和视图矩阵
+  * 似乎一切都有了，接下来就是根据threejs内部组织的数据结构进行渲染了
+  */
 THREE.WebGLRenderer = function ( parameters ) {
 
 	// Currently you can use just up to 4 directional / point lights total.
@@ -19,22 +27,34 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	// See http://code.google.com/p/chromium/issues/detail?id=63491
 
+	//看来不需要自己创建canvas了
 	var _canvas = document.createElement( 'canvas' ), _gl,
+	//这个老着色器？ 本质就是优化性能，当前着色器和之前的不一样就切换
+	//如果一样就不切换，毕竟切换着色器是需要性能消耗的，有多大性能消耗？
 	_oldProgram = null,
+	//模型矩阵初始化，法线矩阵
 	_modelViewMatrix = new THREE.Matrix4(), _normalMatrix,
-
+	//一下只是 矩阵需要的数据，并不是矩阵
+	//视图矩阵初始化
 	_viewMatrixArray = new Float32Array(16),
+	//模型视图矩阵初始化
 	_modelViewMatrixArray = new Float32Array(16),
+	//投影矩阵初始化
 	_projectionMatrixArray = new Float32Array(16),
+	//法线矩阵初始化
 	_normalMatrixArray = new Float32Array(9),
+	//不清楚了 这个和模型矩阵的区别是？
 	_objectMatrixArray = new Float32Array(16),
 
 	// parameters defaults
-	
+	//是否抗锯齿
 	antialias = true,
+	//清屏色
 	clearColor = new THREE.Color( 0x000000 ),
+	//alpha通道和 rgb分开了
 	clearAlpha = 0;
 
+	//若传入这个参数，还要根据这个参数来初始化，否则用上面的默认值
 	if ( parameters ) {
 		
 		if ( parameters.antialias !== undefined ) antialias = parameters.antialias;
@@ -42,14 +62,21 @@ THREE.WebGLRenderer = function ( parameters ) {
 		if ( parameters.clearAlpha !== undefined ) clearAlpha = parameters.clearAlpha;
 		
 	}
-		
+	//冗余的字段	
 	this.domElement = _canvas;
+	//肯定要每帧都清除呀，莫名其妙的
 	this.autoClear = true;
-
+	//webgl的启动相关的一些设置
 	initGL( antialias, clearColor, clearAlpha );
 
 	//alert( dumpObject( getGLParams() ) );
-
+	//作者并没有将方法放入 原型中，看来渲染器他只打算实例化一份
+	//重设viewport
+	/**
+	 * gl.viewport告诉WebGL如何将裁剪空间（-1 到 +1）中的点转换到像素空间，
+	 * 也就是画布内。当你第一次创建WebGL上下文的时候WebGL会设置视域大小和画布大小匹配， 
+	 * 但是在那之后就需要你自己设置。当你改变画布大小就需要告诉WebGL新的视域设置。
+	 */
 	this.setSize = function ( width, height ) {
 
 		_canvas.width = width;
@@ -58,6 +85,9 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	};
 
+	/**
+	 * 还是tm的清屏色，这么简单的东西，前前后后绕了上百行，外部代码也有，我真的服了
+	 */
 	this.setClearColor = function( hex, alpha ) {
 
 		var color = new THREE.Color( hex );
@@ -65,6 +95,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	};
 
+	//清除颜色和深度缓冲区
 	this.clear = function () {
 
 		_gl.clear( _gl.COLOR_BUFFER_BIT | _gl.DEPTH_BUFFER_BIT );
@@ -582,6 +613,9 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	};
 
+	/**
+	 * 对外的核心接口，用这个来调用一切的一切，然后画出来，没了。
+	 */
 	this.render = function( scene, camera ) {
 
 		var o, ol, webGLObject, object, buffer,
@@ -590,19 +624,32 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		this.initWebGLObjects( scene );
 
+		//先清屏
 		if ( this.autoClear ) {
 
 			this.clear();
 
 		}
 
+		//更新视图矩阵 
 		camera.autoUpdateMatrix && camera.updateMatrix();
-
+		//获得视图矩阵元素
 		_viewMatrixArray.set( camera.matrix.flatten() );
+		//最早在new摄像机的时候 其内部就初始化了一个投影矩阵 
+		//flatten()从矩阵对象中获得16个值。
 		_projectionMatrixArray.set( camera.projectionMatrix.flatten() );
 
+		/**
+		 * 总览下方的两个主循环
+		 * 本质上就是 先传入不透明的对象 画出来
+		 * 再传入透明的对象 画出来
+		 * 有一个问题是必须要考虑的，也是这个算法来源的根据
+		 * 我先画不透明的ok，我把深度缓冲区也更新了，透明的假设深度缓冲大于当前的值，肯定是看不见了
+		 * 小于当前的值 肯定是可以看见了，但是~！！他不能更新深度缓冲区，因为他是透明的，不能以他的
+		 * 深度值为依据来判断物体是否可见，我要渲染透明的 只要他比所有不透明的深度值都小，他就应该参与
+		 * 混合
+		 */
 		// opaque pass
-
 		for ( o = 0, ol = scene.__webGLObjects.length; o < ol; o++ ) {
 
 			webGLObject = scene.__webGLObjects[ o ];
@@ -652,31 +699,33 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	};
 
+	//我并没有自信完全解释这个算法
 	this.initWebGLObjects = function( scene ) {
 
 		var o, ol, object, globject, g, geometryChunk, objmap;
-
+		//第一次执行到这里的话，给他初始了两个集合 之后还是循环遍历这个场景的话 不用再初始化了
 		if ( !scene.__webGLObjects ) {
-
+			//这两个集合是什么？我还不清楚
 			scene.__webGLObjects = [];
 			scene.__webGLObjectsMap = {};
 
 		}
 
+		//遍历场景中所有的对象
 		for ( o = 0, ol = scene.objects.length; o < ol; o++ ) {
-
+			//取出当前对象
 			object = scene.objects[ o ];
 
 			if ( scene.__webGLObjectsMap[ object.id ] == undefined ) {
-
+				
 				scene.__webGLObjectsMap[ object.id ] = {};
 
 			}
 
 			objmap = scene.__webGLObjectsMap[ object.id ];
-
+			//可以想象 场景的对象分为三类 除了光，雾等
 			if ( object instanceof THREE.Mesh ) {
-
+				//如果是mesh
 				// create separate VBOs per geometry chunk
 
 				for ( g in object.geometry.geometryChunks ) {
@@ -734,11 +783,15 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	this.setupMatrices = function ( object, camera ) {
 
+		//更新物体自身的矩阵 代码逻辑上可能是这样的：
+		//先物理算法，ai逻辑，动画逻辑改变物体自身的属性值，
+		//到渲染这里才将属性值同步至矩阵，传入着色器
 		object.autoUpdateMatrix && object.updateMatrix();
 
 		_modelViewMatrix.multiply( camera.matrix, object.matrix );
 		_modelViewMatrixArray.set( _modelViewMatrix.flatten() );
-
+		//!!!这里的法线矩阵是以模型视图矩阵为基础的 为什么不是以模型矩阵为基础？
+		//
 		_normalMatrix = THREE.Matrix4.makeInvert3x3( _modelViewMatrix ).transpose();
 		_normalMatrixArray.set( _normalMatrix.m );
 
@@ -747,9 +800,10 @@ THREE.WebGLRenderer = function ( parameters ) {
 	};
 
 	this.loadMatrices = function ( program ) {
-
+		//塞入视图矩阵
 		_gl.uniformMatrix4fv( program.uniforms.viewMatrix, false, _viewMatrixArray );
 		_gl.uniformMatrix4fv( program.uniforms.modelViewMatrix, false, _modelViewMatrixArray );
+		//塞入投影矩阵
 		_gl.uniformMatrix4fv( program.uniforms.projectionMatrix, false, _projectionMatrixArray );
 		_gl.uniformMatrix3fv( program.uniforms.normalMatrix, false, _normalMatrixArray );
 		_gl.uniformMatrix4fv( program.uniforms.objectMatrix, false, _objectMatrixArray );
@@ -843,30 +897,46 @@ THREE.WebGLRenderer = function ( parameters ) {
 	function initGL( antialias, clearColor, clearAlpha ) {
 
 		try {
-
+			//获得gl上下文 显然这里已经过时了 根据条件是否开启抗锯齿
 			_gl = _canvas.getContext( 'experimental-webgl', { antialias: antialias } );
 
 		} catch(e) { }
-
+		//gl 没有获得
 		if (!_gl) {
 
 			alert("WebGL not supported");
 			throw "cannot create webgl context";
 
 		}
-
+		//清屏色，与下方的冗余了
 		_gl.clearColor( 0, 0, 0, 1 );
+		//初始化深度缓冲区
 		_gl.clearDepth( 1 );
-
+		//开启深度测试
 		_gl.enable( _gl.DEPTH_TEST );
+		//小于等于就通过深度测试
+		//specifies a function that compares incoming pixel depth to the current depth buffer value.
+		//pass if the incoming value is less than or equal to the depth buffer value
 		_gl.depthFunc( _gl.LEQUAL );
-
+		//specifies whether polygons are front- or back-facing by setting a winding orientation.
+		/**
+		 * A GLenum type winding orientation. The default value is gl.CCW. Possible values:
+           gl.CW: Clock-wise winding.
+           gl.CCW: Counter-clock-wise winding.
+		 */
+		//指定 逆时针的缠绕方向为正面
 		_gl.frontFace( _gl.CCW );
+		//背面剔除
 		_gl.cullFace( _gl.BACK );
+		//开启背面剔除
 		_gl.enable( _gl.CULL_FACE );
-
+		//开启混合
 		_gl.enable( _gl.BLEND );
+		//混合方式The formula for the blending color can be described like this: 
+		//color(RGBA) = (sourceColor * sfactor) + (destinationColor * dfactor). 
+		//The RBGA values are between 0 and 1.
 		_gl.blendFunc( _gl.ONE, _gl.ONE_MINUS_SRC_ALPHA );
+		//清除缓冲区的颜色值
 		_gl.clearColor( clearColor.r, clearColor.g, clearColor.b, clearAlpha );
 
 	};

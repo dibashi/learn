@@ -2,15 +2,17 @@
  * @author mr.doob / http://mrdoob.com/
  * based on http://papervision3d.googlecode.com/svn/trunk/as3/trunk/src/org/papervision3d/objects/primitives/Sphere.as
  */
-
+//球体，半径，横向块数，纵向块数
+//不管他是什么形状，都是由三角形构成的，也就意味着需要往顶点集合中塞入三角形每个顶点的坐标
 var Sphere = function ( radius, segments_width, segments_height ) {
-
+	//先调用父类，获得自己的属性
 	THREE.Geometry.call( this );
-
+	//默认值 8和6
 	var gridX = segments_width || 8,
 	gridY = segments_height || 6;
 
 	var i, j, pi = Math.PI;
+	//最小值 3 和 2
 	var iHor = Math.max( 3, gridX );
 	var iVer = Math.max( 2, gridY );
 	var aVtc = [];

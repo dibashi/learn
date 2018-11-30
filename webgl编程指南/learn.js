@@ -1,230 +1,215 @@
-var SOLID_VSHADER_SOURCE =
-    'attribute vec4 a_Position;\n' +
-    'attribute vec4 a_Normal;\n' +
-    'uniform mat4 u_MVPMatrix;\n' +
-    'uniform mat4 u_NormalMatrix;\n' +
-    'varying vec4 v_Color;\n' +
+var v_shader = 
+    'attribute vec4 a_position;\n' +
+    'attribute vec2 a_texcoord;\n' +
+    'uniform mat4 u_matrix;\n' +
+    'varying vec2 v_texcoord;\n' +
     'void main() {\n' +
-    '     gl_Position = u_MVPMatrix * a_Position;\n' +
-    '     vec3 lightDirection = normalize(vec3(0.0,0.0,1.0));\n' +
-    '     vec4 color = vec4(0.0,1.0,1.0,1.0);\n' +
-    '     vec3 normal = normalize(vec3(u_NormalMatrix*a_Normal));\n' +
-    '     float nDotL = max(dot(normal,lightDirection),0.0);\n' +
-    '     v_Color = vec4(color.rgb * nDotL,color.a);\n' +
+    '  gl_Position = u_matrix * a_position;\n' +
+    '  v_texcoord = a_texcoord;\n' +
     '}\n';
-var SOLID_FSHADER_SOURCE =
+
+var f_shader = 
     'precision mediump float;\n' +
-    'varying vec4 v_Color;\n' +
+    'varying vec2 v_texcoord;\n' +
+    'uniform sampler2D u_texture;\n' +
     'void main() {\n' +
-    '     gl_FragColor = v_Color;\n' +
-    '}\n';
-var TEXTURE_VSHADER_SOURCE =
-    'attribute vec4 a_Position;\n' +
-    'attribute vec4 a_Normal;\n' +
-    'attribute vec2 a_TexCoord;\n' +
-    'uniform mat4 u_MVPMatrix;\n' +
-    'uniform mat4 u_NormalMatrix;\n' +
-    'varying vec2 v_TexCoord;\n' +
-    'varying float v_NDotL;\n' +
-    'void main() {\n' +
-    '     gl_Position = u_MVPMatrix * a_Position;\n' +
-    '     v_TexCoord = a_TexCoord;\n' +
-    '     vec3 normal = normalize(vec3(u_NormalMatrix * a_Normal));\n' +
-    '     vec3 lightDirection = normalize(vec3(0.0,0.0,1.0));\n' +
-    '     v_NDotL = max(dot(normal,lightDirection),0.0);\n' +
-    '}\n';
-var TEXTURE_FSHADER_SOURCE =
-    'precision mediump float;\n' +
-    'uniform sampler2D u_Sampler;\n' +
-    'varying vec2 v_TexCoord;\n' +
-    'varying float v_NDotL;\n' +
-    'void main() {\n' +
-    '     vec4 color = texture2D(u_Sampler,v_TexCoord);\n' +
-    '     gl_FragColor = vec4(color.rgb * v_NDotL,color.a);\n' +
-    '}\n';
+    '  gl_FragColor = texture2D(u_texture, v_texcoord);\n' +
+    '}\n'; 
+    
+
 
 function main() {
-    var canvas = document.getElementById('webgl');
-    var gl = getWebGLContext(canvas);
+  // Get A WebGL context
+  /** @type {HTMLCanvasElement} */
+  var canvas = document.getElementById("canvas");
+  var gl = canvas.getContext("webgl");
+  if (!gl) {
+    return;
+  }
 
-    var solidProgram = createProgram(gl, SOLID_VSHADER_SOURCE, SOLID_FSHADER_SOURCE);
-    var textureProgram = createProgram(gl, TEXTURE_VSHADER_SOURCE, TEXTURE_FSHADER_SOURCE);
+  // setup GLSL program
+  var program = createProgram(gl, v_shader, f_shader);
 
-    solidProgram.a_PositionLoc = gl.getAttribLocation(solidProgram, 'a_Position');
-    solidProgram.a_NormalLoc = gl.getAttribLocation(solidProgram, 'a_Normal');
-    solidProgram.u_MVPMatrixLoc = gl.getUniformLocation(solidProgram, 'u_MVPMatrix');
-    solidProgram.u_NormalMatrixLoc = gl.getUniformLocation(solidProgram, 'u_NormalMatrix');
+  // look up where the vertex data needs to go.
+  var positionLocation = gl.getAttribLocation(program, "a_position");
+  var texcoordLocation = gl.getAttribLocation(program, "a_texcoord");
 
-    textureProgram.a_PositionLoc = gl.getAttribLocation(textureProgram, 'a_Position');
-    textureProgram.a_NormalLoc = gl.getAttribLocation(textureProgram, 'a_Normal');
-    textureProgram.a_TexCoordLoc = gl.getAttribLocation(textureProgram, 'a_TexCoord');
-    textureProgram.u_MVPMatrixLoc = gl.getUniformLocation(textureProgram, 'u_MVPMatrix');
-    textureProgram.u_NormalMatrixLoc = gl.getUniformLocation(textureProgram, 'u_NormalMatrix');
-    textureProgram.u_SamplerLoc = gl.getUniformLocation(textureProgram, 'u_Sampler');
+  // lookup uniforms
+  var matrixLocation = gl.getUniformLocation(program, "u_matrix");
+  var textureLocation = gl.getUniformLocation(program, "u_texture");
 
-    var VPMatrix = new Matrix4();
-    VPMatrix.setPerspective(30, canvas.width / canvas.height, 1.0, 100);
-    VPMatrix.lookAt(0, 0, 15, 0, 0, 0, 0, 1, 0);
+  // Create a buffer.
+  var positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-    var cube = initCubeData(gl);
-    initTextureData(gl,textureProgram);
+  // Put a unit quad in the buffer
+  var positions = [
+    0, 0,
+    0, 1,
+    1, 0,
+    1, 0,
+    0, 1,
+    1, 1,
+  ]
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
-    var currentAngle = 0;
-    var tick = function () {
-        currentAngle = animate(currentAngle);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        drawSolidCube(gl, solidProgram, cube,  currentAngle,VPMatrix);
-        drawTextureCube(gl, textureProgram, cube,  currentAngle,VPMatrix);
-        requestAnimationFrame(tick);
-    }
-    tick();
-}
+  // Create a buffer for texture coords
+  var texcoordBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
 
-var last = Date.now();
-var step = 30;//每秒30度
-function animate(currentAngle) {
-    var now = Date.now();
-    var dt = now - last;
-    last = now;
+  // Put texcoords in the buffer
+  var texcoords = [
+    0, 0,
+    0, 1,
+    1, 0,
+    1, 0,
+    0, 1,
+    1, 1,
+  ]
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texcoords), gl.STATIC_DRAW);
 
-    currentAngle += dt * step / 1000;
-    return currentAngle % 360;
-}
+  // creates a texture info { width: w, height: h, texture: tex }
+  // The texture will start with 1x1 pixels and be updated
+  // when the image has loaded
+  function loadImageAndCreateTextureInfo(url) {
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    // Fill the texture with a 1x1 blue pixel.
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+                  new Uint8Array([0, 0, 255, 255]));
 
-function initCubeData(gl) {
-    // Create a cube
-    //    v6----- v5
-    //   /|      /|
-    //  v1------v0|
-    //  | |     | |
-    //  | |v7---|-|v4
-    //  |/      |/
-    //  v2------v3
-    var positions = new Float32Array([
-        1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0,//0 1 2 3
-        1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0,//0 3 4 5
-        1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0,//0 5 6 1
-        -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0,//1 6 7 2
-        -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,//7 4 3 2
-        1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0//4 7 6 5
+    // let's assume all images are not a power of 2
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 
-    ]);
-
-    var normals = new Float32Array([
-        0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
-        1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-        0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-        -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0,
-        0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
-        0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0,
-    ]);
-
-    var texCoords = new Float32Array([
-        1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-        0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0,
-        1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0,
-        1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
-    ]);
-
-    var indices = new Uint8Array([
-        0, 1, 2, 0, 2, 3,
-        4, 5, 6, 4, 6, 7,
-        8, 9, 10, 8, 10, 11,
-        12, 13, 14, 12, 14, 15,
-        16, 17, 18, 16, 18, 19,
-        20, 21, 22, 20, 22, 23
-    ]);
-
-    var o = new Object();
-    o.positionBuffer = initArrayBufferForLaterUse(gl, positions, 3, gl.FLOAT);
-    o.normalBuffer = initArrayBufferForLaterUse(gl, normals, 3, gl.FLOAT);
-    o.texCoordBuffer = initArrayBufferForLaterUse(gl, texCoords, 2, gl.FLOAT);
-
-    o.indexBuffer = initElementArrayBufferForLaterUse(gl, indices,gl.UNSIGNED_BYTE);
-    o.numIndices = indices.length;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-
-    return o;
-}
-
-function initTextureData(gl, program) {
-    var texture = gl.createTexture();
-    var image = new Image();
-    image.onload = function () {
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
-        gl.useProgram(program);
-        gl.uniform1i(program.u_SamplerLoc, 0);
+    var textureInfo = {
+      width: 1,   // we don't know the size until it loads
+      height: 1,
+      texture: tex,
     };
-    image.src = './resources/7herbs.jpg';
-}
+    var img = new Image();
+    img.addEventListener('load', function() {
+      textureInfo.width = img.width;
+      textureInfo.height = img.height;
 
-function initArrayBufferForLaterUse(gl, data, num, type) {
-    var buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-    buffer.num = num;
-    buffer.type = type;
-    return buffer;
-}
+      gl.bindTexture(gl.TEXTURE_2D, textureInfo.texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    });
+    img.src = url;
 
-function initElementArrayBufferForLaterUse(gl, data,type) {
-    var buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, data, gl.STATIC_DRAW);
+    return textureInfo;
+  }
 
-    buffer.type = type;
-    return buffer;
-}
+  var textureInfos = [
+    loadImageAndCreateTextureInfo('./leaves.jpg'),
+    // loadImageAndCreateTextureInfo('./leaves.jpg'),
+    // loadImageAndCreateTextureInfo('./leaves.jpg'),
+  ];
 
-function drawSolidCube(gl, program, cube,  currentAngle,VPMatrix) {
+  var drawInfos = [];
+  var numToDraw = 9;
+  var speed = 60;
+  for (var ii = 0; ii < numToDraw; ++ii) {
+    var drawInfo = {
+      x: Math.random() * gl.canvas.width,
+      y: Math.random() * gl.canvas.height,
+      dx: Math.random() > 0.5 ? -1 : 1,
+      dy: Math.random() > 0.5 ? -1 : 1,
+      textureInfo: textureInfos[Math.random() * textureInfos.length | 0],
+    };
+    drawInfos.push(drawInfo);
+  }
+
+  function update(deltaTime) {
+    drawInfos.forEach(function(drawInfo) {
+      drawInfo.x += drawInfo.dx * speed * deltaTime;
+      drawInfo.y += drawInfo.dy * speed * deltaTime;
+      if (drawInfo.x < 0) {
+        drawInfo.dx = 1;
+      }
+      if (drawInfo.x >= gl.canvas.width) {
+        drawInfo.dx = -1;
+      }
+      if (drawInfo.y < 0) {
+        drawInfo.dy = 1;
+      }
+      if (drawInfo.y >= gl.canvas.height) {
+        drawInfo.dy = -1;
+      }
+    });
+  }
+
+  function draw() {
+    resizeCanvasToDisplaySize(gl.canvas);
+
+    // Tell WebGL how to convert from clip space to pixels
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    drawInfos.forEach(function(drawInfo) {
+      drawImage(
+        drawInfo.textureInfo.texture,
+        drawInfo.textureInfo.width,
+        drawInfo.textureInfo.height,
+        drawInfo.x,
+        drawInfo.y);
+    });
+  }
+
+  var then = 0;
+  function render(time) {
+    var now = time * 0.001;
+    var deltaTime = Math.min(0.1, now - then);
+    then = now;
+
+    update(deltaTime);
+    draw();
+
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+
+  // Unlike images, textures do not have a width and height associated
+  // with them so we'll pass in the width and height of the texture
+  function drawImage(tex, texWidth, texHeight, dstX, dstY) {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+
+    // Tell WebGL to use our shader program pair
     gl.useProgram(program);
-    initAttributeVariable(gl, program.a_PositionLoc, cube.positionBuffer);
-    initAttributeVariable(gl, program.a_NormalLoc, cube.normalBuffer);
+    gl.activeTexture(gl.TEXTURE0);
+    // Setup the attributes to pull data from our buffers
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+    gl.enableVertexAttribArray(texcoordLocation);
+    gl.vertexAttribPointer(texcoordLocation, 2, gl.FLOAT, false, 0, 0);
+    var m4 = new Matrix4();
+    // this matirx will convert from pixels to clip space
+    var matrix = m4.setOrtho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1);
 
-    drawBox(gl, program, cube, currentAngle, VPMatrix,-2);
+    // this matrix will translate our quad to dstX, dstY
+    matrix = m4.translate(matrix, dstX, dstY, 0);
+
+    // this matrix will scale our 1 unit quad
+    // from 1 unit to texWidth, texHeight units
+    matrix = m4.scale(matrix, texWidth, texHeight, 1);
+
+    // Set the matrix.
+    gl.uniformMatrix4fv(matrixLocation, false, matrix.elements);
+
+    // Tell the shader to get the texture from texture unit 0
+    gl.uniform1i(textureLocation, 0);
+
+    // draw the quad (2 triangles, 6 vertices)
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+
 }
 
-var g_MVPMatrix = new Matrix4();
-var g_NormalMatrix = new Matrix4();
-var g_ModelMatrix = new Matrix4();
-function drawBox(gl, program, cube,  currentAngle, VPMatrix,tp) {
-   
-    g_ModelMatrix.setTranslate(tp,0,0);
-    g_ModelMatrix.rotate(currentAngle, 0, 1, 0);
-    g_MVPMatrix.set(VPMatrix);
-    g_MVPMatrix.multiply(g_ModelMatrix);
-    g_NormalMatrix.setInverseOf(g_ModelMatrix).transpose();
-    gl.uniformMatrix4fv(program.u_MVPMatrixLoc, false, g_MVPMatrix.elements);
-    gl.uniformMatrix4fv(program.u_NormalMatrixLoc, false, g_NormalMatrix.elements);
-
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cube.indexBuffer);
-    gl.drawElements(gl.TRIANGLES, cube.numIndices, cube.indexBuffer.type, 0);
-
+function resizeCanvasToDisplaySize(canvas) {
+    
 }
 
-function initAttributeVariable(gl, a_AttributeLoc, buffer) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-    gl.vertexAttribPointer(a_AttributeLoc, buffer.num, buffer.type, false, 0, 0);
-    gl.enableVertexAttribArray(a_AttributeLoc);
-}
-
-function drawTextureCube(gl, program, cube, currentAngle,VPMatrix) {
-    gl.useProgram(program);
-    initAttributeVariable(gl, program.a_PositionLoc, cube.positionBuffer);
-    initAttributeVariable(gl, program.a_NormalLoc, cube.normalBuffer);
-    initAttributeVariable(gl, program.a_TexCoordLoc, cube.texCoordBuffer);
-
-    drawBox(gl, program, cube, currentAngle, VPMatrix,2);
-}

@@ -20,7 +20,8 @@ THREE.Geometry = function () {
 };
 
 THREE.Geometry.prototype = {
-
+	//计算重心？质心？中心？中心是什么？这里作者直接全部相加除以顶点数量
+	//我很难理解这个值到底是什么，如果规则的话 就是中心点
 	computeCentroids: function () {
 
 		var f, fl, face;
@@ -51,11 +52,16 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//计算每个面的法线
+	//算法思路：三个顶点，然后计算出两个向量，根据两个向量的叉积计算法线
+	//也就是说 这个算法 对某个面上的顶点而言 所有的法向量都是一样的 插值后还是一样的
 	computeFaceNormals: function ( useVertexNormals ) {
 
 		var n, nl, v, vl, vertex, f, fl, face, vA, vB, vC,
+		//用于计算叉积的向量
 		cb = new THREE.Vector3(), ab = new THREE.Vector3();
 
+		//先全部置为0，然后再计算
 		for ( v = 0, vl = this.vertices.length; v < vl; v ++ ) {
 
 			vertex = this.vertices[ v ];
@@ -66,17 +72,18 @@ THREE.Geometry.prototype = {
 		for ( f = 0, fl = this.faces.length; f < fl; f ++ ) {
 
 			face = this.faces[ f ];
-
+			//如果使用顶点法线 并且该面确实有顶点法线集合
 			if ( useVertexNormals && face.vertexNormals.length  ) {
-
+				
 				cb.set( 0, 0, 0 );
 
 				for ( n = 0, nl = face.normal.length; n < nl; n++ ) {
-
+					
 					cb.addSelf( face.vertexNormals[n] );
 
 				}
 
+				//最终面的法线是三个顶点法线相加除以三，然后单位化
 				cb.divideScalar( 3 );
 
 				if ( ! cb.isZero() ) {
@@ -88,7 +95,7 @@ THREE.Geometry.prototype = {
 				face.normal.copy( cb );
 
 			} else {
-
+				//直接根据顶点坐标计算法线
 				vA = this.vertices[ face.a ];
 				vB = this.vertices[ face.b ];
 				vC = this.vertices[ face.c ];
@@ -111,13 +118,14 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//计算每个顶点的法线
 	computeVertexNormals: function () {
 
 		var v, vl, vertices = [],
 		f, fl, face;
 
 		for ( v = 0, vl = this.vertices.length; v < vl; v ++ ) {
-
+			//先初始化
 			vertices[ v ] = new THREE.Vector3();
 
 		}
@@ -125,15 +133,15 @@ THREE.Geometry.prototype = {
 		for ( f = 0, fl = this.faces.length; f < fl; f ++ ) {
 
 			face = this.faces[ f ];
-
+			//看看各个面试face3，还是face4
 			if ( face instanceof THREE.Face3 ) {
-
+				//是face3，各个顶点的法线置为面法线
 				vertices[ face.a ].addSelf( face.normal );
 				vertices[ face.b ].addSelf( face.normal );
 				vertices[ face.c ].addSelf( face.normal );
 
 			} else if ( face instanceof THREE.Face4 ) {
-
+				//是face4 各个顶点的法线置为面法线
 				vertices[ face.a ].addSelf( face.normal );
 				vertices[ face.b ].addSelf( face.normal );
 				vertices[ face.c ].addSelf( face.normal );
@@ -143,6 +151,7 @@ THREE.Geometry.prototype = {
 
 		}
 
+		//全部单位化，总觉得还多地方有冗余运算
 		for ( v = 0, vl = this.vertices.length; v < vl; v ++ ) {
 
 			vertices[ v ].normalize();
@@ -152,7 +161,7 @@ THREE.Geometry.prototype = {
 		for ( f = 0, fl = this.faces.length; f < fl; f ++ ) {
 
 			face = this.faces[ f ];
-
+			//将数据同步到face里，这样 顶点和face的法线数据能保持一致，好麻烦
 			if ( face instanceof THREE.Face3 ) {
 
 				face.vertexNormals[ 0 ] = vertices[ face.a ].clone();
@@ -172,6 +181,7 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//这个是为了凹凸映射做的，比较麻烦，以后阅读
 	computeTangents: function() {
 
 		// based on http://www.terathon.com/code/tangent.html
@@ -284,12 +294,14 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//计算包围盒，思想很简单，一个正好包含此几何体的长方体盒子，用于碰撞计算等其他近似算法
 	computeBoundingBox: function () {
 
 		var vertex;
 
 		if ( this.vertices.length > 0 ) {
-
+			//包围盒的初始化，先用第一个顶点初始化，然后遍历剩余的，如果发现更适合的就更新包围盒
+			//直到遍历完毕，就可以得到需要的包围盒
 			this.boundingBox = { 'x': [ this.vertices[ 0 ].position.x, this.vertices[ 0 ].position.x ],
 			'y': [ this.vertices[ 0 ].position.y, this.vertices[ 0 ].position.y ],
 			'z': [ this.vertices[ 0 ].position.z, this.vertices[ 0 ].position.z ] };
@@ -297,32 +309,38 @@ THREE.Geometry.prototype = {
 			for ( var v = 1, vl = this.vertices.length; v < vl; v ++ ) {
 
 				vertex = this.vertices[ v ];
-
+				//求最小x
 				if ( vertex.position.x < this.boundingBox.x[ 0 ] ) {
 
 					this.boundingBox.x[ 0 ] = vertex.position.x;
 
-				} else if ( vertex.position.x > this.boundingBox.x[ 1 ] ) {
+				} 
+				//求最大x
+				else if ( vertex.position.x > this.boundingBox.x[ 1 ] ) {
 
 					this.boundingBox.x[ 1 ] = vertex.position.x;
 
 				}
-
+	            //求最大y
 				if ( vertex.position.y < this.boundingBox.y[ 0 ] ) {
 
 					this.boundingBox.y[ 0 ] = vertex.position.y;
 
-				} else if ( vertex.position.y > this.boundingBox.y[ 1 ] ) {
+				} 
+				//求最大y
+				else if ( vertex.position.y > this.boundingBox.y[ 1 ] ) {
 
 					this.boundingBox.y[ 1 ] = vertex.position.y;
 
 				}
-
+				//求最小z
 				if ( vertex.position.z < this.boundingBox.z[ 0 ] ) {
 
 					this.boundingBox.z[ 0 ] = vertex.position.z;
 
-				} else if ( vertex.position.z > this.boundingBox.z[ 1 ] ) {
+				} 
+				//求最大z
+				else if ( vertex.position.z > this.boundingBox.z[ 1 ] ) {
 
 					this.boundingBox.z[ 1 ] = vertex.position.z;
 
@@ -334,12 +352,18 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//计算包围球 它和AABB各有各的优点和缺点吧 
+	//比如 长方体造型的东西用aabb更精确，球体造型的东西，用球包围框更精确
+	//一个值，那就是半径，问题是球心在哪里？
 	computeBoundingSphere: function () {
 
+		//判断之前存储的有没有，若没有置为0，若有，先置为之前的。
 		var radius = this.boundingSphere === null ? 0 : this.boundingSphere.radius;
 
+		//找到最大的那个距离即可，距离需要两个点才能计算，当前顶点的坐标有了
+		//起始点是什么呢？ 作者用的（0,0,0）点这样的话。。就必须以中心来定义几何体了
 		for ( var v = 0, vl = this.vertices.length; v < vl; v ++ ) {
-
+			//找到最长的半径，作为包围球的半径
 			radius = Math.max( radius, this.vertices[ v ].position.length() );
 
 		}
@@ -348,6 +372,10 @@ THREE.Geometry.prototype = {
 
 	},
 
+	//这个算法将来再看，因为我还没阅读materials代码，奇怪的是，这个是geometry类，为什么要对
+	//materials进行分类？
+	//从算法名称来看，作者要对内部的各个面根据材质进行排序了，
+	//排序的意义 我个人来看：是为了性能优化，同样的材质或许就不用切换着色器了来进行渲染了
 	sortFacesByMaterial: function () {
 
 		// TODO
