@@ -780,7 +780,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 		}
 
 	};
-
+	//设置矩阵的数据
 	this.setupMatrices = function ( object, camera ) {
 
 		//更新物体自身的矩阵 代码逻辑上可能是这样的：
@@ -794,11 +794,12 @@ THREE.WebGLRenderer = function ( parameters ) {
 		//
 		_normalMatrix = THREE.Matrix4.makeInvert3x3( _modelViewMatrix ).transpose();
 		_normalMatrixArray.set( _normalMatrix.m );
-
+		//自身的模型矩阵 为什么要弄这个名字？多定义一份
 		_objectMatrixArray.set( object.matrix.flatten() );
 
 	};
 
+	//将这5个矩阵传入着色器
 	this.loadMatrices = function ( program ) {
 		//塞入视图矩阵
 		_gl.uniformMatrix4fv( program.uniforms.viewMatrix, false, _viewMatrixArray );
