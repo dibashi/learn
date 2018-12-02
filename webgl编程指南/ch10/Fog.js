@@ -101,6 +101,9 @@ function main() {
   // Draw
   gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 
+  /**
+   * 下面这些代码似乎一点用都没有，作者写多余了
+   */
   var modelViewMatrix = new Matrix4();
   modelViewMatrix.setLookAt(eye[0], eye[1], eye[2], 0, 2, 0, 0, 1, 0);
   modelViewMatrix.multiply(modelMatrix);
