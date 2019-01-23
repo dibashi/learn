@@ -1,0 +1,50 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Pathfinder - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x809 /fo"Debug/toolbar.res" /d "_DEBUG" "E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Buckland_Chapter5-Pathfinder\toolbar.rc"" 
+Creating temporary file "C:\DOCUME~1\fup\LOCALS~1\Temp\RSP46.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/Pathfinder.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Buckland_Chapter5-Pathfinder\main.cpp"
+"E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Buckland_Chapter5-Pathfinder\Pathfinder.cpp"
+"E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Common\misc\Cgdi.cpp"
+"E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Common\Time\PrecisionTimer.cpp"
+"E:\code\AI Source\LATEST vc6-vc8\VC6 projects\Common\misc\WindowUtils.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\fup\LOCALS~1\Temp\RSP46.tmp" 
+Creating temporary file "C:\DOCUME~1\fup\LOCALS~1\Temp\RSP47.tmp" with contents
+[
+comctl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Pathfinder.pdb" /debug /machine:I386 /out:"Debug/Pathfinder.exe" /pdbtype:sept 
+".\Debug\main.obj"
+".\Debug\Pathfinder.obj"
+".\Debug\Cgdi.obj"
+".\Debug\PrecisionTimer.obj"
+".\Debug\WindowUtils.obj"
+".\Debug\toolbar.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\fup\LOCALS~1\Temp\RSP47.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+main.cpp
+Pathfinder.cpp
+e:\code\ai source\common\graph\handygraphfunctions.h(123) : error C2374: 'row' : redefinition; multiple initialization
+        e:\code\ai source\common\graph\handygraphfunctions.h(110) : see declaration of 'row'
+        e:\code\ai source\latest vc6-vc8\vc6 projects\buckland_chapter5-pathfinder\pathfinder.cpp(49) : see reference to function template instantiation 'void __cdecl GraphHelper_CreateGrid(class SparseGraph<class NavGraphNode<void *>,class GraphEdge> &,int,int,int,int)' being compiled
+Cgdi.cpp
+PrecisionTimer.cpp
+WindowUtils.cpp
+Error executing cl.exe.
+
+
+
+<h3>Results</h3>
+Pathfinder.exe - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
