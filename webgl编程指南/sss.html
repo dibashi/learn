@@ -13,27 +13,56 @@
     <link rel="stylesheet" type="text/css" href="sss.css">
 </head>
 
-<body onload="main()">
+<body>
     <canvas id="webgl" width="100" height="100"></canvas>
+    <textarea id="dataIn">
+        精华解锁生命精华微型生命之球小生命之球级别生命之球强力生命之球点击收集可用于治疗死地治疗之蒲公英合并生成生命之花幼芽生命之花幼芽合并以生成一朵生命之花采集以获取将巨龙放置到它上面进行采集蓝色生命之花发光的生命之花双生生命之花深红龙蛋合并个来孵化一头龙总体力深红龙幼崽年幼的深红龙深红龙贵族深红龙太累了花的级别不够龙的级别不够购买成功已放入领地没有位置放置物品购买失败金币不足未选中任何东西剩余体力第一二三四五六七天道具宝箱点击以获得各种道具
+
+
+    </textarea>
     <script>
-        // var testVar;
-        // if(testVar>=-10000) {
-        //     alert(true);
-        // } else {
-        //     alert(false);
-        // }
-        var o = new Object();
-        // o.name = {a:'aaa'};
-        // var t = o.name;
-        // t.smallName = 'ppp';
+        // // var testVar;
+        // // if(testVar>=-10000) {
+        // //     alert(true);
+        // // } else {
+        // //     alert(false);
+        // // }
+        // var o = new Object();
+        // // o.name = {a:'aaa'};
+        // // var t = o.name;
+        // // t.smallName = 'ppp';
+        // // console.log(o);
+        // // console.log(t);
+        //     var object3DId = 0;
+        // addProperty.call(o);
         // console.log(o);
-        // console.log(t);
-            var object3DId = 0;
-        addProperty.call(o);
-        console.log(o);
-        function addProperty() {
-            Object.defineProperty( this, 'id', { value: object3DId ++ } );
+        // function addProperty() {
+        //     Object.defineProperty( this, 'id', { value: object3DId ++ } );
+        // }
+        //alert(document.getElementById("dataIn").innerHTML);
+
+        var out = [];
+        function outNone(c) {
+            for(var j = 0; j<out.length;j++) {
+                if(out[j] == c) {
+                    return false;
+                }
+            }
+
+            return true;
         }
+
+        var str = document.getElementById("dataIn").innerHTML;
+     
+        for(var i = 0; i<str.length; i++) {
+            if(outNone(str.charAt(i))) {
+                out.push(str.charAt(i));
+            }
+        }
+        
+
+        var outStr = out.join('');
+        console.log(outStr);
     </script>
 </body>
 
