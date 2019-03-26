@@ -322,7 +322,7 @@ function draw(gl, canvas, fbo, plane, cube, angle, texture, viewProjMatrix, view
   gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);              // Change the drawing destination to FBO
   gl.viewport(0, 0, OFFSCREEN_WIDTH, OFFSCREEN_HEIGHT); // Set a viewport for FBO
 
-  gl.clearColor(0.2, 0.2, 0.4, 1.0); // Set clear color (the color is slightly changed)
+  gl.clearColor(1.0, 0.0, 0.0, 1.0); // Set clear color (the color is slightly changed)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);  // Clear FBO
 
   drawTexturedCube(gl, gl.program, cube, angle, texture, viewProjMatrixFBO);   // Draw the cube

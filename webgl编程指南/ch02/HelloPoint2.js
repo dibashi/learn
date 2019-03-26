@@ -4,7 +4,7 @@ var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' + // attribute variable
   'void main() {\n' +
   '  gl_Position = a_Position;\n' +
-  '  gl_PointSize = 10.0;\n' +
+  '  gl_PointSize = 399.0;\n' +
   '}\n'; 
 
 // Fragment shader program
