@@ -23,11 +23,14 @@ var FSHADER_SOURCE =
 function main() {
   // Retrieve <canvas> element
   var canvas = document.getElementById('webgl');
+  canvas.height = 600;
   // Retrieve the nearFar element
   var nf = document.getElementById('nearFar');
 
   // Get the rendering context for WebGL
   var gl = getWebGLContext(canvas);
+
+  gl.enable(gl.DEPTH_TEST);
   if (!gl) {
     console.log('Failed to get the rendering context for WebGL');
     return;
@@ -66,20 +69,23 @@ function main() {
 
 function initVertexBuffers(gl) {
   var verticesColors = new Float32Array([
-    // Vertex coordinates and color
-     0.0,  0.6,  -0.4,  0.4,  1.0,  0.4, // The back green one
-    -0.5, -0.4,  -0.4,  0.4,  1.0,  0.4,
-     0.5, -0.4,  -0.4,  1.0,  0.4,  0.4, 
-   
-     0.5,  0.4,  -0.2,  1.0,  0.4,  0.4, // The middle yellow one
-    -0.5,  0.4,  -0.2,  1.0,  1.0,  0.4,
-     0.0, -0.6,  -0.2,  1.0,  1.0,  0.4, 
 
-     0.0,  0.5,   0.0,  0.4,  0.4,  1.0, // The front blue one 
-    -0.5, -0.5,   0.0,  0.4,  0.4,  1.0,
-     0.5, -0.5,   0.0,  1.0,  0.4,  0.4, 
+    // 0.0,  0.5,   0.0,  0.4,  0.4,  1.0, // The front blue one 
+    // -0.5, -0.5,   0.0,  0.4,  0.4,  1.0,
+    //  0.5, -0.5,   0.0,  1.0,  0.4,  0.4, 
+
+    // Vertex coordinates and color
+     0, 50,  -0.4,  0.4,  1.0,  0.4, // The back green one
+    -50, 0,  -0.4,  0.4,  1.0,  0.4,
+     50, 0,  -0.4,  1.0,  0.4,  0.4, 
+   
+    //  0.5,  0.4,  -0.2,  1.0,  0.4,  0.4, // The middle yellow one
+    // -0.5,  0.4,  -0.2,  1.0,  1.0,  0.4,
+    //  0.0, -0.6,  -0.2,  1.0,  1.0,  0.4, 
+
+   
   ]);
-  var n = 9;
+  var n = 3;
 
   // Create a buffer object
   var vertexColorbuffer = gl.createBuffer();  
@@ -129,7 +135,7 @@ function keydown(ev, gl, n, u_ProjMatrix, projMatrix, nf) {
 
 function draw(gl, n, u_ProjMatrix, projMatrix, nf) {
   // Specify the viewing volume
-  projMatrix.setOrtho(-1.0, 1.0, -1.0, 1.0, g_near, g_far);
+  projMatrix.setOrtho(-200, 200, -gl.canvas.height/2, gl.canvas.height/2, g_near, g_far);
 
   // Pass the projection matrix to u_ProjMatrix
   gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);

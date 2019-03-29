@@ -31,6 +31,11 @@ function main() {
     return;
   }
 
+  gl.enable(gl.DEPTH_TEST);
+  gl.enable(gl.CULL_FACE);
+  gl.cullFace(gl.BACK);
+
+
   // Initialize shaders
   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
     console.log('Failed to intialize shaders.');
@@ -59,8 +64,12 @@ function main() {
   var viewMatrix = new Matrix4();
   viewMatrix.setLookAt(0.0, 0.25, 0.25, 0, 0, 0, 0, 1, 0);
 
+  var projMatrix = new Matrix4();
+  projMatrix.setOrtho(-1,1,-1,1,0,2)
+  projMatrix.concat(viewMatrix);
+
   // Set the view matrix
-  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
+  gl.uniformMatrix4fv(u_ViewMatrix, false, projMatrix.elements);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -73,6 +82,10 @@ function main() {
 
 function initVertexBuffers(gl) {
   var verticesColors = new Float32Array([
+    0.0,  0.5,   0.0,  0.4,  0.4,  1.0,  // The front blue one 
+    -0.5, -0.5,   0.0,  0.4,  0.4,  1.0,
+     0.5, -0.5,   0.0,  1.0,  0.4,  0.4, 
+
     // Vertex coordinates and color(RGBA)
      0.0,  0.5,  -0.4,  0.4,  1.0,  0.4, // The back green one
     -0.5, -0.5,  -0.4,  0.4,  1.0,  0.4,
@@ -82,9 +95,7 @@ function initVertexBuffers(gl) {
     -0.5,  0.4,  -0.2,  1.0,  1.0,  0.4,
      0.0, -0.6,  -0.2,  1.0,  1.0,  0.4, 
 
-     0.0,  0.5,   0.0,  0.4,  0.4,  1.0,  // The front blue one 
-    -0.5, -0.5,   0.0,  0.4,  0.4,  1.0,
-     0.5, -0.5,   0.0,  1.0,  0.4,  0.4, 
+  
   ]);
   var n = 9;
 
