@@ -5,6 +5,19 @@
  * @author szimek / https://github.com/szimek/
  */
 
+/**
+ * 
+ * 有个网页解释了渲染器的流程
+ * 
+ * 
+ * http://ushiroad.com/3j/
+ */
+
+
+
+
+
+
 THREE.WebGLRenderer = function ( parameters ) {
 
 	console.log( 'THREE.WebGLRenderer', THREE.REVISION );
