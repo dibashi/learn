@@ -379,7 +379,7 @@ def main(argv=None):
 	['ThreeWebGL',  'includes_webgl',  WEBGL_FILES,  args.webgl],
 	['ThreeSVG', 	'includes_svg',    SVG_FILES,    args.svg],
 	['ThreeDOM', 	'includes_dom',    DOM_FILES,    args.dom],
-	['ThreeExtras', 'includes_extras', COMMON_FILES + EXTRAS_FILES, args.extras]
+	['ThreeExtras', 'includes_extras', WEBGL_FILES + EXTRAS_FILES, args.extras]
 	]
 
 	for fname_lib, fname_inc, files, enabled in config:
