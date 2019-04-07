@@ -321,7 +321,7 @@ THREE.Geometry.prototype = {
 					this.boundingBox.x[ 1 ] = vertex.position.x;
 
 				}
-	            //求最大y
+	            //求最小y
 				if ( vertex.position.y < this.boundingBox.y[ 0 ] ) {
 
 					this.boundingBox.y[ 0 ] = vertex.position.y;
