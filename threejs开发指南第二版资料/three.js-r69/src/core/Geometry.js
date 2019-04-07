@@ -7,6 +7,10 @@
  * @author bhouston / http://exocortex.com
  */
 
+
+ /**
+  * https://www.jianshu.com/p/5f6d0cd75443
+  */
 THREE.Geometry = function () {
 
 	Object.defineProperty( this, 'id', { value: THREE.GeometryIdCount ++ } );

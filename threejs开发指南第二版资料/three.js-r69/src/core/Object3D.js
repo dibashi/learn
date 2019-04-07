@@ -24,6 +24,11 @@ THREE.Object3D = function () {
 	var scope = this;
 
 	var position = new THREE.Vector3();
+	/**
+	 * 旋转除了通过矩阵，还可以通过欧拉角和四元数表示。
+	 * Object3D的rotation代表物体旋转的欧拉角表示，quaternion代表了四元数表示，他们是3D物体统一旋转的不同数学表达方式
+	 * onRotationChange, onQuaternionChange这两个回调用于同步欧拉角和四元数，保证他们代表着相同的旋转角度。
+	 */
 	var rotation = new THREE.Euler();
 	var quaternion = new THREE.Quaternion();
 	var scale = new THREE.Vector3( 1, 1, 1 );
@@ -64,6 +69,7 @@ THREE.Object3D = function () {
 
 	/**
 	 * this.matrix表示物体自身的本地形变，this.matrixWorld表示物体的全局形变。当物体没有父对象时，全局形变就是本地形变。
+	 * 全局形变(this.parent.matrixWorld)和本地形变(this.matrix)相乘，就能得到此对象的最终形变。
 	 */
 	this.matrix = new THREE.Matrix4();
 	this.matrixWorld = new THREE.Matrix4();
