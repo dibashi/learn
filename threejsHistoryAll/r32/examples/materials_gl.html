@@ -15,11 +15,8 @@
 	</head>
 	<body>
 
-		<pre id="log"></pre>
-
 		<script type="text/javascript" src="../build/ThreeExtras.js"></script>
 
-		<script type="text/javascript" src="js/Stats.js"></script>
 
 		<script type="text/javascript">
 
@@ -37,31 +34,12 @@
 				document.body.appendChild(container);
 
 				camera = new THREE.Camera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-				camera.position.y = 200;
+				camera.position.y = 0;
 				camera.position.z = 800;
 
 				scene = new THREE.Scene();
 
-				// Grid
 
-				var geometry = new THREE.Geometry();
-				geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( - 500, 0, 0 ) ) );
-				geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( 500, 0, 0 ) ) );
-
-				for ( var i = 0; i <= 10; i ++ ) {
-
-					var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.2 } ) );
-					line.position.y = - 120;
-					line.position.z = ( i * 100 ) - 500;
-					scene.addObject( line );
-
-					var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.2 } ) );
-					line.position.x = ( i * 100 ) - 500;
-					line.position.y = - 120;
-					line.rotation.y = 90 * Math.PI / 180;
-					scene.addObject( line );
-
-				}
 
 				var generatedTexture = new THREE.Texture( generateTexture() );
 				generatedTexture.image.loaded = 1;
@@ -116,9 +94,9 @@
 					sphere.position.x = ( i % 4 ) * 200 - 400;
 					sphere.position.z = Math.floor( i / 4 ) * 200 - 200;
 
-					sphere.rotation.x = Math.random() * 200 - 100;
-					sphere.rotation.y = Math.random() * 200 - 100;
-					sphere.rotation.z = Math.random() * 200 - 100;
+					// sphere.rotation.x = Math.random() * 200 - 100;
+					// sphere.rotation.y = Math.random() * 200 - 100;
+					// sphere.rotation.z = Math.random() * 200 - 100;
 
 					objects.push( sphere );
 
@@ -147,24 +125,6 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 				container.appendChild( renderer.domElement );
-
-				var debugCanvas = document.createElement( 'canvas' );
-				debugCanvas.width = 512;
-				debugCanvas.height = 512;
-				debugCanvas.style.position = 'absolute';
-				debugCanvas.style.top = '0px';
-				debugCanvas.style.left = '0px';
-
-				container.appendChild( debugCanvas );
-
-				debugContext = debugCanvas.getContext( '2d' );
-				debugContext.setTransform( 1, 0, 0, 1, 256, 256 );
-				debugContext.strokeStyle = '#000000';
-
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				container.appendChild(stats.domElement);
 
 			}
 
@@ -201,21 +161,21 @@
 
 				var timer = new Date().getTime() * 0.0001;
 
-				camera.position.x = Math.cos( timer ) * 1000;
-				camera.position.z = Math.sin( timer ) * 1000;
+				// camera.position.x = Math.cos( timer ) * 1000;
+				// camera.position.z = Math.sin( timer ) * 1000;
 
 				for ( var i = 0, l = objects.length; i < l; i++ ) {
 
 					var object = objects[ i ];
 
 					object.rotation.x += 0.01;
-					object.rotation.y += 0.005;
+					// object.rotation.y += 0.005;
 
 				}
 
-				particleLight.position.x = Math.sin( timer * 7 ) * 300;
-				particleLight.position.y = Math.cos( timer * 5 ) * 400;
-				particleLight.position.z = Math.cos( timer * 3 ) * 300;
+				// particleLight.position.x = Math.sin( timer * 7 ) * 300;
+				// particleLight.position.y = Math.cos( timer * 5 ) * 400;
+				// particleLight.position.z = Math.cos( timer * 3 ) * 300;
 
 				pointLight.position.x = particleLight.position.x;
 				pointLight.position.y = particleLight.position.y;
@@ -223,15 +183,9 @@
 
 				renderer.render( scene, camera );
 
-				stats.update();
-			}
 			
-			function log( text ) {
-			
-				var e = document.getElementById("log");
-				e.innerHTML = text + "<br/>" + e.innerHTML;
-				
 			}
+		
 
 		</script>
 
