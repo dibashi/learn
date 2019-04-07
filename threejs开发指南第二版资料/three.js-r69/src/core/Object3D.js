@@ -5,6 +5,8 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
+
+ //https://www.jianshu.com/p/9d379378feb9
 THREE.Object3D = function () {
 
 	Object.defineProperty( this, 'id', { value: THREE.Object3DIdCount ++ } );
@@ -60,6 +62,9 @@ THREE.Object3D = function () {
 
 	this.rotationAutoUpdate = true;
 
+	/**
+	 * this.matrix表示物体自身的本地形变，this.matrixWorld表示物体的全局形变。当物体没有父对象时，全局形变就是本地形变。
+	 */
 	this.matrix = new THREE.Matrix4();
 	this.matrixWorld = new THREE.Matrix4();
 
