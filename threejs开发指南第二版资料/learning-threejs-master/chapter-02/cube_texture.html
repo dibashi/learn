@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>three</title>
+</head>
+<body>
+    
+
+<script src="../libs/three.js"></script>
+<script src="../libs/OrbitControls.js"></script>
+<script>
+    //创建一个renderer , 
+    var renderer = new THREE.WebGLRenderer({antialias:true});
+    //设置清空颜色，每秒会渲染60次，渲染的时候会使用此颜色先清空
+    renderer.setClearColor( new THREE.Color(0xEEEEEE, 1.0) );
+    //设置渲染尺寸
+    renderer.setSize( window.innerWidth , window.innerHeight );
+    //设置阴影允许
+    renderer.shadowMapEnabled = true;
+    //将webgl元素添加到body中
+    document.body.appendChild( renderer.domElement );
+
+
+    //创建场景
+    var scene = new THREE.Scene();
+
+    //创建一个透视相机，45是相机的视角  ， 宽高比是屏幕的宽高比 ， 最近能看到0.1 ， 最远能看到10000
+    var camera = new THREE.PerspectiveCamera(45 , window.innerWidth/window.innerHeight , 0.1 , 10000 );
+    //将相机放到x:1000 , y:1000 , z:1000的位置
+    camera.position.set( 1000 , 1000 , 1000 );
+    //设置相机的朝向，可以认为与相机镜头垂直的轴线应该和哪一个轴相交
+    camera.up.set( 0 , 1 , 0 );
+    //将相机的镜头对准x:0 , y:0 , z:0的位置 经过这个设置相机就被固定住了
+    camera.lookAt({x:0,y:0,z:0});
+    //将相机添加到场景中
+    scene.add( camera );
+
+    //创建一个自然光，自然光无处不在
+    var light1 = new THREE.AmbientLight(0xffffff);
+    //设置灯光的位置
+    light1.position.set( 1000 , 1000 , 1000 );
+    //将灯光加入场景
+    scene.add( light1 );
+
+
+//创建一个长宽高600的立方体
+var geometry = new THREE.CubeGeometry( 600 , 600 , 600 );
+
+//创建一个phone材质并且用图片作为纹理
+var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('./cube.jpg') } );
+
+
+
+var bricks = [ 
+    new THREE.Vector2(0, .666) , 
+    new THREE.Vector2(.5, .666), 
+    new THREE.Vector2(.5, 1), 
+    new THREE.Vector2(0, 1)
+];
+
+var clouds = [
+    new THREE.Vector2(.5, .666), 
+    new THREE.Vector2(1, .666), 
+    new THREE.Vector2(1, 1), 
+    new THREE.Vector2(.5, 1)
+];
+
+var crate  = [
+    new THREE.Vector2(0, .333), 
+    new THREE.Vector2(.5, .333), 
+    new THREE.Vector2(.5, .666), 
+    new THREE.Vector2(0, .666)
+];
+
+var stone  = [
+    new THREE.Vector2(.5, .333), 
+    new THREE.Vector2(1, .333), 
+    new THREE.Vector2(1, .666), 
+    new THREE.Vector2(.5, .666)
+];
+
+var water  = [
+    new THREE.Vector2(0, 0), 
+    new THREE.Vector2(.5, 0), 
+    new THREE.Vector2(.5, .333), 
+    new THREE.Vector2(0, .333)
+];
+
+var wood   = [
+    new THREE.Vector2(.5, 0), 
+    new THREE.Vector2(1, 0), 
+    new THREE.Vector2(1, .333), 
+    new THREE.Vector2(.5, .333)
+];
+
+
+// 清除现有的UV映射，geometry对象的faceVertexUvs属性包含该geometry各个面的坐标映射。
+geometry.faceVertexUvs[0] = [];
+
+// 立方体的每个面实际上是由2个三角形组成的。所以我们必须单独映射每个三角形
+// 个面的顶点坐标的定义顺序必须遵循逆时针方向。为了映射底部三角形，我们需要使用的顶点指数0，1和3，
+// 而要映射顶部三角形，我们需要使用索引1，2，和顶点的3。
+geometry.faceVertexUvs[0][0] = [ bricks[0], bricks[1], bricks[3] ];
+geometry.faceVertexUvs[0][1] = [ bricks[1], bricks[2], bricks[3] ];
+  
+geometry.faceVertexUvs[0][2] = [ clouds[0], clouds[1], clouds[3] ];
+geometry.faceVertexUvs[0][3] = [ clouds[1], clouds[2], clouds[3] ];
+  
+geometry.faceVertexUvs[0][4] = [ crate[0], crate[1], crate[3] ];
+geometry.faceVertexUvs[0][5] = [ crate[1], crate[2], crate[3] ];
+  
+geometry.faceVertexUvs[0][6] = [ stone[0], stone[1], stone[3] ];
+geometry.faceVertexUvs[0][7] = [ stone[1], stone[2], stone[3] ];
+  
+geometry.faceVertexUvs[0][8] = [ water[0], water[1], water[3] ];
+geometry.faceVertexUvs[0][9] = [ water[1], water[2], water[3] ];
+  
+geometry.faceVertexUvs[0][10] = [ wood[0], wood[1], wood[3] ];
+geometry.faceVertexUvs[0][11] = [ wood[1], wood[2], wood[3] ];
+
+mesh = new THREE.Mesh(geometry,  material);
+
+scene.add( mesh );
+
+
+    var orbitCtl = new THREE.OrbitControls( camera );
+    orbitCtl.autoRotate = false ;
+
+
+    var clock = new THREE.Clock();
+
+    function threeStart(){
+        var delta = clock.getDelta();
+        orbitCtl.update( delta );
+  
+
+        renderer.clear();
+        renderer.render( scene , camera );
+        requestAnimationFrame( threeStart );
+    };
+
+    threeStart();
+
+
+</script>
+</body>
+</html>

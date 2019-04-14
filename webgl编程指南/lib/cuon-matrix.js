@@ -723,7 +723,7 @@ var Vector3 = function(opt_src) {
 }
 
 /**
-  * Normalize. 长度为1 方向随意
+  * Normalize. 长度为1 方向原方向
   * @return this
   */
 Vector3.prototype.normalize = function() {

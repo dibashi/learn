@@ -1,0 +1,365 @@
+<html>
+
+<head>
+<title>Particles</title>
+<meta charset="utf-8">
+
+
+<script id="shader-fs" type="x-shader/x-fragment">
+  precision mediump float;
+
+  uniform vec4 uColor;
+
+  varying float vLifetime;
+  varying vec2 vTextureCoords;
+
+  uniform sampler2D sTexture;
+
+
+  void main(void) {
+    vec4 texColor;
+    texColor = texture2D(sTexture, vTextureCoords);
+    gl_FragColor = vec4(uColor) * texColor;
+    gl_FragColor.a *= vLifetime;
+  }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+  uniform float uTime;
+  uniform vec3 uCenterPosition;
+
+  attribute float aLifetime;
+  attribute vec3 aStartPosition;
+  attribute vec3 aEndPosition;
+  attribute vec2 aOffset;
+  attribute vec2 aTextureCoords;
+
+  varying float vLifetime;
+  varying vec2 vTextureCoords;
+
+
+  void main(void) {
+    if (uTime <= aLifetime) {
+      gl_Position.xyz = aStartPosition + (uTime * aEndPosition);
+      gl_Position.xyz += uCenterPosition;
+      gl_Position.w = 1.0;
+    } else {
+      gl_Position = vec4(-1000, -1000, 0, 0);
+    }
+
+    vLifetime = 1.0 - (uTime / aLifetime);
+    vLifetime = clamp(vLifetime, 0.0, 1.0);
+    float size = (vLifetime * vLifetime) * 0.1;
+    gl_Position.xy += aOffset.xy * size;
+    vTextureCoords = aTextureCoords;
+  }
+</script>
+
+
+<script type="text/javascript">
+
+  var gl;
+  function initGL(canvas) {
+    try {
+      gl = canvas.getContext("experimental-webgl");
+    } catch(e) {
+    }
+    if (!gl) {
+      alert("Could not initialise WebGL, sorry :-(");
+    }
+  }
+
+
+  function getShader(gl, id) {
+    var shaderScript = document.getElementById(id);
+    if (!shaderScript) {
+      return null;
+    }
+
+    var str = "";
+    var k = shaderScript.firstChild;
+    while (k) {
+      if (k.nodeType == 3) {
+        str += k.textContent;
+      }
+      k = k.nextSibling;
+    }
+
+    var shader;
+    if (shaderScript.type == "x-shader/x-fragment") {
+      shader = { id: gl.createShader(gl.FRAGMENT_SHADER) };
+    } else if (shaderScript.type == "x-shader/x-vertex") {
+      shader = { id: gl.createShader(gl.VERTEX_SHADER) };
+    } else {
+      return null;
+    }
+
+    gl.shaderSource(shader.id, str);
+    gl.compileShader(shader.id);
+
+    if (!gl.getShaderParameter(shader.id, gl.COMPILE_STATUS)) {
+      alert(gl.getShaderInfoLog(shader.id));
+      return null;
+    }
+
+    return shader;
+  }
+
+
+  var shaderProgram;
+  function initShaders() {
+    var fragmentShader = getShader(gl, "shader-fs");
+    var vertexShader = getShader(gl, "shader-vs");
+
+    shaderProgram = { id: gl.createProgram() };
+    gl.attachShader(shaderProgram.id, vertexShader.id);
+    gl.attachShader(shaderProgram.id, fragmentShader.id);
+    gl.linkProgram(shaderProgram.id);
+
+    if (!gl.getProgramParameter(shaderProgram.id.id, gl.LINK_STATUS)) {
+      alert("Could not initialise shaders");
+    }
+
+    gl.useProgram(shaderProgram.id);
+
+    shaderProgram.pointLifetimeAttribute = gl.getAttribLocation(shaderProgram.id, "aLifetime");
+    gl.enableVertexAttribArray(shaderProgram.pointLifetimeAttribute);
+
+    shaderProgram.pointStartPositionAttribute = gl.getAttribLocation(shaderProgram.id, "aStartPosition");
+    gl.enableVertexAttribArray(shaderProgram.pointStartPositionAttribute);
+
+    shaderProgram.pointEndPositionAttribute = gl.getAttribLocation(shaderProgram.id, "aEndPosition");
+    gl.enableVertexAttribArray(shaderProgram.pointEndPositionAttribute);
+
+    shaderProgram.pointOffsetAttribute = gl.getAttribLocation(shaderProgram.id, "aOffset");
+    gl.enableVertexAttribArray(shaderProgram.pointOffsetAttribute);
+
+    shaderProgram.pointTextureCoordsAttribute = gl.getAttribLocation(shaderProgram.id, "aTextureCoords");
+    gl.enableVertexAttribArray(shaderProgram.pointTextureCoordsAttribute);
+
+    shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram.id, "sTexture");
+    shaderProgram.centerPositionUniform = gl.getUniformLocation(shaderProgram.id, "uCenterPosition");
+    shaderProgram.colorUniform = gl.getUniformLocation(shaderProgram.id, "uColor");
+    shaderProgram.timeUniform = gl.getUniformLocation(shaderProgram.id, "uTime");
+  }
+
+
+  function handleLoadedTexture(texture) {
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.bindTexture(gl.TEXTURE_2D, texture.id);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+    gl.bindTexture(gl.TEXTURE_2D, null);
+  }
+
+
+  var texture;
+  function initTexture() {
+<<<<<<< HEAD
+    texture = { id: gl.createTexture() };
+=======
+    texture = gl.createTexture();
+    // Setup a single pixel texture to use while we wait for the image to load.
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+                  new Uint8Array([0, 0, 255, 255]));
+    // Load image asynchronously.
+>>>>>>> greggman-fix-particle-examples
+    texture.image = new Image();
+    texture.image.onload = function() {
+      handleLoadedTexture(texture)
+    }
+
+    texture.image.src = "smoke.gif";
+  }
+
+
+  var pointLifetimesBuffer;
+  var pointStartPositionsBuffer;
+  var pointEndPositionsBuffer;
+  var pointOffsetsBuffer;
+  var pointTextureCoordsBuffer;
+  function initBuffers() {
+    var numParticles = 3000;
+
+    lifetimes = [];
+    startPositions = [];
+    endPositions = [];
+    offsets = [];
+    textureCoords = [];
+    offsetsCycle = [
+      -1,  1,
+      -1, -1,
+       1,  1,
+       1, -1,
+      -1, -1,
+       1,  1,
+    ];
+    textureCoordsCycle = [
+      0, 1,
+      0, 0,
+      1, 1,
+      1, 0,
+      0, 0,
+      1, 1,
+    ];
+    for (var i=0; i < numParticles; i++)  {
+      var lifetime = (Math.random() * 0.75) + 0.25;
+
+      var distance = Math.random() * 0.1 - 0.05;
+      var theta = Math.random() * 2 * Math.PI;
+      var phi =  Math.random() * 2 * Math.PI;
+
+      var startX = distance * Math.cos(phi) * Math.sin(theta);
+      var startY = distance * Math.cos(theta);
+      var startZ = distance * Math.sin(phi) * Math.sin(theta);
+
+      var distance = Math.random() * 3 - 1;
+      var theta = Math.random() * 2 * Math.PI;
+      var phi =  Math.random() * 2 * Math.PI;
+
+      var endX = distance * Math.cos(phi) * Math.sin(theta);
+      var endY = distance * Math.cos(theta);
+      var endZ = distance * Math.sin(phi) * Math.sin(theta);
+
+      for (var v=0; v < 6; v++) {
+        lifetimes.push(lifetime);
+
+        startPositions.push(startX);
+        startPositions.push(startY);
+        startPositions.push(startZ);
+
+        endPositions.push(endX);
+        endPositions.push(endY);
+        endPositions.push(endZ);
+
+        offsets.push(offsetsCycle[v * 2]);
+        offsets.push(offsetsCycle[v * 2 + 1]);
+
+        textureCoords.push(textureCoordsCycle[v * 2]);
+        textureCoords.push(textureCoordsCycle[v * 2 + 1]);
+      }
+    }
+
+    pointLifetimesBuffer = { id: gl.createBuffer() };
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimesBuffer.id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);
+    pointLifetimesBuffer.itemSize = 1;
+    pointLifetimesBuffer.numItems = numParticles * 6;
+
+    pointStartPositionsBuffer = { id: gl.createBuffer() };
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer.id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
+    pointStartPositionsBuffer.itemSize = 3;
+    pointStartPositionsBuffer.numItems = numParticles * 6;
+
+    pointEndPositionsBuffer = { id: gl.createBuffer() };
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointEndPositionsBuffer.id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(endPositions), gl.STATIC_DRAW);
+    pointEndPositionsBuffer.itemSize = 3;
+    pointEndPositionsBuffer.numItems = numParticles * 6;
+
+    pointOffsetsBuffer = { id: gl.createBuffer() };
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointOffsetsBuffer.id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(offsets), gl.STATIC_DRAW);
+    pointOffsetsBuffer.itemSize = 2;
+    pointOffsetsBuffer.numItems = numParticles * 6;
+
+    pointTextureCoordsBuffer = { id: gl.createBuffer() };
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointTextureCoordsBuffer.id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+    pointTextureCoordsBuffer.itemSize = 2;
+    pointTextureCoordsBuffer.numItems = numParticles * 6;
+  }
+
+
+  var time = 1.0;
+  var centerPos;
+  var color;
+  function drawScene() {
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimesBuffer.id);
+    gl.vertexAttribPointer(shaderProgram.pointLifetimeAttribute, pointLifetimesBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer.id);
+    gl.vertexAttribPointer(shaderProgram.pointStartPositionAttribute, pointStartPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointEndPositionsBuffer.id);
+    gl.vertexAttribPointer(shaderProgram.pointEndPositionAttribute, pointEndPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointOffsetsBuffer.id);
+    gl.vertexAttribPointer(shaderProgram.pointOffsetAttribute, pointOffsetsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointTextureCoordsBuffer.id);
+    gl.vertexAttribPointer(shaderProgram.pointTextureCoordsAttribute, pointTextureCoordsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texture.id);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+    gl.uniform3f(shaderProgram.centerPositionUniform, centerPos[0], centerPos[1], centerPos[2]);
+    gl.uniform4f(shaderProgram.colorUniform, color[0], color[1], color[2], color[3]);
+    gl.uniform1f(shaderProgram.timeUniform, time);
+
+    gl.drawArrays(gl.TRIANGLES, 0, pointLifetimesBuffer.numItems);
+  }
+
+
+  var lastTime = 0;
+  function animate() {
+    var timeNow = new Date().getTime();
+    if (lastTime != 0) {
+      var elapsed = timeNow - lastTime;
+
+      time += elapsed / 10000;
+    }
+    if (time >= 1.0) {
+      time = 0;
+      centerPos = [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5];
+      color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 0.5];
+      initBuffers();
+    }
+
+    lastTime = timeNow;
+  }
+
+
+  function tick() {
+    animate();
+    drawScene();
+    requestAnimationFrame(tick);
+  }
+
+
+  function webGLStart() {
+    var canvas = document.getElementById("canvas");
+    initGL(canvas);
+    initTexture();
+    initShaders();
+
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+    tick();
+  }
+
+
+
+</script>
+
+
+</head>
+
+
+<body onload="webGLStart();">
+  <canvas id="canvas" style="border: none;" width="800" height="800"></canvas>
+</body>
+
+</html>

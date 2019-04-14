@@ -25,7 +25,7 @@ var FSHADER_SOURCE =
   '}\n' +
 
   'void main() {\n' +
-  '  float testValue = 57.2957;\n' +             // The value to be displayed
+  '  float testValue = 57.1231541;\n' +             // The value to be displayed
   '  vec2 texCoord = v_TexCoord;\n' +
   '  if (texCoord.x < (1.0/16.0)) {\n' +         // 10
   '    if (testValue >= 10.0) {\n' +

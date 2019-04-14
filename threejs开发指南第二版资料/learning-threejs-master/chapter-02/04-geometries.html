@@ -94,15 +94,15 @@
         function addGeometries(scene) {
             var geoms = [];
 
-            geoms.push(new THREE.CylinderGeometry(1, 4, 4));
+            // geoms.push(new THREE.CylinderGeometry(1, 4, 4));
 
-            // basic cube
-            geoms.push(new THREE.BoxGeometry(2, 2, 2));
+            // // basic cube
+            // geoms.push(new THREE.BoxGeometry(2, 2, 2));
 
-            // basic spherer
-            geoms.push(new THREE.SphereGeometry(2));
+            // // basic spherer
+            // geoms.push(new THREE.SphereGeometry(2));
 
-            geoms.push(new THREE.IcosahedronGeometry(4));
+            // geoms.push(new THREE.IcosahedronGeometry(4));
 
             // create a convex shape (a shape without dents)
             // using a couple of points
@@ -117,7 +117,7 @@
                 new THREE.Vector3(-2, -2, -2),
                 new THREE.Vector3(-2, -2, 2)
             ];
-            geoms.push(new THREE.ConvexGeometry(points));
+            // geoms.push(new THREE.ConvexGeometry(points));
 
             // create a lathgeometry
             //http://en.wikipedia.org/wiki/Lathe_(graphics)
@@ -126,20 +126,20 @@
             var radius = 3;//radius for half_sphere
             for (var angle = 0.0; angle < Math.PI; angle += detail)//loop from 0.0 radians to PI (0 - 180 degrees)
                 pts.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));//angle/radius to x,z
-            geoms.push(new THREE.LatheGeometry(pts, 12));
+            // geoms.push(new THREE.LatheGeometry(pts, 12));
 
-            // create a OctahedronGeometry
-            geoms.push(new THREE.OctahedronGeometry(3));
+            // // create a OctahedronGeometry
+            // geoms.push(new THREE.OctahedronGeometry(3));
 
-            // create a geometry based on a function
-            geoms.push(new THREE.ParametricGeometry(THREE.ParametricGeometries.mobius3d, 20, 10));
+            // // create a geometry based on a function
+            // geoms.push(new THREE.ParametricGeometry(THREE.ParametricGeometries.mobius3d, 20, 10));
 
-            //
-            geoms.push(new THREE.TetrahedronGeometry(3));
+            // //
+            // geoms.push(new THREE.TetrahedronGeometry(3));
 
-            geoms.push(new THREE.TorusGeometry(3, 1, 10, 10));
+            // geoms.push(new THREE.TorusGeometry(3, 1, 10, 10));
 
-            geoms.push(new THREE.TorusKnotGeometry(3, 0.5, 50, 20));
+            // geoms.push(new THREE.TorusKnotGeometry(3, 0.5, 50, 20));
 
             var j = 0;
             for (var i = 0; i < geoms.length; i++) {
