@@ -1,16 +1,5 @@
-/**
- * @classdesc webglshader 对象
- * @param {*} gl gl上下文对象
- * @param {number} type 类型
- * @param {string} string shader字符串
- * @constructor
- */
 THREE.WebGLShader = ( function () {
-	/**
-	 * @desc 格式化行对象
-	 * @param {string} string shader指令
-	 * @returns {string}
-	 */
+
 	var addLineNumbers = function ( string ) {
 
 		var lines = string.split( '\n' );

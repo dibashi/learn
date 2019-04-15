@@ -1,16 +1,7 @@
-/**
- * @classdesc webgl扩展标记
- * @param {*} gl webgl上下文对象
- * @constructor
- */
 THREE.WebGLExtensions = function ( gl ) {
 
 	var extensions = {};
-	/**
-	 * @desc 通过名称获得gl的对象值
-	 * @param {string} name 对象名称
-	 * @returns {*}
-	 */
+
 	this.get = function ( name ) {
 
 		if ( extensions[ name ] !== undefined ) {

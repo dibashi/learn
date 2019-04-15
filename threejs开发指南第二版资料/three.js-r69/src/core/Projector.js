@@ -1,10 +1,7 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-/**
- * @ignore
- * @constructor
- */
+
 THREE.Projector = function () {
 
 	console.warn( 'THREE.Projector has been moved to /examples/renderers/Projector.js.' );

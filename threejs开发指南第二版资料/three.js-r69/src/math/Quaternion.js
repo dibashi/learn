@@ -5,16 +5,6 @@
  * @author bhouston / http://exocortex.com
  */
 
-/**
- * @classdesc  四元数
- * @desc 四元数通俗的讲,是一种数学方法,经常用来对3维向量进行平移,缩放,旋转等变换操作的方法.一种非常方便使用的数学方法
- * @param {float} x
- * @param {float} y
- * @param {float} z
- * @param {float} w 标记分量
- * @class
- * @example var p4d = new Euler(5,3,2,'XYZ')
- */
 THREE.Quaternion = function ( x, y, z, w ) {
 
 	this._x = x || 0;
@@ -30,10 +20,6 @@ THREE.Quaternion.prototype = {
 
 	_x: 0,_y: 0, _z: 0, _w: 0,
 
-	/**
-	 *
-	 * @returns {float}
-	 */
 	get x () {
 
 		return this._x;
@@ -47,10 +33,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 *
-	 * @returns {float}
-	 */
 	get y () {
 
 		return this._y;
@@ -64,10 +46,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 *
-	 * @returns {float}
-	 */
 	get z () {
 
 		return this._z;
@@ -81,10 +59,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 *
-	 * @returns {float}
-	 */
 	get w () {
 
 		return this._w;
@@ -98,14 +72,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @设置四元数
-	 * @param {float} x
-	 * @param {float} y
-	 * @param {float} z
-	 * @param {float} w
-	 * @returns {THREE.Quaternion}
-	 */
 	set: function ( x, y, z, w ) {
 
 		this._x = x;
@@ -118,11 +84,7 @@ THREE.Quaternion.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 复制四元数
-	 * @param {THREE.Quaternion} quaternion
-	 * @returns {THREE.Quaternion}
-	 */
+
 	copy: function ( quaternion ) {
 
 		this._x = quaternion.x;
@@ -136,12 +98,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 从欧拉角设置四元数
-	 * @param {THREE.Euler} euler
-	 * @param {boolean} update	是否自动更新
-	 * @returns {THREE.Quaternion}
-	 */
 	setFromEuler: function ( euler, update ) {
 
 		if ( euler instanceof THREE.Euler === false ) {
@@ -210,12 +166,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 从任意轴的旋转角设置四元数
-	 * @param {THREE.Vector3} axis		旋转轴，必须是单位向量
-	 * @param {float} angle			旋转角
-	 * @returns {THREE.Quaternion}
-	 */
 	setFromAxisAngle: function ( axis, angle ) {
 
 		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
@@ -235,11 +185,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 从旋转矩阵设置四元数
-	 * @param {THREE.Matrix3} m
-	 * @returns {THREE.Quaternion}
-	 */
 	setFromRotationMatrix: function ( m ) {
 
 		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
@@ -299,13 +244,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @function
-	 * @desc 从(vFrom,vTo)两个单位向量设置四元数
-	 * @param {THREE.Vector3} vFrom
-	 * @param {THREE.Vector3} vTo
-	 * @return {THREE.Quaternion}
-	 */
 	setFromUnitVectors: function () {
 
 		// http://lolengine.net/blog/2014/02/24/quaternion-from-two-vectors-final
@@ -355,10 +293,6 @@ THREE.Quaternion.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 返回自共轭的四元数的单位量
-	 * @returns {THREE.Quaternion}
-	 */
 	inverse: function () {
 
 		this.conjugate().normalize();
@@ -367,10 +301,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 返回自共轭的四元数
-	 * @returns {THREE.Quaternion}
-	 */
 	conjugate: function () {
 
 		this._x *= - 1;
@@ -383,41 +313,24 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数的点积
-	 * @param {THREE.Quaternion} v
-	 * @returns {float}
-	 */
 	dot: function ( v ) {
 
 		return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
 
 	},
 
-	/**
-	 * @desc 四元数的长度平方
-	 * @returns {float}
-	 */
 	lengthSq: function () {
 
 		return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
 
 	},
 
-	/**
-	 * @desc 四元数的长度
-	 * @returns {float}
-	 */
 	length: function () {
 
 		return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
 
 	},
 
-	/**
-	 * @desc 四元数的单位化
-	 * @returns {float}
-	 */
 	normalize: function () {
 
 		var l = this.length();
@@ -446,12 +359,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数的乘法
-	 * @param {THREE.Quaternion} q
-	 * @param {THREE.Quaternion} p 若未空，则为当前四元数与q的乘法
-	 * @returns {THREE.Quaternion}
-	 */
 	multiply: function ( q, p ) {
 
 		if ( p !== undefined ) {
@@ -465,12 +372,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数的乘法
-	 * @param {THREE.Quaternion} a
-	 * @param {THREE.Quaternion} b
-	 * @returns {THREE.Quaternion}
-	 */
 	multiplyQuaternions: function ( a, b ) {
 
 		// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
@@ -489,11 +390,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @deprecated 改为vector.applyQuaternion( quaternion )
-	 * @param {THREE.Vector3} vector
-	 * @returns {THREE.Quaternion}
-	 */
 	multiplyVector3: function ( vector ) {
 
 		console.warn( 'THREE.Quaternion: .multiplyVector3() has been removed. Use is now vector.applyQuaternion( quaternion ) instead.' );
@@ -501,12 +397,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 球形插值，通过t值从当前四元数到qb之间进行球形插值
-	 * @param {THREE.Quaternion} qb
-	 * @param {float} t
-	 * @returns {THREE.Quaternion}
-	 */
 	slerp: function ( qb, t ) {
 
 		if ( t === 0 ) return this;
@@ -572,23 +462,12 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数的等号
-	 * @param {THREE.Quaternion} quaternion
-	 * @returns {boolean}
-	 */
 	equals: function ( quaternion ) {
 
 		return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
 
 	},
 
-	/**
-	 * @desc 数组到四元数的转换
-	 * @param {float[]} array
-	 * @param {number} offset
-	 * @returns {THREE.Quaternion}
-	 */
 	fromArray: function ( array, offset ) {
 
 		if ( offset === undefined ) offset = 0;
@@ -604,12 +483,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数到数组的转换
-	 * @param {float[]} array
-	 * @param {number} offset
-	 * @returns {float[]}
-	 */
 	toArray: function ( array, offset ) {
 
 		if ( array === undefined ) array = [];
@@ -624,11 +497,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数变化的操作
-	 * @param {requestCallback} callback
-	 * @returns {THREE.Quaternion}
-	 */
 	onChange: function ( callback ) {
 
 		this.onChangeCallback = callback;
@@ -637,9 +505,6 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	/**
-	 * @desc 四元数发生变化的函数指针
-	 */
 	onChangeCallback: function () {},
 
 	clone: function () {
@@ -650,17 +515,8 @@ THREE.Quaternion.prototype = {
 
 };
 
-/**
- * @desc 球形插值，通过t值向从qa到qb之间进行球形插值<br />
- * 当前四元数(x,y,z,w) 和四元数对象参数qb(x,y,z,w)，权值 t 必须是标量,取值范围是0.0-1.0.
- * @param {THREE.Quaternion} qa from四元数
- * @param {THREE.Quaternion} qb to四元数
- * @param {THREE.Quaternion} qm 返回值qm四元数
- * @param {float} t 百分比权值(0.0-1.0)
- * @returns {THREE.Quaternion}
- */
 THREE.Quaternion.slerp = function ( qa, qb, qm, t ) {
 
 	return qm.copy( qa ).slerp( qb, t );
 
-};
+}

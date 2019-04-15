@@ -5,27 +5,15 @@
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
  */
-/**
- * @classdesc 曲线对象类
- * @desc 由Vector3数组（points）组成的曲线
- * @param {THREE.Vector3[]} points
- * @constructor
- */
+
 THREE.Spline = function ( points ) {
-	/**
-	 * @desc 曲线控制点
-	 * @type {THREE.Vector3[]}
-	 */
+
 	this.points = points;
 
 	var c = [], v3 = { x: 0, y: 0, z: 0 },
 	point, intPoint, weight, w2, w3,
 	pa, pb, pc, pd;
 
-	/**
-	 * @desc 从数组初始化曲线
-	 * @param {THREE.Vector3} a
-	 */
 	this.initFromArray = function ( a ) {
 
 		this.points = [];
@@ -37,11 +25,7 @@ THREE.Spline = function ( points ) {
 		}
 
 	};
-	/**
-	 * @desc 当前样条曲线作为一个整体,返回位于当前样条曲线k位置上的点坐标.
-	 * @param {float} k
-	 * @returns {{x: float, y: float, z: float}}
-	 */
+
 	this.getPoint = function ( k ) {
 
 		point = ( this.points.length - 1 ) * k;
@@ -69,10 +53,6 @@ THREE.Spline = function ( points ) {
 
 	};
 
-	/**
-	 * @desc 返回当前样条曲线节点坐标构成的数组
-	 * @returns {THREE.Vector3[]}
-	 */
 	this.getControlPointsArray = function () {
 
 		var i, p, l = this.points.length,
@@ -90,11 +70,7 @@ THREE.Spline = function ( points ) {
 	};
 
 	// approximate length by summing linear segments
-	/**
-	 * @desc 被参数nSubDivisions(将当前样条曲线等分成多少段)等分当前样条曲线的长度数组和总长度组成的对象.
-	 * @param {number} nSubDivisions
-	 * @returns {{chunks: Array, total: number}}
-	 */
+
 	this.getLength = function ( nSubDivisions ) {
 
 		var i, index, nSamples, position,
@@ -188,17 +164,6 @@ THREE.Spline = function ( points ) {
 
 	// Catmull-Rom
 
-	/**
-	 * @desc 三次样条插值算法,返回计算位于参数值t的曲线点
-	 * @param {float} p0	样条曲线起始点p0
-	 * @param {float} p1	样条曲线起始点p1
-	 * @param {float} p2	样条曲线起始点p2
-	 * @param {float} p3	样条曲线起始点p3
-	 * @param {float} t	参数值 (0,1)
-	 * @param {float} t2	参数值t的平方
-	 * @param {float} t3	参数值t的立方
-	 * @returns {float}	计算位于参数值t的曲线点
-	 */
 	function interpolate( p0, p1, p2, p3, t, t2, t3 ) {
 
 		var v0 = ( p2 - p0 ) * 0.5,

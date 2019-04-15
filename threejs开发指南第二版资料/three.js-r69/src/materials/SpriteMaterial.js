@@ -16,42 +16,18 @@
  *  fog: <bool>
  * }
  */
-/**
- * @desc Sprite(点精灵)的材质
- * @param {String} parameters 材质参数
- * @extends {THREE.Material}
- * @constructor
- */
+
 THREE.SpriteMaterial = function ( parameters ) {
 
 	THREE.Material.call( this );
-	/**
-	 * @default 'SpriteMaterial'
-	 * @type {string}
-	 */
+
 	this.type = 'SpriteMaterial';
-	/**
-	 * @desc 材质颜色
-	 * @default 0xffffff 白色
-	 * @type {THREE.Color}
-	 */
+
 	this.color = new THREE.Color( 0xffffff );
-	/**
-	 * @desc 纹理贴图
-	 * @default
-	 * @type {THREE.Texture}
-	 */
 	this.map = null;
-	/**
-	 * @desc 旋转角度，粒子系统的贴图的旋转角度
-	 * @type {float}
-	 */
+
 	this.rotation = 0;
-	/**
-	 * @desc 雾效，默认关闭
-	 * @default
-	 * @type {boolean}
-	 */
+
 	this.fog = false;
 
 	// set parameters

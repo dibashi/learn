@@ -1,20 +1,7 @@
-/**
- * @classdesc GLSL Program对象
- * @desc 包含顶点shader和片段shader
- * @param {*} renderer 渲染器
- * @param {string} code glsh代码
- * @param {THREE.Material} material 材质
- * @param {*} parameters 参数
- * @constructor
- */
 THREE.WebGLProgram = ( function () {
 
 	var programIdCount = 0;
-	/**
-	 * @desc 生成define相关参数
-	 * @param {string[]} defines
-	 * @returns {string}
-	 */
+
 	var generateDefines = function ( defines ) {
 
 		var value, chunk, chunks = [];
@@ -32,13 +19,7 @@ THREE.WebGLProgram = ( function () {
 		return chunks.join( "\n" );
 
 	};
-	/**
-	 * @desc 绑定uniform相关参数
-	 * @param {*} gl WebGL 上下文
-	 * @param program glsl program
-	 * @param {array} identifiers 定义列表
-	 * @returns {*}
-	 */
+
 	var cacheUniformLocations = function ( gl, program, identifiers ) {
 
 		var uniforms = {};
@@ -53,13 +34,7 @@ THREE.WebGLProgram = ( function () {
 		return uniforms;
 
 	};
-	/**
-	 * @desc 绑定Attribute相关参数
-	 * @param {*} gl WebGL 上下文
-	 * @param program glsl program
-	 * @param {array} identifiers 定义列表
-	 * @returns {*}
-	 */
+
 	var cacheAttributeLocations = function ( gl, program, identifiers ) {
 
 		var attributes = {};
@@ -384,45 +359,17 @@ THREE.WebGLProgram = ( function () {
 			identifiers.push( a );
 
 		}
-		/**
-		 * @desc attribute列表
-		 * @type {*}
-		 */
+
 		this.attributes = cacheAttributeLocations( _gl, program, identifiers );
-		/**
-		 * @desc attrubite的key列表
-		 * @type {Array}
-		 */
 		this.attributesKeys = Object.keys( this.attributes );
 
 		//
-		/**
-		 * @desc WebGLProgram 的ID
-		 * @type {number}
-		 */
+
 		this.id = programIdCount ++;
-		/**
-		 * @desc 代码
-		 */
 		this.code = code;
-		/**
-		 * @desc 使用次数
-		 * @type {number}
-		 */
 		this.usedTimes = 1;
-		/**
-		 * @desc gl的program
-		 */
 		this.program = program;
-		/**
-		 * @desc 顶点shader
-		 * @type {THREE.WebGLShader}
-		 */
 		this.vertexShader = glVertexShader;
-		/**
-		 * @desc 片段shader
-		 * @type {THREE.WebGLShader}
-		 */
 		this.fragmentShader = glFragmentShader;
 
 		return this;

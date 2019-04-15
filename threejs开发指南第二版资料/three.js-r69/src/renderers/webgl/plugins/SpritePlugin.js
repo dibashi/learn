@@ -2,12 +2,7 @@
  * @author mikael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
-/**
- * @classdesc 闪光效果插件
- * @param {THREE.WebGLRenderer} renderer 渲染器
- * @param {THREE.Sprite[]} sprites 闪光对象列表
- * @constructor
- */
+
 THREE.SpritePlugin = function ( renderer, sprites ) {
 
 	var gl = renderer.context;
@@ -16,7 +11,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 	var program, attributes, uniforms;
 
 	var texture;
-	// 初始化闪光插件
+	
 	var init = function () {
 
 		var vertices = new Float32Array( [
@@ -82,11 +77,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 		texture.needsUpdate = true;
 
 	};
-	/**
-	 * @desc 闪光对象渲染
-	 * @param {THREE.Scene} scene 场景
-	 * @param {THREE.Camera} camera 相机
-	 */
+
 	this.render = function ( scene, camera ) {
 
 		if ( sprites.length === 0 ) return;
@@ -250,7 +241,6 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 
 	};
 
-	// 创建program
 	function createProgram () {
 
 		var program = gl.createProgram();
@@ -357,7 +347,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 		return program;
 
 	};
-	// 根据远近排序
+
 	function painterSortStable ( a, b ) {
 
 		if ( a.z !== b.z ) {

@@ -1,26 +1,13 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-/**
- * @classdesc mesh(网格)的网格复合材质
- * @desc 多材质，支持材质的列表<br />
- * 离相机越近,材质越亮(白),离相机越远,材质越暗(黑)
- * @param {String} parameters 材质参数
- * @extends {THREE.Material}
- * @constructor
- */
+
 THREE.MeshFaceMaterial = function ( materials ) {
 
 	this.uuid = THREE.Math.generateUUID();
-	/**
-	 * @default 'MeshFaceMaterial'
-	 * @type {string}
-	 */
-	this.type = 'MeshFaceMaterial';
 
-	/**
-	 * @desc 材质列表
-	 */
+	this.type = 'MeshFaceMaterial';
+	
 	this.materials = materials instanceof Array ? materials : [];
 
 };
@@ -28,10 +15,7 @@ THREE.MeshFaceMaterial = function ( materials ) {
 THREE.MeshFaceMaterial.prototype = {
 
 	constructor: THREE.MeshFaceMaterial,
-	/**
-	 * @desc 材质列表转换JSON格式
-	 * @returns {*}
-	 */
+
 	toJSON: function () {
 
 		var output = {
@@ -54,10 +38,7 @@ THREE.MeshFaceMaterial.prototype = {
 		return output;
 
 	},
-	/**
-	 * @desc MeshFaceMaterial材质的克隆函数
-	 * @returns {THREE.MeshFaceMaterial}
-	 */
+
 	clone: function () {
 
 		var material = new THREE.MeshFaceMaterial();

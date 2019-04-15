@@ -1,13 +1,9 @@
 /**
  * Uniform Utilities
  */
-/**
- * @desc Uniforms操作
- * @memberof THREE
- * @type {*}
- */
+
 THREE.UniformsUtils = {
-	// 合并
+
 	merge: function ( uniforms ) {
 
 		var merged = {};
@@ -27,7 +23,7 @@ THREE.UniformsUtils = {
 		return merged;
 
 	},
-	// 克隆
+
 	clone: function ( uniforms_src ) {
 
 		var uniforms_dst = {};

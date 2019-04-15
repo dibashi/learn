@@ -2,81 +2,21 @@
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
  */
-/**
- * @classdesc 三角面对象类（三维空间内）
- * @param {THREE.Vector3} a	三角面角点a的索引
- * @param {THREE.Vector3} b	三角面角点b的索引
- * @param {THREE.Vector3} c	三角面角点c的索引
- * @param {THREE.Vector3[]} normal	三角面法线向量,或顶点法线向量数组
- * @param {THREE.Color[]} color	三角面颜色值,或顶点颜色值数组
- * @param {number[]} materialIndex 材质索引数组
- * @example 用法: 创建一个颜色为0xffaa00,0x00aaff,0x00ffaa的a,b,c三点组成的,法线指向normal,材质索引为0的三角面对象<br />
- * var a=0,b=1,c=2;<br />
- * var normal1 = new THREE.Vector3( 0, 1, 0 ), normal2 = new THREE.Vector3( 0, 1, 0 ), normal3 = new THREE.Vector3( 0, 1, 0 );<br />
- * normal = new Array(normal1,normal2,normal3);<br />
- * var color1 = new THREE.Color( 0xffaa00 ), color2 = new THREE.Color( 0x00aaff ), color3 = new THREE.Color( 0x00ffaa );<br />
- * var color = new Array(color1,color2,color3);<br />
- * var face = new THREE.Face3( a, b, c, normal, color, 0 );<br />
- * 创建一个颜色为0xffaa00,0x00aaff,0x00ffaa的a,b,c三点组成的,法线指向normal,材质索引为0的三角面对象
- * @constructor
- */
+
 THREE.Face3 = function ( a, b, c, normal, color, materialIndex ) {
-	/**
-	 * 仔细想想这个对象的数据量还是蛮大的，3个顶点索引，3个法线向量，3个颜色向量，一个材质索引
-	 * 
-	 */
-	//之前的注释是vector3，应该是int吧
-	/**
-	 * @desc 顶点a
-	 * @type {THREE.Vector3}
-	 */
+
 	this.a = a;
-	/**
-	 * @desc 顶点b
-	 * @type {THREE.Vector3}
-	 */
 	this.b = b;
-	/**
-	 * @desc 顶点c
-	 * @type {THREE.Vector3}
-	 */
 	this.c = c;
 
-	/**
-	 * @desc 面法线
-	 * @type {THREE.Vector3}
-	 */
 	this.normal = normal instanceof THREE.Vector3 ? normal : new THREE.Vector3();
-	/**
-	 * @desc 顶点法线
-	 * @type {THREE.Vector3[]}
-	 */
 	this.vertexNormals = normal instanceof Array ? normal : [];
 
-	/**
-	 * @desc 面颜色
-	 * @type {THREE.Color}
-	 */
 	this.color = color instanceof THREE.Color ? color : new THREE.Color();
-	/**
-	 * @desc 顶点颜色
-	 * @type {THREE.Color[]}
-	 */
 	this.vertexColors = color instanceof Array ? color : [];
 
-	/**
-	 * 这个数据很吊的，主要是为了将来的凹凸映射所需的数据？到时候再来注释
-	 */
-	/**
-	 * @desc 顶点正切数组
-	 * @type {Array}
-	 */
 	this.vertexTangents = [];
 
-	/**
-	 * @desc 三角面的材质索引
-	 * @type {number}
-	 */
 	this.materialIndex = materialIndex !== undefined ? materialIndex : 0;
 
 };
@@ -84,10 +24,7 @@ THREE.Face3 = function ( a, b, c, normal, color, materialIndex ) {
 THREE.Face3.prototype = {
 
 	constructor: THREE.Face3,
-	/**
-	 * @desc 克隆三角面对象
-	 * @returns {THREE.Face3}
-	 */
+
 	clone: function () {
 
 		var face = new THREE.Face3( this.a, this.b, this.c );

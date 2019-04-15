@@ -2,41 +2,15 @@
  * @author bhouston / http://exocortex.com
  * @author mrdoob / http://mrdoob.com/
  */
-/**
- * @classdesc 三角形类
- * @desc 由a,b,c三个向量组成的三角形
- * @param {THREE.Vector3} a
- * @param {THREE.Vector3} b
- * @param {THREE.Vector3} c
- * @constructor
- */
+
 THREE.Triangle = function ( a, b, c ) {
-	/**
-	 *
-	 * @type {THREE.Vector3}
-	 */
+
 	this.a = ( a !== undefined ) ? a : new THREE.Vector3();
-	/**
-	 *
-	 * @type {THREE.Vector3}
-	 */
 	this.b = ( b !== undefined ) ? b : new THREE.Vector3();
-	/**
-	 *
-	 * @type {THREE.Vector3}
-	 */
 	this.c = ( c !== undefined ) ? c : new THREE.Vector3();
 
 };
-/**
- * @function
- * @desc 计算三角形的法线向量
- * @param {THREE.Vector3} a
- * @param {THREE.Vector3} b
- * @param {THREE.Vector3} c
- * @param {THREE.Vector3} optionalTarget
- * @return {THREE.Vector3}
- */
+
 THREE.Triangle.normal = function () {
 
 	var v0 = new THREE.Vector3();
@@ -64,16 +38,6 @@ THREE.Triangle.normal = function () {
 
 // static/instance method to calculate barycoordinates
 // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
-/**
- * @function
- * @desc 算返回参数a,b,c所组成的三角形所在的平面上任意点(参数point)所表示三角形顶点的加权平均值<br />
- * 这个权值就是重心坐标
- * @param {THREE.Vector3} point 三角平面上任意点
- * @param {THREE.Vector3} a
- * @param {THREE.Vector3} b
- * @param {THREE.Vector3} c
- * @param {THREE.Vector3} optionalTarget
- */
 THREE.Triangle.barycoordFromPoint = function () {
 
 	var v0 = new THREE.Vector3();
@@ -114,15 +78,6 @@ THREE.Triangle.barycoordFromPoint = function () {
 
 }();
 
-/**
- * @function
- * @desc 判断任意点(参数point)是否在a,b,c所组成的三角形内
- * @param {THREE.Vector3} point 三角平面上任意点
- * @param {THREE.Vector3} a
- * @param {THREE.Vector3} b
- * @param {THREE.Vector3} c
- * @return {boolean}
- */
 THREE.Triangle.containsPoint = function () {
 
 	var v1 = new THREE.Vector3();
@@ -140,13 +95,7 @@ THREE.Triangle.containsPoint = function () {
 THREE.Triangle.prototype = {
 
 	constructor: THREE.Triangle,
-	/**
-	 * @desc 设置三角平面
-	 * @param {THREE.Vector3} a
-	 * @param {THREE.Vector3} b
-	 * @param {THREE.Vector3} c
-	 * @returns {THREE.Triangle}
-	 */
+
 	set: function ( a, b, c ) {
 
 		this.a.copy( a );
@@ -157,14 +106,6 @@ THREE.Triangle.prototype = {
 
 	},
 
-	/**
-	 * @desc 通过数组和索引设置三角平面
-	 * @param {THREE.Vector3[]} points
-	 * @param {float} i0
-	 * @param {float} i1
-	 * @param {float} i2
-	 * @returns {THREE.Triangle}
-	 */
 	setFromPointsAndIndices: function ( points, i0, i1, i2 ) {
 
 		this.a.copy( points[ i0 ] );
@@ -175,11 +116,6 @@ THREE.Triangle.prototype = {
 
 	},
 
-	/**
-	 * @desc 拷贝三角平面
-	 * @param {THREE.Triangle} triangle
-	 * @returns {THREE.Triangle}
-	 */
 	copy: function ( triangle ) {
 
 		this.a.copy( triangle.a );
@@ -190,11 +126,6 @@ THREE.Triangle.prototype = {
 
 	},
 
-	/**
-	 * @function
-	 * @desc 计算三角形面他积
-	 * @return {float}
-	 */
 	area: function () {
 
 		var v0 = new THREE.Vector3();
@@ -211,11 +142,6 @@ THREE.Triangle.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 计算三角形中心
-	 * @param {THREE.Vector3} optionalTarget
-	 * @returns {THREE.Vector3}
-	 */
 	midpoint: function ( optionalTarget ) {
 
 		var result = optionalTarget || new THREE.Vector3();
@@ -223,21 +149,12 @@ THREE.Triangle.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算三角形的法向量
-	 * @param {THREE.Vector3} optionalTarget
-	 * @returns {THREE.Vector3}
-	 */
 	normal: function ( optionalTarget ) {
 
 		return THREE.Triangle.normal( this.a, this.b, this.c, optionalTarget );
 
 	},
-	/**
-	 * @desc 创建三角形共面的平面Plane对象
-	 * @param {THREE.Plane} optionalTarget
-	 * @returns {THREE.Plane}
-	 */
+
 	plane: function ( optionalTarget ) {
 
 		var result = optionalTarget || new THREE.Plane();
@@ -246,45 +163,24 @@ THREE.Triangle.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算返回当前三角形所在的平面上任意点(参数point)所表示当前三角形顶点的加权平均值<br />
-	 * 这个权值就是重心坐标
-	 * @param {THREE.Vector3} point
-	 * @param {THREE.Vector3} optionalTarget
-	 * @returns {THREE.Vector3}
-	 */
 	barycoordFromPoint: function ( point, optionalTarget ) {
 
 		return THREE.Triangle.barycoordFromPoint( point, this.a, this.b, this.c, optionalTarget );
 
 	},
 
-	/**
-	 * @desc 计算点是否在三角形内
-	 * @param {THREE.Vector3} point
-	 * @returns {boolean}
-	 */
 	containsPoint: function ( point ) {
 
 		return THREE.Triangle.containsPoint( point, this.a, this.b, this.c );
 
 	},
 
-	/**
-	 * @desc 计算三角形是否相等
-	 * @param {THREE.Triangle} triangle
-	 * @returns {boolean}
-	 */
 	equals: function ( triangle ) {
 
 		return triangle.a.equals( this.a ) && triangle.b.equals( this.b ) && triangle.c.equals( this.c );
 
 	},
 
-	/**
-	 * @desc 克隆三角形
-	 * @returns {THREE.Triangle}
-	 */
 	clone: function () {
 
 		return new THREE.Triangle().copy( this );

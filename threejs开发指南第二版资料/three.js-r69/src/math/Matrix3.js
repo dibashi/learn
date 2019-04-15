@@ -4,20 +4,8 @@
  * @author bhouston / http://exocortex.com
  */
 
-/**
- * @classdesc  3×3矩阵
- * @desc 行优先存储<br />
- * 0	1	2<br />
- * 3	4	5<br />
- * 7	7	8
- * @class
- */
 THREE.Matrix3 = function () {
 
-	/**
-	 * @desc 矩阵内数组
-	 * @type {Float32Array}
-	 */
 	this.elements = new Float32Array( [
 
 		1, 0, 0,
@@ -38,19 +26,6 @@ THREE.Matrix3.prototype = {
 
 	constructor: THREE.Matrix3,
 
-	/**
-	 * @desc 设置3×3矩阵
-	 * @param {float} n11
-	 * @param {float} n12
-	 * @param {float} n13
-	 * @param {float} n21
-	 * @param {float} n22
-	 * @param {float} n23
-	 * @param {float} n31
-	 * @param {float} n32
-	 * @param {float} n33
-	 * @returns {THREE.Matrix3}
-	 */
 	set: function ( n11, n12, n13, n21, n22, n23, n31, n32, n33 ) {
 
 		var te = this.elements;
@@ -63,10 +38,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 设置3×3单位矩阵
-	 * @returns {THREE.Matrix3}
-	 */
 	identity: function () {
 
 		this.set(
@@ -81,11 +52,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 拷贝3×3矩阵
-	 * @param {THREE.Matrix3} m
-	 * @returns {THREE.Matrix3}
-	 */
 	copy: function ( m ) {
 
 		var me = m.elements;
@@ -102,39 +68,20 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 3×3矩阵和3维向量乘法
-	 * @deprecated 改为 THREE.Vector3.applyMatrix3( matrix )
-	 * @param {THREE.Vector3} vector
-	 * @returns {THREE.Vector3}
-	 */
 	multiplyVector3: function ( vector ) {
 
 		console.warn( 'THREE.Matrix3: .multiplyVector3() has been removed. Use vector.applyMatrix3( matrix ) instead.' );
 		return vector.applyMatrix3( this );
 
 	},
-	/**
-	 * @desc 3×3矩阵和数组乘法
-	 * @deprecated 改为 THREE.Matrix3.applyToVector3Array( array )
-	 * @param {float[]} a
-	 * @returns {float[]}
-	 */
+
 	multiplyVector3Array: function ( a ) {
 
 		console.warn( 'THREE.Matrix3: .multiplyVector3Array() has been renamed. Use matrix.applyToVector3Array( array ) instead.' );
 		return this.applyToVector3Array( a );
 
 	},
-	/**
-	 * @function
-	 * @desc 3×3矩阵和数组乘法<br />
-	 * 等于数据的每3个元素和矩阵相乘，结果存回数组
-	 * @param {float[]} array
-	 * @param {number} offset	起始位置，忽略则为0
-	 * @param {float} length	需要计算的长度，忽略则为数组长度
-	 * @returns {float[]}
-	 */
+
 	applyToVector3Array: function () {
 
 		var v1 = new THREE.Vector3();
@@ -164,11 +111,6 @@ THREE.Matrix3.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 3×3矩阵和标量乘法
-	 * @param {float} s
-	 * @returns {THREE.Matrix3}
-	 */
 	multiplyScalar: function ( s ) {
 
 		var te = this.elements;
@@ -181,11 +123,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算3×3矩阵的行列式<br />
-	 * 几何意义：以基向量为边的平行六面体的有符号体积（可能为负）
-	 * @returns {float}
-	 */
 	determinant: function () {
 
 		var te = this.elements;
@@ -198,14 +135,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算3×3的逆矩阵<br />
-	 * M*M-1 = 1v<br />
-	 * v*M = v1 v1*M-1 =
-	 * @param {THREE.Matrix3} matrix
-	 * @param {number} throwOnInvertible 异常标志
-	 * @returns {THREE.Matrix3}
-	 */
 	getInverse: function ( matrix, throwOnInvertible ) {
 
 		// input: THREE.Matrix4
@@ -254,11 +183,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算3×3矩阵的转置矩阵<br />
-	 * 几何意义： 矩阵的行列互换
-	 * @returns {THREE.Matrix3}
-	 */
 	transpose: function () {
 
 		var tmp, m = this.elements;
@@ -271,12 +195,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 3×3矩阵到数组
-	 * @param {float[]} array
-	 * @param {number} offset 偏移量
-	 * @returns {float[]}
-	 */
 	flattenToArrayOffset: function ( array, offset ) {
 
 		var te = this.elements;
@@ -297,12 +215,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 获得正规矩阵<br />
-	 * 几何意义： 伴随矩阵,4维矩阵左上角的3×3矩阵
-	 * @param {THREE.Matrix4} m
-	 * @returns {THREE.Matrix3}
-	 */
 	getNormalMatrix: function ( m ) {
 
 		// input: THREE.Matrix4
@@ -313,11 +225,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 转置矩阵到数组
-	 * @param r
-	 * @returns {THREE.Matrix3}
-	 */
 	transposeIntoArray: function ( r ) {
 
 		var m = this.elements;
@@ -336,11 +243,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 数组到3×3矩阵
-	 * @param {float[]} array
-	 * @returns {THREE.Matrix3}
-	 */
 	fromArray: function ( array ) {
 
 		this.elements.set( array );
@@ -349,10 +251,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 3×3矩阵到数组
-	 * @returns {float[]}
-	 */
 	toArray: function () {
 
 		var te = this.elements;
@@ -365,10 +263,6 @@ THREE.Matrix3.prototype = {
 
 	},
 
-	/**
-	 * @desc 克隆3×3矩阵
-	 * @returns {THREE.Matrix3}
-	 */
 	clone: function () {
 
 		return new THREE.Matrix3().fromArray( this.elements );

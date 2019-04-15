@@ -1,12 +1,7 @@
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-/**
- * @classdesc 点云对象
- * @param {THREE.Geometry} geometry 点云对象的几何对象
- * @param {THREE.Material} material	点云对象的材质对象
- * @constructor
- */
+
 THREE.PointCloud = function ( geometry, material ) {
 
 	THREE.Object3D.call( this );
@@ -19,18 +14,9 @@ THREE.PointCloud = function ( geometry, material ) {
 	this.sortParticles = false;
 
 };
-/**
- * @desc PointCloud.Objec3D的原型继承所有属性方法
- * @type {THREE.Object3D}
- */
+
 THREE.PointCloud.prototype = Object.create( THREE.Object3D.prototype );
 
-/**
- * @function
- * @desc 点云的拾取判断函数
- * @param {THREE.Raycaster} raycaster 拾取射线对象
- * @param {*} intersects 拾取结果对象数组
- */
 THREE.PointCloud.prototype.raycast = ( function () {
 
 	var inverseMatrix = new THREE.Matrix4();
@@ -157,11 +143,7 @@ THREE.PointCloud.prototype.raycast = ( function () {
 	};
 
 }() );
-/**
- * @desc Three.PointCloud 拷贝函数
- * @param {THREE.PointCloud} object
- * @returns {THREE.PointCloud}
- */
+
 THREE.PointCloud.prototype.clone = function ( object ) {
 
 	if ( object === undefined ) object = new THREE.PointCloud( this.geometry, this.material );
@@ -175,13 +157,7 @@ THREE.PointCloud.prototype.clone = function ( object ) {
 };
 
 // Backwards compatibility
-/**
- * @ignore
- * @param geometry
- * @param material
- * @returns {THREE.PointCloud}
- * @constructor
- */
+
 THREE.ParticleSystem = function ( geometry, material ) {
 
 	console.warn( 'THREE.ParticleSystem has been renamed to THREE.PointCloud.' );

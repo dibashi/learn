@@ -1,14 +1,9 @@
 /**
  * Uniforms library for shared webgl shaders
  */
-/**
- * @desc Uniforms库，包含各种定义的shader的uniform组成
- * @memberof THREE
- * @type {*}
- */
+
 THREE.UniformsLib = {
 
-	// 普通
 	common: {
 
 		"diffuse" : { type: "c", value: new THREE.Color( 0xeeeeee ) },
@@ -32,20 +27,19 @@ THREE.UniformsLib = {
 
 	},
 
-	// 碰撞
 	bump: {
 
 		"bumpMap" : { type: "t", value: null },
 		"bumpScale" : { type: "f", value: 1 }
 
 	},
-	// 法线贴图
+
 	normalmap: {
 
 		"normalMap" : { type: "t", value: null },
 		"normalScale" : { type: "v2", value: new THREE.Vector2( 1, 1 ) }
 	},
-	// 雾
+
 	fog : {
 
 		"fogDensity" : { type: "f", value: 0.00025 },
@@ -54,7 +48,7 @@ THREE.UniformsLib = {
 		"fogColor" : { type: "c", value: new THREE.Color( 0xffffff ) }
 
 	},
-	// 光照
+
 	lights: {
 
 		"ambientLightColor" : { type: "fv", value: [] },
@@ -78,7 +72,7 @@ THREE.UniformsLib = {
 		"spotLightExponent" : { type: "fv1", value: [] }
 
 	},
-	// 粒子
+
 	particle: {
 
 		"psColor" : { type: "c", value: new THREE.Color( 0xeeeeee ) },
@@ -93,7 +87,7 @@ THREE.UniformsLib = {
 		"fogColor" : { type: "c", value: new THREE.Color( 0xffffff ) }
 
 	},
-	// 阴影贴图
+
 	shadowmap: {
 
 		"shadowMap": { type: "tv", value: [] },

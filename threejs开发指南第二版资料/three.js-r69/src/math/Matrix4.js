@@ -11,20 +11,8 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-/**
- * @classdesc  4×4矩阵
- * @desc 行优先存储<br />
- * 0	1	2	3<br />
- * 4	5	6	7<br />
- * 8	9	10	11<br />
- * 12	13	14	15
- * @class
- */
 THREE.Matrix4 = function () {
-	/**
-	 * @desc 矩阵内数组
-	 * @type {Float32Array}
-	 */
+
 	this.elements = new Float32Array( [
 
 		1, 0, 0, 0,
@@ -46,26 +34,6 @@ THREE.Matrix4.prototype = {
 
 	constructor: THREE.Matrix4,
 
-	/**
-	 * @desc 设置4×4矩阵
-	 * @param {float} n11
-	 * @param {float} n12
-	 * @param {float} n13
-	 * @param {float} n14
-	 * @param {float} n21
-	 * @param {float} n22
-	 * @param {float} n23
-	 * @param {float} n24
-	 * @param {float} n31
-	 * @param {float} n32
-	 * @param {float} n33
-	 * @param {float} n34
-	 * @param {float} n41
-	 * @param {float} n42
-	 * @param {float} n43
-	 * @param {float} n44
-	 * @returns {THREE.Matrix4}
-	 */
 	set: function ( n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44 ) {
 
 		var te = this.elements;
@@ -79,10 +47,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 4×4单位矩阵
-	 * @returns {THREE.Matrix4}
-	 */
 	identity: function () {
 
 		this.set(
@@ -98,11 +62,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 拷贝4×4矩阵
-	 * @param {THREE.Matrix4} m
-	 * @returns {THREE.Matrix4}
-	 */
 	copy: function ( m ) {
 
 		this.elements.set( m.elements );
@@ -110,23 +69,14 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @deprecated 改为THREE.Matrix4.copyPosition(m)
-	 * @desc 提取4×4矩阵的平移分量
-	 * @param {THREE.Matrix4} m
-	 * @returns {THREE.Matrix4}
-	 */
+
 	extractPosition: function ( m ) {
 
 		console.warn( 'THREE.Matrix4: .extractPosition() has been renamed to .copyPosition().' );
 		return this.copyPosition( m );
 
 	},
-	/**
-	 * @desc 提取4×4矩阵平移分量
-	 * @param {THREE.Matrix4} m
-	 * @returns {THREE.Matrix4}
-	 */
+
 	copyPosition: function ( m ) {
 
 		var te = this.elements;
@@ -139,12 +89,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @function
-	 * @desc 提取4×4矩阵的旋转分量到另一个矩阵
-	 * @param {THREE.Matrix4} m
-	 * @returns {THREE.Matrix4}
-	 */
+
 	extractRotation: function () {
 
 		var v1 = new THREE.Vector3();
@@ -176,12 +121,7 @@ THREE.Matrix4.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 由欧拉角转换为旋转矩阵
-	 * @param {THREE.Euler} euler
-	 * @returns {THREE.Matrix4}
-	 */
-	makeRotationFromEuler: function ( euler ) {		//garreet
+	makeRotationFromEuler: function ( euler ) {
 
 		if ( euler instanceof THREE.Euler === false ) {
 
@@ -309,12 +249,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @deprecated 改名为makeRotationFromQuaternion
-	 * @desc 由四元数旋转矩阵
-	 * @param {THREE.Quaternion} q
-	 * @returns {THREE.Matrix4}
-	 */
 	setRotationFromQuaternion: function ( q ) {
 
 		console.warn( 'THREE.Matrix4: .setRotationFromQuaternion() has been renamed to .makeRotationFromQuaternion().' );
@@ -322,12 +256,8 @@ THREE.Matrix4.prototype = {
 		return this.makeRotationFromQuaternion( q );
 
 	},
-	/**
-	 * @desc 由四元数转换为旋转矩阵
-	 * @param {THREE.Quaternion} q
-	 * @returns {THREE.Matrix4}
-	 */
-	makeRotationFromQuaternion: function ( q ) {		//garreet
+
+	makeRotationFromQuaternion: function ( q ) {
 
 		var te = this.elements;
 
@@ -364,19 +294,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @function
-	 * @desc 将对象设定为一个视图矩阵，参数都是Vector3对象，该矩阵只会用到eye和center的相对位置<br />
-	 * 该视图矩阵表示，摄像机在eye位置看向center位置，且向上的向量（这一点稍后解释）为up时的视图矩阵<br />
-	 * 视图矩阵又可以看做摄像机的模型矩阵，所以该函数产生的矩阵又可以表示以下变换：将物体从原点平移至位置center-eye<br />
-	 * 再将其旋转至向上的向量为up。向上的向量up用来固定相机，可以想象当相机固定在一点，镜头朝向固定方向的时候<br />
-	 * 还是可以在一个维度里自由旋转的，up向量固定相机的这个维度
-	 * @param {THREE.Vector3} eye		表示相机位置的Vector3三维向量
-	 * @param {THREE.Vector3} target	表示目标的Vector3三维向量
-	 * @param {THREE.Vector3} up 		表示向上的Vector3三维向量
-	 * @return {THREE.Matrix4}
-	 */
-	lookAt: function () {					//garreet
+	lookAt: function () {
 
 		var x = new THREE.Vector3();
 		var y = new THREE.Vector3();
@@ -416,12 +334,6 @@ THREE.Matrix4.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 矩阵乘法
-	 * @param {THREE.Matrix4} m
-	 * @param {THREE.Matrix4} n 若n未定义，则为当前矩阵乘m
-	 * @returns {THREE.Matrix4}
-	 */
 	multiply: function ( m, n ) {
 
 		if ( n !== undefined ) {
@@ -434,12 +346,7 @@ THREE.Matrix4.prototype = {
 		return this.multiplyMatrices( this, m );
 
 	},
-	/**
-	 * @desc 矩阵乘法
-	 * @param {THREE.Matrix4} a
-	 * @param {THREE.Matrix4} b
-	 * @returns {THREE.Matrix4}
-	 */
+
 	multiplyMatrices: function ( a, b ) {
 
 		var ae = a.elements;
@@ -480,13 +387,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 将4×4矩阵a,b相乘,并返回新Matrix4(4x4矩阵)赋值给数组对象r
-	 * @param {THREE.Matrix4} a
-	 * @param {THREE.Matrix4} b
-	 * @param {float[]} r
-	 * @returns {THREE.Matrix4}
-	 */
 	multiplyToArray: function ( a, b, r ) {
 
 		var te = this.elements;
@@ -502,11 +402,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 4×4矩阵和标量s的乘法
-	 * @param {float} s
-	 * @returns {THREE.Matrix4}
-	 */
 	multiplyScalar: function ( s ) {
 
 		var te = this.elements;
@@ -520,12 +415,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 矩阵和3维向量相乘<br />
-	 * 几何意义上是对3维向量做投影变换
-	 * @param {THREE.Vector3} vector
-	 * @returns {THREE.Vector3}
-	 */
 	multiplyVector3: function ( vector ) {
 
 		console.warn( 'THREE.Matrix4: .multiplyVector3() has been removed. Use vector.applyMatrix4( matrix ) or vector.applyProjection( matrix ) instead.' );
@@ -533,39 +422,20 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 矩阵和4维向量相乘
-	 * @param vector
-	 * @returns {THREE.Vector4|THREE.Vector3}
-	 */
 	multiplyVector4: function ( vector ) {
 
 		console.warn( 'THREE.Matrix4: .multiplyVector4() has been removed. Use vector.applyMatrix4( matrix ) instead.' );
 		return vector.applyMatrix4( this );
 
 	},
-	/**
-	 * @deprecated 改为matrix.applyToVector3Array( array )
-	 * @desc 矩阵和3维向量数组相乘<br />
-	 * 几何意义上是对3维向量做投影变换
-	 * @param {float[]} a
-	 * @returns {float[]}
-	 */
+
 	multiplyVector3Array: function ( a ) {
 
 		console.warn( 'THREE.Matrix4: .multiplyVector3Array() has been renamed. Use matrix.applyToVector3Array( array ) instead.' );
 		return this.applyToVector3Array( a );
 
 	},
-	/**
-	 * @function
-	 * @desc 矩阵和3维向量数组相乘<br />
-	 * 几何意义上是对3维向量做投影变换
-	 * @param {float[]} array
-	 * @param {number} offset	起始位置，忽略则为0
-	 * @param {number} length	需要计算的长度，忽略则为数组长度
-	 * @returns {float[]}
-	 */
+
 	applyToVector3Array: function () {
 
 		var v1 = new THREE.Vector3();
@@ -595,12 +465,6 @@ THREE.Matrix4.prototype = {
 
 	}(),
 
-	/**
-	 * @deprecated Vector3.transformDirection(matrix)
-	 * @desc 对参数v三维向量的应用一个旋转变换
-	 * @param {THREE.Vector3} v
-	 * @return {THREE.Vector3}
-	 */
 	rotateAxis: function ( v ) {
 
 		console.warn( 'THREE.Matrix4: .rotateAxis() has been removed. Use Vector3.transformDirection( matrix ) instead.' );
@@ -609,12 +473,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @deprecated Vector3.applyMatrix4(matrix)
-	 * @desc 矩阵和向量的叉乘
-	 * @param {THREE.Vector3} vector
-	 * @returns {THREE.Vector4|THREE.Vector3}
-	 */
 	crossVector: function ( vector ) {
 
 		console.warn( 'THREE.Matrix4: .crossVector() has been removed. Use vector.applyMatrix4( matrix ) instead.' );
@@ -622,11 +480,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算4×4矩阵的行列式<br />
-	 * 几何意义：以基向量为边的平行六面体的有符号体积（可能为负）
-	 * @returns {float}
-	 */
 	determinant: function () {
 
 		var te = this.elements;
@@ -677,10 +530,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 计算4×4矩阵的转置矩阵
-	 * @returns {THREE.Matrix4}
-	 */
 	transpose: function () {
 
 		var te = this.elements;
@@ -698,12 +547,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 通过参数offset指定偏移量,将矩阵展开到数组(参数array)中,返回新的数组
-	 * @param {float[]} array
-	 * @param {number} offset
-	 * @returns {float[]}
-	 */
 	flattenToArrayOffset: function ( array, offset ) {
 
 		var te = this.elements;
@@ -732,11 +575,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @function
-	 * @desc 当前矩阵中代表平移的元素值设置给三维向量
-	 * @return {THREE.Vector3}
-	 */
 	getPosition: function () {
 
 		var v1 = new THREE.Vector3();
@@ -751,11 +589,7 @@ THREE.Matrix4.prototype = {
 		};
 
 	}(),
-	/**
-	 * @function
-	 * @desc 当前三维向量设置到矩阵的平移参数
-	 * @return {THREE.Vector3}
-	 */
+
 	setPosition: function ( v ) {
 
 		var te = this.elements;
@@ -768,12 +602,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 4×4 矩阵的求逆
-	 * @param {THREE.Matrix4} m
-	 * @param {number} throwOnInvertible	异常标记
-	 * @returns {THREE.Matrix4}
-	 */
 	getInverse: function ( m, throwOnInvertible ) {
 
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
@@ -829,51 +657,36 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @ignore
-	 */
 	translate: function ( v ) {
 
 		console.warn( 'THREE.Matrix4: .translate() has been removed.' );
 
 	},
-	/**
-	 * @ignore
-	 */
+
 	rotateX: function ( angle ) {
 
 		console.warn( 'THREE.Matrix4: .rotateX() has been removed.' );
 
 	},
-	/**
-	 * @ignore
-	*/
+
 	rotateY: function ( angle ) {
 
 		console.warn( 'THREE.Matrix4: .rotateY() has been removed.' );
 
 	},
-	/**
-	 * @ignore
-	 */
+
 	rotateZ: function ( angle ) {
 
 		console.warn( 'THREE.Matrix4: .rotateZ() has been removed.' );
 
 	},
-	/**
-	 * @ignore
-	 */
+
 	rotateByAxis: function ( axis, angle ) {
 
 		console.warn( 'THREE.Matrix4: .rotateByAxis() has been removed.' );
 
 	},
-	/**
-	 * @desc 通过预先计算缩放比例向量，将指定的比例向量应用到此 Matrix4(4x4矩阵)
-	 * @param {THREE.Vector3} v
-	 * @returns {THREE.Matrix4}
-	 */
+
 	scale: function ( v ) {
 
 		var te = this.elements;
@@ -888,11 +701,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 获取缩放比例的最大值
-	 * @returns {float}
-	 */
-	getMaxScaleOnAxis: function () {//Sphere.js那里用到了
+	getMaxScaleOnAxis: function () {
 
 		var te = this.elements;
 
@@ -904,13 +713,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 生成平移矩阵
-	 * @param {float} x
-	 * @param {float} y
-	 * @param {float} z
-	 * @returns {THREE.Matrix4}
-	 */
 	makeTranslation: function ( x, y, z ) {
 
 		this.set(
@@ -925,11 +727,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 生成X轴旋转矩阵
-	 * @param {float} theta
-	 * @returns {THREE.Matrix4}
-	 */
+
 	makeRotationX: function ( theta ) {
 
 		var c = Math.cos( theta ), s = Math.sin( theta );
@@ -946,11 +744,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 生成Y轴旋转矩阵
-	 * @param {float} theta
-	 * @returns {THREE.Matrix4}
-	 */
+
 	makeRotationY: function ( theta ) {
 
 		var c = Math.cos( theta ), s = Math.sin( theta );
@@ -967,11 +761,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 生成Z轴旋转矩阵
-	 * @param {float} theta
-	 * @returns {THREE.Matrix4}
-	 */
+
 	makeRotationZ: function ( theta ) {
 
 		var c = Math.cos( theta ), s = Math.sin( theta );
@@ -988,12 +778,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 生成绕向量axis轴旋转矩阵
-	 * @param {THREE.Vector3} axis
-	 * @param {float} angle
-	 * @returns {THREE.Matrix4}
-	 */
+
 	makeRotationAxis: function ( axis, angle ) {
 
 		// Based on http://www.gamedev.net/reference/articles/article1199.asp
@@ -1017,13 +802,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 生成缩放矩阵
-	 * @param {float} x	x轴缩放比例
-	 * @param {float} y	y轴缩放比例
-	 * @param {float} z	z轴缩放比例
-	 * @returns {THREE.Matrix4}
-	 */
 	makeScale: function ( x, y, z ) {
 
 		this.set(
@@ -1039,13 +817,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 设置变换矩阵的平移、旋转和缩放参数
-	 * @param {THREE.Vector3} position		平移参数
-	 * @param {THREE.Quaternion} quaternion	旋转参数
-	 * @param {THREE.Vector3} scale			缩放参数
-	 * @returns {THREE.Matrix4}
-	 */
 	compose: function ( position, quaternion, scale ) {
 
 		this.makeRotationFromQuaternion( quaternion );
@@ -1055,14 +826,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @function
-	 * @desc 获取变换矩阵的平移、旋转和缩放参数
-	 * @param {THREE.Vector3} position		平移参数
-	 * @param {THREE.Quaternion} quaternion	旋转参数
-	 * @param {THREE.Vector3} scale			缩放参数
-	 * @returns {THREE.Matrix4}
-	 */
+
 	decompose: function () {
 
 		var vector = new THREE.Vector3();
@@ -1118,17 +882,7 @@ THREE.Matrix4.prototype = {
 
 	}(),
 
-	/**
-	 * @desc 根据left, right, bottom, top, near, far生成透视投影矩阵,Frustum平截头体
-	 * @param {float} left
-	 * @param {float} right
-	 * @param {float} bottom
-	 * @param {float} top
-	 * @param {float} near	必须为正数
-	 * @param {float} far	必须为正数
-	 * @returns {THREE.Matrix4}
-	 */
-	makeFrustum: function ( left, right, bottom, top, near, far ) {			//garreet
+	makeFrustum: function ( left, right, bottom, top, near, far ) {
 
 		var te = this.elements;
 		var x = 2 * near / ( right - left );
@@ -1148,15 +902,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 根据 fov, aspect, near, far 生成透视投影矩阵
-	 * @param {float} fov			相机可视角度
-	 * @param {float} aspect		相机可视范围的长宽比
-	 * @param {float} near
-	 * @param {float} far
-	 * @returns {THREE.Matrix4}
-	 */
-	makePerspective: function ( fov, aspect, near, far ) {				//garreet
+	makePerspective: function ( fov, aspect, near, far ) {
 
 		var ymax = near * Math.tan( THREE.Math.degToRad( fov * 0.5 ) );
 		var ymin = - ymax;
@@ -1167,17 +913,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc left, right, top, bottom, near, far 生成正交矩阵
-	 * @param {float} left
-	 * @param {float} right
-	 * @param {float} top
-	 * @param {float} bottom
-	 * @param {float} near
-	 * @param {float} far
-	 * @returns {THREE.Matrix4}
-	 */
-	makeOrthographic: function ( left, right, top, bottom, near, far ) {		//garreet
+	makeOrthographic: function ( left, right, top, bottom, near, far ) {
 
 		var te = this.elements;
 		var w = right - left;
@@ -1197,11 +933,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 从数组设置4×4矩阵
-	 * @param {float[]} array
-	 * @returns {THREE.Matrix4}
-	 */
 	fromArray: function ( array ) {
 
 		this.elements.set( array );
@@ -1209,10 +940,7 @@ THREE.Matrix4.prototype = {
 		return this;
 
 	},
-	/**
-	 * @desc 从4×4矩阵设置数组
-	 * @returns {float[]}
-	 */
+
 	toArray: function () {
 
 		var te = this.elements;
@@ -1226,10 +954,6 @@ THREE.Matrix4.prototype = {
 
 	},
 
-	/**
-	 * @desc 克隆4×4矩阵
-	 * @returns {THREE.Matrix4}
-	 */
 	clone: function () {
 
 		return new THREE.Matrix4().fromArray( this.elements );
