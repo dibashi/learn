@@ -1,10 +1,23 @@
 /**
  * @author bhouston / http://exocortex.com
  */
-
+/**
+ * @classdesc 射线类
+ * @desc 创建一个原点为origin,方向为direction的射线
+ * @param {THREE.Vector3} origin	起点坐标
+ * @param {THREE.Vector3} direction 射线方向
+ * @constructor
+ */
 THREE.Ray = function ( origin, direction ) {
-
+	/**
+	 * @desc 射线起点
+	 * @type {THREE.Vector3}
+	 */
 	this.origin = ( origin !== undefined ) ? origin : new THREE.Vector3();
+	/**
+	 * @desc 射线方向向量
+	 * @type {THREE.Vector3}
+	 */
 	this.direction = ( direction !== undefined ) ? direction : new THREE.Vector3();
 
 };
@@ -12,7 +25,12 @@ THREE.Ray = function ( origin, direction ) {
 THREE.Ray.prototype = {
 
 	constructor: THREE.Ray,
-
+	/**
+	 * @desc 创建一个原点为origin,方向为direction的射线
+	 * @param {THREE.Vector3} origin
+	 * @param {THREE.Vector3} direction
+	 * @returns {THREE.Ray}
+	 */
 	set: function ( origin, direction ) {
 
 		this.origin.copy( origin );
@@ -21,7 +39,11 @@ THREE.Ray.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 拷贝射线
+	 * @param {THREE.Ray} ray
+	 * @returns {THREE.Ray}
+	 */
 	copy: function ( ray ) {
 
 		this.origin.copy( ray.origin );
@@ -30,7 +52,12 @@ THREE.Ray.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 当前射线方向的从端点起长度为t的点
+	 * @param {float} t 到端点的长度
+	 * @param {THREE.Vector3} optionalTarget
+	 * @returns {THREE.Vector3}
+	 */
 	at: function ( t, optionalTarget ) {
 
 		var result = optionalTarget || new THREE.Vector3();
@@ -38,7 +65,12 @@ THREE.Ray.prototype = {
 		return result.copy( this.direction ).multiplyScalar( t ).add( this.origin );
 
 	},
-
+	/**
+	 * @function
+	 * @desc 调用at(t)方法返回沿当前射线方向的从端点起长度为t的点,并将返回的点设为端点
+	 * @param {float} t 到端点的长度
+	 * @return {THREE.Ray}
+	 */
 	recast: function () {
 
 		var v1 = new THREE.Vector3();
@@ -52,7 +84,12 @@ THREE.Ray.prototype = {
 		};
 
 	}(),
-
+	/**
+	 * @desc 返回任意点point到射线上的垂足
+	 * @param {THREE.Vector3} point
+	 * @param {THREE.Vector3} optionalTarget
+	 * @returns {THREE.Vector3}
+	 */
 	closestPointToPoint: function ( point, optionalTarget ) {
 
 		var result = optionalTarget || new THREE.Vector3();
@@ -68,7 +105,12 @@ THREE.Ray.prototype = {
 		return result.copy( this.direction ).multiplyScalar( directionDistance ).add( this.origin );
 
 	},
-
+	/**
+	 * @function
+	 * @desc 返回任意点point到射线上的距离
+	 * @param {THREE.Vector3} point
+	 * @return {float}
+	 */
 	distanceToPoint: function () {
 
 		var v1 = new THREE.Vector3();
@@ -92,8 +134,15 @@ THREE.Ray.prototype = {
 		};
 
 	}(),
-
-	distanceSqToSegment: function ( v0, v1, optionalPointOnRay, optionalPointOnSegment ) {
+	/**
+	 * @desc 返回有参数v0,v1组成的线段到当前射线的最小距离
+	 * @param {THREE.Vector3} v0
+	 * @param {THREE.Vector3} v1
+	 * @param {THREE.Vector3} optionalPointOnRay
+	 * @param {THREE.Vector3} optionalPointOnSegment
+	 * @returns {float}
+	 */
+	distanceSqToSegment: function ( v0, v1, optionalPointOnRay, optionalPointOnSegment ) {		//garreet
 
 		// from http://www.geometrictools.com/LibMathematics/Distance/Wm5DistRay3Segment3.cpp
 		// It returns the min distance between the ray and the segment
@@ -211,12 +260,23 @@ THREE.Ray.prototype = {
 
 	},
 
+	/**
+	 * @desc 当前射线是否与参数sphere球体相交
+	 * @param {THREE.Sphere} sphere
+	 * @returns {boolean}
+	 */
 	isIntersectionSphere: function ( sphere ) {
 
 		return this.distanceToPoint( sphere.center ) <= sphere.radius;
 
 	},
-
+	/**
+	 * @function
+	 * @desc 当前射线是否与参数sphere球体相交,相交返回交点，否则返回false
+	 * @param {THREE.Sphere} sphere
+	 * @param {THREE.Sphere} sphere
+	 * @returns {THREE.Vector3|boolean}
+	 */
 	intersectSphere: function () {
 
 		// from http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-sphere-intersection/
@@ -257,7 +317,11 @@ THREE.Ray.prototype = {
 		}
 
 	}(),
-
+	/**
+	 * @desc 当前射线是否与参数plane平面相交
+	 * @param {THREE.Plane} plane
+	 * @returns {boolean}
+	 */
 	isIntersectionPlane: function ( plane ) {
 
 		// check if the ray lies on the plane first
@@ -283,7 +347,11 @@ THREE.Ray.prototype = {
 		return false;
 
 	},
-
+	/**
+	 * @desc 当前射线是与参数plane平面的距离
+	 * @param {THREE.Plane} plane
+	 * @returns {float}
+	 */
 	distanceToPlane: function ( plane ) {
 
 		var denominator = plane.normal.dot( this.direction );
@@ -309,7 +377,12 @@ THREE.Ray.prototype = {
 		return t >= 0 ? t :  null;
 
 	},
-
+	/**
+	 * @desc 计算当前射线是与参数plane相交的交点
+	 * @param {THREE.Plane} plane
+	 * @param {boolean} optionalTarget
+	 * @returns {THREE.Vector3}
+	 */
 	intersectPlane: function ( plane, optionalTarget ) {
 
 		var t = this.distanceToPlane( plane );
@@ -322,7 +395,12 @@ THREE.Ray.prototype = {
 		return this.at( t, optionalTarget );
 
 	},
-
+	/**
+	 * @function
+	 * @desc 判断当前射线是与参数box相交
+	 * @param {THREE.Box3} box
+	 * @returns {boolean}
+	 */
 	isIntersectionBox: function () {
 
 		var v = new THREE.Vector3();
@@ -334,7 +412,13 @@ THREE.Ray.prototype = {
 		};
 
 	}(),
-
+	/**
+	 * @function
+	 * @desc 计算当前射线是与参数box相交的交点
+	 * @param {THREE.Box3} box
+	 * @param {boolean} optionalTarget
+	 * @returns {THREE.Vector3}
+	 */
 	intersectBox: function ( box , optionalTarget ) {
 
 		// http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-box-intersection/
@@ -402,7 +486,16 @@ THREE.Ray.prototype = {
 		return this.at( tmin >= 0 ? tmin : tmax, optionalTarget );
 
 	},
-
+	/**
+	 * @function
+	 * @desc 计算当前射线和 a ,b ,c组成的三角形相交的交点
+	 * @param {THREE.Vector3} a
+	 * @param {THREE.Vector3} b
+	 * @param {THREE.Vector3} c
+	 * @param {boolean} backfaceCulling
+	 * @param {boolean} optionalTarget
+	 * @return {THREE.Vector3}
+	 */
 	intersectTriangle: function () {
 
 		// Compute the offset origin, edges, and normal.
@@ -485,7 +578,11 @@ THREE.Ray.prototype = {
 		};
 
 	}(),
-
+	/**
+	 * @desc 对射线进行仿射变换
+	 * @param {THREE.Matrix4} matrix4
+	 * @returns {THREE.Ray}
+	 */
 	applyMatrix4: function ( matrix4 ) {
 
 		this.direction.add( this.origin ).applyMatrix4( matrix4 );
@@ -495,13 +592,20 @@ THREE.Ray.prototype = {
 
 		return this;
 	},
-
+	/**
+	 * @desc 射线是否相等
+	 * @param {THREE.Ray} ray
+	 * @returns {boolean}
+	 */
 	equals: function ( ray ) {
 
 		return ray.origin.equals( this.origin ) && ray.direction.equals( this.direction );
 
 	},
-
+	/**
+	 * @desc 克隆射线
+	 * @returns {THREE.Ray}
+	 */
 	clone: function () {
 
 		return new THREE.Ray().copy( this );

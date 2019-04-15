@@ -2,7 +2,12 @@
  * @author mikael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
-
+/**
+ * @classdesc 透镜效果插件
+ * @param {THREE.WebGLRenderer} renderer 渲染器
+ * @param {*} flares 光照对象列表
+ * @constructor
+ */
 THREE.LensFlarePlugin = function ( renderer, flares ) {
 
 	var gl = renderer.context;
@@ -13,6 +18,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 
 	var tempTexture, occlusionTexture;
 
+	// 初始化
 	var init = function () {
 
 		var vertices = new Float32Array( [
@@ -61,6 +67,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 
 		var shader;
 
+		// 使用纹理
 		if ( hasVertexTexture ) {
 
 			shader = {
@@ -158,7 +165,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 			};
 
 		} else {
-
+		// 不使用纹理
 			shader = {
 
 				vertexShader: [
@@ -270,11 +277,18 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 	 * Method: renders 16x16 0xff00ff-colored points scattered over the light source area,
 	 *         reads these back and calculates occlusion.
 	 */
-
+	/**
+	 * @desc 透镜对象的渲染
+	 * @param {THREE.Scene} scene 场景
+	 * @param {THREE.Camera} camera 相机
+	 * @param {number} viewportWidth 视口宽度
+	 * @param {number} viewportHeight 视口高度
+	 */
 	this.render = function ( scene, camera, viewportWidth, viewportHeight ) {
 
 		if ( flares.length === 0 ) return;
 
+		// 定义渲染屏幕
 		var tempPosition = new THREE.Vector3();
 
 		var invAspect = viewportHeight / viewportWidth,
@@ -293,6 +307,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 
 		}
 
+		// 调用shader
 		gl.useProgram( program );
 
 		gl.enableVertexAttribArray( attributes.vertex );
@@ -300,7 +315,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 
 		// loop through all lens flares to update their occlusion and positions
 		// setup gl and common used attribs/unforms
-
+		// 循环透镜对象，更新它们的位置
 		gl.uniform1i( uniforms.occlusionMap, 0 );
 		gl.uniform1i( uniforms.map, 1 );
 
@@ -319,7 +334,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 			scale.set( size * invAspect, size );
 
 			// calc object screen position
-
+			// 计算对象屏幕位置
 			var flare = flares[ i ];
 			
 			tempPosition.set( flare.matrixWorld.elements[12], flare.matrixWorld.elements[13], flare.matrixWorld.elements[14] );
@@ -328,14 +343,14 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 			tempPosition.applyProjection( camera.projectionMatrix );
 
 			// setup arrays for gl programs
-
+			// 设置shader数组
 			screenPosition.copy( tempPosition )
 
 			screenPositionPixels.x = screenPosition.x * halfViewportWidth + halfViewportWidth;
 			screenPositionPixels.y = screenPosition.y * halfViewportHeight + halfViewportHeight;
 
 			// screen cull
-
+			// 屏幕裁剪
 			if ( hasVertexTexture || (
 				screenPositionPixels.x > 0 &&
 				screenPositionPixels.x < viewportWidth &&
@@ -343,7 +358,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 				screenPositionPixels.y < viewportHeight ) ) {
 
 				// save current RGB to temp texture
-
+				// 保存临时纹理颜色
 				gl.activeTexture( gl.TEXTURE1 );
 				gl.bindTexture( gl.TEXTURE_2D, tempTexture );
 				gl.copyTexImage2D( gl.TEXTURE_2D, 0, gl.RGB, screenPositionPixels.x - 8, screenPositionPixels.y - 8, 16, 16, 0 );
@@ -441,7 +456,11 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 		renderer.resetGLState();
 
 	};
-
+	/**
+	 * @desc 创建透镜对象的program
+	 * @param {THREE.WebGLProgram} shader
+	 * @returns {*}
+	 */
 	function createProgram ( shader ) {
 
 		var program = gl.createProgram();

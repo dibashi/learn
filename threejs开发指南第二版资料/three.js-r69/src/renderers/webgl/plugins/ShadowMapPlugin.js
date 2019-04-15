@@ -1,7 +1,14 @@
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-
+/**
+ * @classdesc 阴影效果插件
+ * @param {THREE.WebGLRenderer} _renderer 渲染器
+ * @param {THREE.Light[]} _lights 光照对象列表
+ * @param {*} _webglObjects 普通渲染对象列表
+ * @param {*} _webglObjectsImmediate 立即渲染对象列表
+ * @constructor
+ */
 THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObjectsImmediate ) {
 
 	var _gl = _renderer.context;
@@ -55,7 +62,11 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 	_depthMaterialMorph._shadowPass = true;
 	_depthMaterialSkin._shadowPass = true;
 	_depthMaterialMorphSkin._shadowPass = true;
-
+	/**
+	 * @desc 阴影对象渲染
+	 * @param {THREE.Scene} scene 场景
+	 * @param {THREE.Camera} camera 相机
+	 */
 	this.render = function ( scene, camera ) {
 
 		if ( _renderer.shadowMapEnabled === false ) return;
@@ -347,7 +358,12 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 		_renderer.resetGLState();
 
 	};
-
+	/**
+	 * @desc 对象投影
+	 * @param {THREE.Scene} scene 场景
+	 * @param {THREE.Object3D} object 三维对象
+	 * @param {THREE.Camera} shadowCamera 阴影相机
+	 */
 	function projectObject( scene, object, shadowCamera ){
 
 		if ( object.visible ) {
@@ -377,6 +393,12 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 
 	}
 
+	/**
+	 * @desc 创建虚拟光线
+	 * @param {THREE.Light} light 光线
+	 * @param {*} cascade 级联参数
+	 * @returns {THREE.DirectionalLight}
+	 */
 	function createVirtualLight( light, cascade ) {
 
 		var virtualLight = new THREE.DirectionalLight();
@@ -433,7 +455,11 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 	}
 
 	// Synchronize virtual light with the original light
-
+	/**
+	 * @desc 更新虚拟光线
+	 * @param {THREE.Light} light 光线
+	 * @param {*} cascade 级联参数
+	 */
 	function updateVirtualLight( light, cascade ) {
 
 		var virtualLight = light.shadowCascadeArray[ cascade ];
@@ -465,7 +491,11 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 	}
 
 	// Fit shadow camera's ortho frustum to camera frustum
-
+	/**
+	 * @desc 更新阴影相机
+	 * @param {THREE.Camera} camera 相机
+ 	 * @param {THREE.Light} light 光线
+	 */
 	function updateShadowCamera( camera, light ) {
 
 		var shadowCamera = light.shadowCamera,
@@ -510,7 +540,11 @@ THREE.ShadowMapPlugin = function ( _renderer, _lights, _webglObjects, _webglObje
 
 	// For the moment just ignore objects that have multiple materials with different animation methods
 	// Only the first material will be taken into account for deciding which depth material to use for shadow maps
-
+	/**
+	 * @desc 获得物体材质
+	 * @param {THREE.Object3D} object
+	 * @returns {*}
+	 */
 	function getObjectMaterial( object ) {
 
 		return object.material instanceof THREE.MeshFaceMaterial
