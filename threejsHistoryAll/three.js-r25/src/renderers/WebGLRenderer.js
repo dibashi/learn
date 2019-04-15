@@ -437,6 +437,8 @@ THREE.WebGLRenderer = function () {
 		 * 这里可能有bug 光是在世界坐标系下定义的，这里的转置逆矩阵 是视图矩阵的转置逆矩阵
 		 * 我觉得应该是 object.matrix的转置逆矩阵 不知作者为何把我认为正确的给注释掉了
 		 * 或许是因为光不是在世界坐标系下定义的 又或者其他 源码还没怎么看。
+		 * 
+		 * 这是由于phong着色模型 光照计算在视图空间下
 		 */
 
 		_normalMatrix = THREE.Matrix4.makeInvert3x3(_modelViewMatrix).transpose();
@@ -469,7 +471,7 @@ THREE.WebGLRenderer = function () {
 		//光源内部维护了一个intensity变量 在传入着色器前 进行了预乘，为什么不直接删去这个变量，
 		//把他们合在一起当做一个颜色值呢？难道是为了控制？可能吧
 		this.setupLights(scene);
-		//一个物体 一个着色器 还是 分类 一批物体一个着色器，若一批用一个着色器 要跟换着色器里的数据
+		//一个物体 一个着色器 还是 分类 一批物体一个着色器，若一批用一个着色器 要更换着色器里的数据
 		for (o = 0, ol = scene.objects.length; o < ol; o++) {
 
 			object = scene.objects[o];
