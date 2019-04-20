@@ -3,7 +3,16 @@
  * @author alteredq / http://alteredqualia.com/
  * @author bhouston / http://exocortex.com
  */
-
+/**
+ * @classdesc 平截头体对象
+ * @param {THREE.Plane} p0
+ * @param {THREE.Plane} p1
+ * @param {THREE.Plane} p2
+ * @param {THREE.Plane} p3
+ * @param {THREE.Plane} p4
+ * @param {THREE.Plane} p5
+ * @constructor
+ */
 THREE.Frustum = function ( p0, p1, p2, p3, p4, p5 ) {
 
 	this.planes = [
@@ -22,7 +31,16 @@ THREE.Frustum = function ( p0, p1, p2, p3, p4, p5 ) {
 THREE.Frustum.prototype = {
 
 	constructor: THREE.Frustum,
-
+	/**
+	 * @desc 设置平截头体对象
+	 * @param {THREE.Plane} p0
+	 * @param {THREE.Plane} p1
+	 * @param {THREE.Plane} p2
+	 * @param {THREE.Plane} p3
+	 * @param {THREE.Plane} p4
+	 * @param {THREE.Plane} p5
+	 * @returns {THREE.Frustum}
+	 */
 	set: function ( p0, p1, p2, p3, p4, p5 ) {
 
 		var planes = this.planes;
@@ -37,7 +55,11 @@ THREE.Frustum.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 拷贝平截头体对象
+	 * @param {THREE.Frustum} frustum
+	 * @returns {THREE.Frustum}
+	 */
 	copy: function ( frustum ) {
 
 		var planes = this.planes;
@@ -51,7 +73,11 @@ THREE.Frustum.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 通过对当前平截头体应用变换,返回新的平截头体
+	 * @param {THREE.Matrix4} m
+	 * @returns {THREE.Frustum}
+	 */
 	setFromMatrix: function ( m ) {
 
 		var planes = this.planes;
@@ -71,7 +97,12 @@ THREE.Frustum.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @function
+	 * @desc 当前平截头体是否与参数object对象相交
+	 * @param {THREE.Object3D} object
+	 * @return {boolean}
+	 */
 	intersectsObject: function () {
 
 		var sphere = new THREE.Sphere();
@@ -90,7 +121,11 @@ THREE.Frustum.prototype = {
 		};
 
 	}(),
-
+	/**
+	 * @desc 当前平截头体是否与参数sphere球体对象相交
+	 * @param {THREE.Sphere} sphere
+	 * @returns {boolean}
+	 */
 	intersectsSphere: function ( sphere ) {
 
 		var planes = this.planes;
@@ -112,7 +147,13 @@ THREE.Frustum.prototype = {
 		return true;
 
 	},
-
+	/**
+	 *
+	 * @function
+	 * @desc 当前平截头体是否与参数box立方体对象相交
+	 * @param {THREE.Box3} box
+	 * @returns {boolean}
+	 */
 	intersectsBox: function () {
 
 		var p1 = new THREE.Vector3(),
@@ -150,7 +191,11 @@ THREE.Frustum.prototype = {
 
 	}(),
 
-
+	/**
+	 * @desc 参数point(一个Vector3的三维点坐标)是否在当前平截头体内
+	 * @param {THREE.Vector3} point
+	 * @returns {boolean}
+	 */
 	containsPoint: function ( point ) {
 
 		var planes = this.planes;
@@ -168,7 +213,10 @@ THREE.Frustum.prototype = {
 		return true;
 
 	},
-
+	/**
+	 * @desc 克隆当前平截头体
+	 * @returns {THREE.Frustum}
+	 */
 	clone: function () {
 
 		return new THREE.Frustum().copy( this );

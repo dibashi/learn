@@ -2,10 +2,24 @@
  * @author bhouston / http://exocortex.com
  * @author mrdoob / http://mrdoob.com/
  */
-
+/**
+ * @classdesc 球体类
+ * @desc center,半径为radius的球体
+ * @param {THREE.Vector3} center	中心点坐标
+ * @param {float} radius 	半径
+ * @constructor
+ */
 THREE.Sphere = function ( center, radius ) {
-
+	/**
+	 * @desc 球体中心点
+	 * @type {THREE.Vector3}
+	 */
 	this.center = ( center !== undefined ) ? center : new THREE.Vector3();
+	/**
+	 * @desc 球体半径
+	 * @default 0
+	 * @type {float}
+	 */
 	this.radius = ( radius !== undefined ) ? radius : 0;
 
 };
@@ -13,7 +27,12 @@ THREE.Sphere = function ( center, radius ) {
 THREE.Sphere.prototype = {
 
 	constructor: THREE.Sphere,
-
+	/**
+	 * @desc 根据圆心和半径设置球体
+	 * @param center
+	 * @param radius
+	 * @returns {THREE.Sphere}
+	 */
 	set: function ( center, radius ) {
 
 		this.center.copy( center );
@@ -21,7 +40,13 @@ THREE.Sphere.prototype = {
 
 		return this;
 	},
-
+	/**
+	 * @function
+	 * @desc Vector3对象组成的points数组中的到圆心距离最大的值重新设置球体的半径
+	 * @param {THREE.Vector3[]} points
+	 * @param {THREE.Vector3} optionalCenter 球体中心
+	 * @returns {THREE.Sphere}
+	 */
 	setFromPoints: function () {
 
 		var box = new THREE.Box3();
@@ -56,6 +81,11 @@ THREE.Sphere.prototype = {
 
 	}(),
 
+	/**
+	 * @desc 拷贝球体
+	 * @param {THREE.Sphere} sphere
+	 * @returns {THREE.Sphere}
+	 */
 	copy: function ( sphere ) {
 
 		this.center.copy( sphere.center );
@@ -64,34 +94,57 @@ THREE.Sphere.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 判断球体是否合法
+	 * @returns {boolean}
+	 */
 	empty: function () {
 
 		return ( this.radius <= 0 );
 
 	},
 
+	/**
+	 * @desc 判断点是否在球体内
+	 * @param {THREE.Vector3} point
+	 * @returns {boolean}
+	 */
 	containsPoint: function ( point ) {
 
 		return ( point.distanceToSquared( this.center ) <= ( this.radius * this.radius ) );
 
 	},
 
+	/**
+	 * @desc 点到球心的距离 <---原注释有误
+	 * @param {THREE.Vector3} point
+	 * @returns {float}
+	 */
 	distanceToPoint: function ( point ) {
 
-		return ( point.distanceTo( this.center ) - this.radius );
+		return ( point.distanceTo( this.center ) - this.radius );//为什么要减去半径？看来并不是到球心
 
 	},
-
+	/**
+	 * @desc 两个球体是否相交
+	 * @param {THREE.Sphere} sphere
+	 * @returns {boolean}
+	 */
 	intersectsSphere: function ( sphere ) {
 
 		var radiusSum = this.radius + sphere.radius;
 
-		return sphere.center.distanceToSquared( this.center ) <= ( radiusSum * radiusSum );
+		return sphere.center.distanceToSquared( this.center ) <= ( radiusSum * radiusSum );//为了性能作者并没有开方
 
 	},
-
-	clampPoint: function ( point, optionalTarget ) {
+	/**
+	 * @desc 根据点来重新定义球体半径<br />
+	 * 如果point在球体外,强制将point设置到球体表面,如果point在球体内,重新设置球体半径为point到当前球体半径的距离
+	 * @param {THREE.Vector3} point
+	 * @param {THREE.Vector3} optionalTarget
+	 * @returns {THREE.Vector3}
+	 */
+	clampPoint: function ( point, optionalTarget ) {//没见有地方用到，先不看了 头晕这会
 
 		var deltaLengthSq = this.center.distanceToSquared( point );
 
@@ -109,26 +162,40 @@ THREE.Sphere.prototype = {
 
 	},
 
+	/**
+	 * @desc 计算球体的外包围盒
+	 * @param {THREE.Box3} optionalTarget
+	 * @returns {THREE.Box3}
+	 */
 	getBoundingBox: function ( optionalTarget ) {
 
 		var box = optionalTarget || new THREE.Box3();
 
 		box.set( this.center, this.center );
-		box.expandByScalar( this.radius );
+		box.expandByScalar( this.radius );//妙极了！！！
 
 		return box;
 
 	},
-
+	/**
+	 * @desc 球体的投影变换<br />
+	 * 平移相对于球心，缩放相对于半径
+	 * @param {THREE.Matrix4} matrix
+	 * @returns {THREE.Sphere}
+	 */
 	applyMatrix4: function ( matrix ) {
 
 		this.center.applyMatrix4( matrix );
-		this.radius = this.radius * matrix.getMaxScaleOnAxis();
+		this.radius = this.radius * matrix.getMaxScaleOnAxis();//好吧，作者很严谨 缩放比例不一致都考虑进去了
 
 		return this;
 
 	},
-
+	/**
+	 * @desc 球体平移
+	 * @param {THREE.Vector3} offset
+	 * @returns {THREE.Sphere}
+	 */
 	translate: function ( offset ) {
 
 		this.center.add( offset );
@@ -136,13 +203,21 @@ THREE.Sphere.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 球体是否相等
+	 * @param {THREE.Sphere} sphere
+	 * @returns {boolean}
+	 */
 	equals: function ( sphere ) {
 
 		return sphere.center.equals( this.center ) && ( sphere.radius === this.radius );
 
 	},
 
+	/**
+	 * @desc 球体克隆
+	 * @returns {THREE.Sphere}
+	 */
 	clone: function () {
 
 		return new THREE.Sphere().copy( this );

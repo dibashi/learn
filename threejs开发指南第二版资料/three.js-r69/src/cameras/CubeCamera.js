@@ -4,8 +4,16 @@
  *
  * @author alteredq / http://alteredqualia.com/
  */
-
-THREE.CubeCamera = function ( near, far, cubeResolution ) {
+/**
+ * @classdesc 立方体投影相机
+ * @desc 根据 near, far, cubeResolution 生成立方体投影相机
+ * @constructor
+ * @param {float} near		相对于深度剪切面的近的距离，必须为正数,可选参数,如果未指定,初始化为0.1
+ * @param {float} far		相对于深度剪切面的远的距离，必须为正数,可选参数,如果未指定,初始化为2000
+ * @param {float} cubeResolution
+ * @extends {THREE.Camera}
+ */
+THREE.CubeCamera = function ( near, far, cubeResolution ) {	//garreet
 
 	THREE.Object3D.call( this );
 
