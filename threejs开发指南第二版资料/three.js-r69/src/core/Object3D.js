@@ -154,7 +154,7 @@ THREE.Object3D = function () {
 	this.matrix = new THREE.Matrix4();
 	/**
 	 * @desc 对象的世界矩阵<br />
-	 * 如果当前对象是子对象,matrixWorld属性为上一级对象的变换矩阵,否则是自己的变换矩阵
+	 * 如果当前对象是子对象,matrixWorld属性为父对象世界矩阵乘以当前对象模型矩阵,否则是自己的变换矩阵
 	 * @type {THREE.Matrix4}
 	 */
 	this.matrixWorld = new THREE.Matrix4();
