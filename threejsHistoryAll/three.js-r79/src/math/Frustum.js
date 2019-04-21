@@ -4,6 +4,7 @@
  * @author bhouston / http://clara.io
  */
 
+ //六个面来表示视锥体 本质上每个面可以用一个法向量和平面上任意一点来表示
 THREE.Frustum = function ( p0, p1, p2, p3, p4, p5 ) {
 
 	this.planes = [
