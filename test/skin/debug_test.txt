@@ -1,0 +1,11 @@
+
+struct MyVertex {
+
+    float x,y,z;  //vertex
+    float nx,ny,nz;//normal
+    float s0,t0; //texcoord
+
+    float index0,index1; //index into the bone/offset matrix array (2 bones)
+    float weight0,weight1; // the blend factor for each bone/offset matrix (2 bones)
+
+}

@@ -12,6 +12,7 @@ var FSHADER_SOURCE =
   '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
   '}\n';
 
+var phongProgram = null;
 function main() {
   // Retrieve <canvas> element
   var canvas = document.getElementById('webgl');
@@ -24,10 +25,13 @@ function main() {
   }
 
   // Initialize shaders
-  if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
-    console.log('Failed to intialize shaders.');
-    return;
-  }
+  // if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+  //   console.log('Failed to intialize shaders.');
+  //   return;
+  // }
+
+  phongProgram = createProgram(gl, VSHADER_SOURCE, FSHADER_SOURCE);
+  gl.useProgram(phongProgram);
 
   // Write the positions of vertices to a vertex shader
   var n = initVertexBuffers(gl);
@@ -48,7 +52,7 @@ function main() {
 
 function initVertexBuffers(gl) {
   var vertices = new Float32Array([
-    0, 0.5,   -0.5, -0.5,   0.5, -0.5
+    0, 0.5, -0.5, -0.5, 0.5, -0.5
   ]);
   var n = 3; // The number of vertices
 
@@ -64,7 +68,7 @@ function initVertexBuffers(gl) {
   // Write date into the buffer object
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-  var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+  var a_Position = gl.getAttribLocation(phongProgram, 'a_Position');
   if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');
     return -1;
