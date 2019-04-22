@@ -77,6 +77,11 @@ THREE.Object3D = function () {
 	this.castShadow = false;
 	this.receiveShadow = false;
 
+	/**
+	 * When this is set, 
+	 * it checks every frame if the object is in the frustum of the camera. 
+	 * Otherwise the object gets drawn every frame even if it isn't visible.
+	 */
 	this.frustumCulled = true;
 	this.renderOrder = 0;
 

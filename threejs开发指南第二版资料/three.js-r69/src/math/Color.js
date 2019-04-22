@@ -2,6 +2,12 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
+/**
+ * @classdesc 颜色值，RGB
+ * @param {rgb|int} color - 一个rgb颜色值 rgb(256,256,256) 或者一个0x开头的6位16进制颜色值(0xaabbff);
+ * @returns {THREE.Color}
+ * @constructor
+ */
 THREE.Color = function ( color ) {
 
 	if ( arguments.length === 3 ) {
@@ -14,23 +20,32 @@ THREE.Color = function ( color ) {
 
 };
 
+/**
+ * @desc THREE.Color 的函数列表
+ * @returns {THREE.Color}
+ */
 THREE.Color.prototype = {
 
 	constructor: THREE.Color,
 
-	r: 1, g: 1, b: 1,
+	r: 1, g: 1, b: 1,		//初始化属性（颜色值）r,g,b为1
 
+	/**
+	 * @desc 颜色对象内置的set方法，将16进制颜色值，rgb颜色值，颜色对象复制给当前实例
+	 * @param {THREE.Color|number|string} value 颜色参数
+	 * @returns {THREE.Color}
+	 */
 	set: function ( value ) {
 
-		if ( value instanceof THREE.Color ) {
+		if ( value instanceof THREE.Color ) {			//如果参数value是THREE.Color的实例化对象
 
 			this.copy( value );
 
-		} else if ( typeof value === 'number' ) {
+		} else if ( typeof value === 'number' ) {		//如果参数value的类型为number
 
 			this.setHex( value );
 
-		} else if ( typeof value === 'string' ) {
+		} else if ( typeof value === 'string' ) {		//如果参数value的类型为string
 
 			this.setStyle( value );
 
@@ -40,6 +55,11 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 设置16进制颜色值给当前实例
+	 * @param {number} hex 16进制颜色值
+	 * @returns {THREE.Color}
+	 */
 	setHex: function ( hex ) {
 
 		hex = Math.floor( hex );
@@ -52,6 +72,13 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 设置r,g,b颜色值给当前实例
+	 * @param {number} r 红	(0-255)
+	 * @param {number} g 绿	(0-255)
+	 * @param {number} b 蓝	(0-255)
+	 * @returns {THREE.Color}
+	 */
 	setRGB: function ( r, g, b ) {
 
 		this.r = r;
@@ -62,16 +89,25 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 设置h,s,l颜色值给当前实例
+	 * @param {number} h 色相	(0.0 , 1.0)
+	 * @param {number} s 饱和度	(0.0 , 1.0)
+	 * @param {number} l 亮度	(0.0 , 1.0)
+	 * @returns {THREE.Color}
+	 */
 	setHSL: function ( h, s, l ) {
 
 		// h,s,l ranges are in 0.0 - 1.0
 
-		if ( s === 0 ) {
+		if ( s === 0 ) {							//如果s=0,表示灰色,
 
-			this.r = this.g = this.b = l;
+			this.r = this.g = this.b = l;			//定义rgb都为l.
 
 		} else {
-
+			//定义一个方法hue2rgb,将hsl颜色转换成rgb颜色值,根据第三个参数计算rgb的值。
+			//更多关于hsl颜色模型和hsl转换成rgb方面的内容
+			//参考下面的实例或者查看维基百科。
 			var hue2rgb = function ( p, q, t ) {
 
 				if ( t < 0 ) t += 1;
@@ -96,6 +132,16 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 通过参数style传递不同的rgb颜色值表示类型给当前实例,列出了以下5种样式<br />
+	 * rgb(255,0,0)    数值型<br />
+	 * rgb(100%,0%,0%) 百分比型<br />
+	 * #ff0000         6位16进制型<br />
+	 * #f00            3位16进制型<br />
+	 * red             颜色名
+	 * @param {string }style
+	 * @returns {THREE.Color}
+	 */
 	setStyle: function ( style ) {
 
 		// rgb(255,0,0)
@@ -163,6 +209,11 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 赋值颜色属性给当前实例
+	 * @param {THREE.Color} color 颜色属性
+	 * @returns {THREE.Color}
+	 */
 	copy: function ( color ) {
 
 		this.r = color.r;
@@ -173,6 +224,17 @@ THREE.Color.prototype = {
 
 	},
 
+	/*
+	下面函数用于对色彩的Gamma 曲线调整，对色彩进行补偿之类的吧，
+	使图形图像色彩更加的绚丽，不至于失真。
+	更多专业知识求大神补充。
+	*/
+
+	/**
+	 * @desc 将color的rgb值分别平方，赋给调用者对象
+	 * @param {THREE.Color} color
+	 * @returns {THREE.Color}
+	 */
 	copyGammaToLinear: function ( color ) {
 
 		this.r = color.r * color.r;
@@ -183,6 +245,11 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 将color的rgb值分别开方，赋给调用者对象
+	 * @param {THREE.Color} color
+	 * @returns {THREE.Color}
+	 */
 	copyLinearToGamma: function ( color ) {
 
 		this.r = Math.sqrt( color.r );
@@ -193,6 +260,10 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 将当前color的rgb值分别平方
+	 * @returns {THREE.Color}
+	 */
 	convertGammaToLinear: function () {
 
 		var r = this.r, g = this.g, b = this.b;
@@ -205,6 +276,10 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 将当前color的rgb值分别开方
+	 * @returns {THREE.Color}
+	 */
 	convertLinearToGamma: function () {
 
 		this.r = Math.sqrt( this.r );
@@ -215,18 +290,31 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 获得当前color颜色值并返回16进制int型颜色值
+	 * @returns {number}
+	 */
 	getHex: function () {
 
 		return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
 
 	},
 
+	/**
+	 * @desc 获得当前color颜色值并返回16进制string颜色值
+	 * @returns {string}
+	 */
 	getHexString: function () {
 
 		return ( '000000' + this.getHex().toString( 16 ) ).slice( - 6 );
 
 	},
 
+	/**
+	 * @desc 根据Object{ h: 0, s: 0, l: 0 }获取hsl值
+	 * @param optionalTarget
+	 * @returns {*|{h: number, s: number, l: number}}
+	 */
 	getHSL: function ( optionalTarget ) {
 
 		// h,s,l ranges are in 0.0 - 1.0
@@ -272,12 +360,27 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 获取rgb(255,0,0) 数值型的颜色值
+	 * @returns {string}
+	 */
 	getStyle: function () {
 
 		return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
 
 	},
 
+	/*
+	下面函数用于对颜色的计算.
+	*/
+
+	/**
+	 * @desc 当前颜色按照传递的参数(h,s,l)对颜色值进行偏移
+	 * @param {number} h 色相	(0.0 , 1.0)
+	 * @param {number} s 饱和度	(0.0 , 1.0)
+	 * @param {number} l 亮度	(0.0 , 1.0)
+	 * @returns {THREE.Color}
+	 */
 	offsetHSL: function ( h, s, l ) {
 
 		var hsl = this.getHSL();
@@ -290,6 +393,11 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 当前颜色按照传递的参数color对颜色值进行偏移
+	 * @param {THREE.Color} color 偏移的颜色值
+	 * @returns {THREE.Color}
+	 */
 	add: function ( color ) {
 
 		this.r += color.r;
@@ -300,6 +408,12 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 颜色相加
+	 * @param {THREE.Color} color1 颜色值1
+	 * @param {THREE.Color} color2 颜色值2
+	 * @returns {THREE.Color}
+	 */
 	addColors: function ( color1, color2 ) {
 
 		this.r = color1.r + color2.r;
@@ -309,7 +423,11 @@ THREE.Color.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 当前颜色按照传递的参数s对颜色值进行相加
+	 * @param {number} s 偏移的颜色值
+	 * @returns {THREE.Color}
+	 */
 	addScalar: function ( s ) {
 
 		this.r += s;
@@ -320,6 +438,11 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 当前颜色按照传递的参数color对颜色值进行相乘
+	 * @param {THREE.Color} color 偏移的颜色值
+	 * @returns {THREE.Color}
+	 */
 	multiply: function ( color ) {
 
 		this.r *= color.r;
@@ -329,7 +452,11 @@ THREE.Color.prototype = {
 		return this;
 
 	},
-
+	/**
+	 * @desc 当前颜色按照传递的参数s对颜色值进行相乘
+	 * @param {number} s 偏移的颜色值
+	 * @returns {THREE.Color}
+	 */
 	multiplyScalar: function ( s ) {
 
 		this.r *= s;
@@ -340,6 +467,12 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * 当前颜色this.r[g][b]设置为下限和上限参数color.r[g][b] 之间进行插值
+	 * @param {THREE.Color} color	颜色
+	 * @param {number} alpha		百分比权重
+	 * @returns {THREE.Color}
+	 */
 	lerp: function ( color, alpha ) {
 
 		this.r += ( color.r - this.r ) * alpha;
@@ -350,12 +483,22 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 颜色值比较
+	 * @param {THREE.Color} c
+	 * @returns {boolean}
+	 */
 	equals: function ( c ) {
 
 		return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
 
 	},
 
+	/**
+	 * @desc 存储颜色值的数组赋值给当前颜色对象
+	 * @param {number[]} array
+	 * @returns {THREE.Color}
+	 */
 	fromArray: function ( array ) {
 
 		this.r = array[ 0 ];
@@ -366,12 +509,20 @@ THREE.Color.prototype = {
 
 	},
 
+	/**
+	 * @desc 当前颜色对象赋值给数组
+	 * @returns {number[]}
+	 */
 	toArray: function () {
 
 		return [ this.r, this.g, this.b ];
 
 	},
 
+	/**
+	 * @desc 克隆颜色值
+	 * @returns {THREE.Color}
+	 */
 	clone: function () {
 
 		return new THREE.Color().setRGB( this.r, this.g, this.b );
@@ -380,6 +531,11 @@ THREE.Color.prototype = {
 
 };
 
+/**
+ * @@memberof THREE
+ * @desc 全局颜色列表
+ * @type {*}
+ */
 THREE.ColorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF, 'aquamarine': 0x7FFFD4, 'azure': 0xF0FFFF,
 'beige': 0xF5F5DC, 'bisque': 0xFFE4C4, 'black': 0x000000, 'blanchedalmond': 0xFFEBCD, 'blue': 0x0000FF, 'blueviolet': 0x8A2BE2,
 'brown': 0xA52A2A, 'burlywood': 0xDEB887, 'cadetblue': 0x5F9EA0, 'chartreuse': 0x7FFF00, 'chocolate': 0xD2691E, 'coral': 0xFF7F50,

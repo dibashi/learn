@@ -4,22 +4,43 @@
  * @author mikael emtinger / http://gomo.se/
  * @author jonobr1 / http://jonobr1.com/
  */
-
+/**
+ * @classdesc Mesh对象
+ * @param {THREE.Geometry} geometry 几何信息
+ * @param {THREE.Material} material 材质信息
+ * @extends {THREE.Object3D}
+ * @constructor
+ */
 THREE.Mesh = function ( geometry, material ) {
 
 	THREE.Object3D.call( this );
-
+	/**
+	 * @default 'Mesh'
+	 * @type {string}
+	 */
 	this.type = 'Mesh';
-	
+	/**
+	 * @desc 几何信息
+	 * @type {THREE.Geometry}
+	 */
 	this.geometry = geometry !== undefined ? geometry : new THREE.Geometry();
+	/**
+	 * @desc 材质信息
+	 * @type {THREE.Geometry}
+	 */
 	this.material = material !== undefined ? material : new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
 
 	this.updateMorphTargets();
 
 };
-
+/**
+ * @desc Mesh对象从THREE.Objec3D的原型继承所有属性方法
+ * @type {THREE.Object3D}
+ */
 THREE.Mesh.prototype = Object.create( THREE.Object3D.prototype );
-
+/**
+ * @desc 更新变形顶点数组
+ */
 THREE.Mesh.prototype.updateMorphTargets = function () {
 
 	if ( this.geometry.morphTargets !== undefined && this.geometry.morphTargets.length > 0 ) {
@@ -39,7 +60,11 @@ THREE.Mesh.prototype.updateMorphTargets = function () {
 	}
 
 };
-
+/**
+ * @desc 根据名称获得变形顶点索引
+ * @param {String} name 名称
+ * @returns {*}
+ */
 THREE.Mesh.prototype.getMorphTargetIndexByName = function ( name ) {
 
 	if ( this.morphTargetDictionary[ name ] !== undefined ) {
@@ -54,7 +79,12 @@ THREE.Mesh.prototype.getMorphTargetIndexByName = function ( name ) {
 
 };
 
-
+/**
+ * @function
+ * @desc 线的拾取判断函数
+ * @param {THREE.Raycaster} raycaster 拾取射线对象
+ * @param {*} intersects 拾取结果对象数组
+ */
 THREE.Mesh.prototype.raycast = ( function () {
 
 	var inverseMatrix = new THREE.Matrix4();
@@ -70,7 +100,7 @@ THREE.Mesh.prototype.raycast = ( function () {
 		var geometry = this.geometry;
 
 		// Checking boundingSphere distance to ray
-
+		// 先进行外包围球体判断
 		if ( geometry.boundingSphere === null ) geometry.computeBoundingSphere();
 
 		sphere.copy( geometry.boundingSphere );
@@ -83,7 +113,7 @@ THREE.Mesh.prototype.raycast = ( function () {
 		}
 
 		// Check boundingBox before continuing
-
+		// 再进行外包围盒判断
 		inverseMatrix.getInverse( this.matrixWorld );
 		ray.copy( raycaster.ray ).applyMatrix4( inverseMatrix );
 
@@ -97,6 +127,7 @@ THREE.Mesh.prototype.raycast = ( function () {
 
 		}
 
+		// 每个三角面依次判断
 		if ( geometry instanceof THREE.BufferGeometry ) {
 
 			var material = this.material;
@@ -312,7 +343,12 @@ THREE.Mesh.prototype.raycast = ( function () {
 	};
 
 }() );
-
+/**
+ * @desc Three.Mesh 拷贝函数
+ * @param {THREE.Mesh} object
+ * @param {boolean} recursive 是否递归拷贝
+ * @returns {THREE.Mesh}
+ */
 THREE.Mesh.prototype.clone = function ( object, recursive ) {
 
 	if ( object === undefined ) object = new THREE.Mesh( this.geometry, this.material );

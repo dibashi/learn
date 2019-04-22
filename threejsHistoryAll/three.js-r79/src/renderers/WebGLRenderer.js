@@ -47,7 +47,14 @@ THREE.WebGLRenderer = function ( parameters ) {
 	this.autoClearStencil = true;
 
 	// scene graph
-
+	/**
+	 * Defines whether the renderer should sort objects. Default is true.
+Note: Sorting is used to attempt to properly render objects that have some degree of transparency.
+ By definition, sorting objects may not work in all cases. 
+ Depending on the needs of application,
+  it may be neccessary to turn off sorting and use other methods to deal with transparency rendering 
+  e.g. manually determining the object rendering order.
+	 */
 	this.sortObjects = true;
 
 	// user-defined clipping
@@ -114,7 +121,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 	_viewport = new THREE.Vector4( 0, 0, _width, _height ),
 
 	// frustum
-
+	//优化性能，用于看见性判断
 	_frustum = new THREE.Frustum(),
 
 	// clipping
@@ -123,6 +130,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 	_clippingEnabled = false,
 	_localClippingEnabled = false,
 
+	//包围球，用于可见性判断
 	_sphere = new THREE.Sphere(),
 
 	// camera matrices cache
@@ -1391,10 +1399,13 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 				}
 
+				//检测对象是否开启视锥测试，没开启就画，若开启 就测试
+				//https://my.oschina.net/u/999400/blog/170062 以后详细研究算法细节
 				if ( object.frustumCulled === false || isObjectViewable( object ) === true ) {
 
 					var material = object.material;
 
+					//material 里面还有visible...
 					if ( material.visible === true ) {
 
 						if ( _this.sortObjects === true ) {

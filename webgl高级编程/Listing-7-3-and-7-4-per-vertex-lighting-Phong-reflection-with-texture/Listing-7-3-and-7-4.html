@@ -26,6 +26,8 @@
   
   varying vec2 vTextureCoordinates;
   varying vec3 vLightWeighting;
+
+  varying vec3 vS;
   
   const float shininess = 32.0;
     
@@ -59,9 +61,9 @@
 
     // Sum up all three reflection components and send to the fragment shader
     vLightWeighting = uAmbientLightColor + 
-                      uDiffuseLightColor * diffuseLightWeightning +
-                      uSpecularLightColor * specularLightWeightning;
-    
+                      uDiffuseLightColor * diffuseLightWeightning;
+                     
+    vS = uSpecularLightColor * specularLightWeightning;
      // Finally transform the geometry
      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
      vTextureCoordinates = aTextureCoordinates;  
@@ -74,11 +76,13 @@
   varying vec2 vTextureCoordinates;
   varying vec3 vLightWeighting;
   uniform sampler2D uSampler;
+
+  varying vec3 vS;
   
   void main() {   
     vec4 texelColor = texture2D(uSampler, vTextureCoordinates);
    
-    gl_FragColor = vec4(vLightWeighting.rgb * texelColor.rgb, texelColor.a);
+    gl_FragColor = vec4(vLightWeighting.rgb * texelColor.rgb + vS, texelColor.a);
   } 
 </script>
 
