@@ -8,7 +8,7 @@
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
-    <script type="text/javascript" src="../libs/Projector.js"></script>
+    
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -37,7 +37,7 @@
         var scene = new THREE.Scene();
 
         // create a camera, which defines where we're looking at.
-        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 5, 3786);
 
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
@@ -46,7 +46,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
 
 
-        var projector = new THREE.Projector();
+       
         document.addEventListener('mousedown', onDocumentMouseDown, false);
         document.addEventListener('mousemove', onDocumentMouseMove, false);
 
@@ -100,8 +100,8 @@
 
 
         // position and point the camera to the center of the scene
-        camera.position.x = -30;
-        camera.position.y = 40;
+        camera.position.x = 0;
+        camera.position.y = 0;
         camera.position.z = 30;
         camera.lookAt(scene.position);
 
@@ -165,13 +165,17 @@
 
         }
 
-        var projector = new THREE.Projector();
+      
         var tube;
 
         function onDocumentMouseDown(event) {
 
-            var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+            var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0);
+            
             vector = vector.unproject(camera);
+            var temp = new THREE.Vector3();
+            console.log(vector);
+            console.log(temp.copy(vector).applyMatrix4(camera.matrixWorldInverse));
 
             var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
 
@@ -188,7 +192,7 @@
 
         function onDocumentMouseMove(event) {
             if (controls.showRay) {
-                var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+                var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, -1);
                 vector = vector.unproject(camera);
 
                 var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());

@@ -32,6 +32,7 @@
       color: 0x0000ff
     }); //材质对象Material
     var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    mesh.position.x = 10;
     scene.add(mesh); //网格模型添加到场景中
     /**
      * 光源设置

@@ -98,7 +98,9 @@ THREE.Ray.prototype = {
 			var directionDistance = v1.subVectors( point, this.origin ).dot( this.direction );
 
 			// point behind the ray
-
+			//这个画图之后就可得出结论，主要是用于处理 球心和射线原点的向量与射线的夹角大于90度的情况
+			//在这个情况下，球心离射线最近的距离为 球心到 射线起点的距离，因为 三角形中 钝角对应的边是最长的
+			//即可证明这个距离是最短的
 			if ( directionDistance < 0 ) {
 
 				return this.origin.distanceToSquared( point );
@@ -276,6 +278,7 @@ THREE.Ray.prototype = {
 
 	}(),
 
+	//计算射线 是否与球相交
 	intersectsSphere: function ( sphere ) {
 
 		return this.distanceToPoint( sphere.center ) <= sphere.radius;

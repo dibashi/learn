@@ -358,7 +358,7 @@ THREE.Vector3.prototype = {
 		return function unproject( camera ) {
 
 			if ( matrix === undefined ) matrix = new THREE.Matrix4();
-
+			//camera的最终矩阵为project*(cameraWorld的逆矩阵)  其逆矩阵为 cameraWorld * (project的逆矩阵) 实际上求得的是世界坐标系下的点。
 			matrix.multiplyMatrices( camera.matrixWorld, matrix.getInverse( camera.projectionMatrix ) );
 			return this.applyProjection( matrix );
 
