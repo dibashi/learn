@@ -188,13 +188,15 @@ THREE.Mesh.prototype = Object.assign( Object.create( THREE.Object3D.prototype ),
 
 			if ( raycaster.ray.intersectsSphere( sphere ) === false ) return;
 
-			//
+			//wtf!! 上面包围球用 世界坐标 下面的 包围盒 为什么要在对象坐标系进行判断？ ray是在世界坐标的
 
+			//作者应该是处于性能考虑的，比较变换一条射线比较简单，而变换一个大模型的所有顶点就麻烦了
+			//下面会用到 逐三角面的 那是对象坐标系下的
 			inverseMatrix.getInverse( matrixWorld );
 			ray.copy( raycaster.ray ).applyMatrix4( inverseMatrix );
 
 			// Check boundingBox before continuing
-
+			//没有就不要了？看来包围球的计算复杂度低？
 			if ( geometry.boundingBox !== null ) {
 
 				if ( ray.intersectsBox( geometry.boundingBox ) === false ) return;
@@ -202,7 +204,7 @@ THREE.Mesh.prototype = Object.assign( Object.create( THREE.Object3D.prototype ),
 			}
 
 			var uvs, intersection;
-
+			//逐三角面判断
 			if ( geometry instanceof THREE.BufferGeometry ) {
 
 				var a, b, c;
