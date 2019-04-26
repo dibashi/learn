@@ -97,6 +97,11 @@ o.b = 38;
 			enumerable: true,
 			value: scale
 		},
+		//renderer中以下两个矩阵的更新
+		/**
+		 * object.modelViewMatrix.multiplyMatrices( camera.matrixWorldInverse, object.matrixWorld );
+			object.normalMatrix.getNormalMatrix( object.modelViewMatrix );
+		 */
 		modelViewMatrix: {
 			value: new THREE.Matrix4()
 		},

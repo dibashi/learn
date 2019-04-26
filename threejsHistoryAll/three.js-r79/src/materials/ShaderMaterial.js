@@ -19,6 +19,24 @@
  * }
  */
 
+ //https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial新版的文档
+
+
+/*
+///ShaderMaterial方法根据参数parameters创建为自定义着色器创建材质类型,这样的材质对象让用户扩充材质类型,有了无限的可能.
+///parameters参数的格式看上面.ShaderMaterial对象的功能函数采用,定义构造的函数原型对象来实现.大部分属性方法继承自材质的基类Material.
+///
+/// Example:
+///			var material = new THREE.ShaderMaterial({
+///				uniforms: {
+///					time:{type: "f", value: new THREE.Vector2()}
+///					},
+///					vertexShader: document.getElementById('vertexShader').textContent,
+///					fragmentShader: document.getElementById('fragmentShader').textContent
+///				});
+///
+*/
+
 THREE.ShaderMaterial = function ( parameters ) {
 
 	THREE.Material.call( this );

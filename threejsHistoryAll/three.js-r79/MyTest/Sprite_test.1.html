@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>sprite</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+			/* 隐藏body窗口区域滚动条 */
+		}
+	</style>
+</head>
+
+<body>
+	<canvas>Your browser does not seem to support
+		HTML5 canvas.</canvas>
+	<canvas id="myCanvas"></canvas>
+	<!-- <script src="../build/three.js"></script> -->
+
+	<script>
+
+		var gl = document.getElementById('myCanvas').getContext('webgl');
+		// var zz = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER ,gl.HIGH_INT);
+		// var extension = extensions.get( 'EXT_texture_filter_anisotropic' );
+		// console.log(zz);
+		// var _this = {};
+		// _this.maxTextures = gl.getParameter( gl.MAX_TEXTURE_IMAGE_UNITS );
+		// _this.maxVertexTextures = gl.getParameter( gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS );
+		// _this.maxTextureSize = gl.getParameter( gl.MAX_TEXTURE_SIZE );
+		// _this.maxCubemapSize = gl.getParameter( gl.MAX_CUBE_MAP_TEXTURE_SIZE );
+
+		// _this.maxAttributes = gl.getParameter( gl.MAX_VERTEX_ATTRIBS );
+		// _this.maxVertexUniforms = gl.getParameter( gl.MAX_VERTEX_UNIFORM_VECTORS );
+		// _this.maxVaryings = gl.getParameter( gl.MAX_VARYING_VECTORS );
+		// _this.maxFragmentUniforms = gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS );
+		// console.log()
+
+		window.addEventListener("load", function setupWebGL(evt) {
+			"use strict"
+			console.log(evt);
+			window.removeEventListener(evt.type, setupWebGL, false);
+
+			var canvas = document.querySelector("canvas");
+
+			// The following two lines set the size (in CSS pixels) of
+			// the drawing buffer to be identical to the size of the
+			// canvas HTML element, as determined by CSS.
+			canvas.width = canvas.clientWidth;
+			canvas.height = canvas.clientHeight;
+
+			var gl = canvas.getContext("webgl")
+				|| canvas.getContext("experimental-webgl");
+
+			// gl.clearColor(0.0, 0.0, 0.0, 1.0);
+			// gl.clear(gl.COLOR_BUFFER_BIT);
+			gl.viewport(0, 0,
+				gl.drawingBufferWidth, gl.drawingBufferHeight);
+
+			// Enable scissoring operation and define the position and
+			// size of the scissoring area.
+			var rrr = function () {
+				
+				gl.enable(gl.SCISSOR_TEST);
+				gl.scissor(0, 0, 60, 130);
+
+				// Clear the drawing buffer solid yellow.
+				gl.clearColor(1.0, 1.0, 0.0, 1.0);
+				gl.clear(gl.COLOR_BUFFER_BIT);
+				gl.disable(gl.SCISSOR_TEST);
+
+				gl.clearColor(0.0, 0.0, 0.0, 1.0);
+				gl.clear(gl.COLOR_BUFFER_BIT);
+				requestAnimationFrame(rrr);
+			}
+			requestAnimationFrame(rrr);
+
+
+	</script>
+
+</body>
+
+</html>

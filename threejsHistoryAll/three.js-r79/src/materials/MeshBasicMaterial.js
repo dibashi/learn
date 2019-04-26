@@ -53,6 +53,37 @@ THREE.MeshBasicMaterial = function ( parameters ) {
 	this.reflectivity = 1;
 	this.refractionRatio = 0.98;
 
+	/**renderer具体实现的 wireframe
+	 * if ( object instanceof THREE.Mesh ) {
+
+			if ( material.wireframe === true ) {
+
+				state.setLineWidth( material.wireframeLinewidth * getTargetPixelRatio() );
+				renderer.setMode( _gl.LINES );
+
+			} else {
+
+				switch ( object.drawMode ) {
+
+					case THREE.TrianglesDrawMode:
+						renderer.setMode( _gl.TRIANGLES );
+						break;
+
+					case THREE.TriangleStripDrawMode:
+						renderer.setMode( _gl.TRIANGLE_STRIP );
+						break;
+
+					case THREE.TriangleFanDrawMode:
+						renderer.setMode( _gl.TRIANGLE_FAN );
+						break;
+
+				}
+
+			}
+
+
+		}
+	 */
 	this.wireframe = false;
 	this.wireframeLinewidth = 1;
 	this.wireframeLinecap = 'round';

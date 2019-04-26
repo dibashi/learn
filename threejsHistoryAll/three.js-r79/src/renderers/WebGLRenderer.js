@@ -5,7 +5,11 @@
  * @author szimek / https://github.com/szimek/
  * @author tschw
  */
-
+/**
+ * https://blog.csdn.net/cjneo/article/details/50538033
+ * https://www.jianshu.com/p/c6fced212bef
+ * OPENGL渲染管线
+ */
 THREE.WebGLRenderer = function (parameters) {
 
 	console.log('THREE.WebGLRenderer', THREE.REVISION);
@@ -1509,6 +1513,8 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	}
 
+
+	//目前理解：这是动态创建着色器的过程
 	function initMaterial(material, fog, object) {
 
 		var materialProperties = properties.get(material);
@@ -1516,6 +1522,85 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 		var parameters = programCache.getParameters(
 			material, _lights, fog, _clipping.numPlanes, object);
 
+		//根据各种参数，状态，等 获得这个材质的着色器，
+		/**这是之前用shaderMaterial 使用的着色器 经过下面 被系统转换了 加入了一些额外的东西
+		 * <script type="x-shader/x-vertex" id="vertexShader2">
+	attribute float vertexDisplacement;
+	uniform float delta;
+	varying float vOpacity;
+	varying vec3 vUv;
+	
+	void main() 
+	{
+		vUv = position;
+		vOpacity = vertexDisplacement;
+	
+		vec3 p = position;
+	
+		p.x += sin(vertexDisplacement) * 50.0;
+		p.y += cos(vertexDisplacement) * 50.0;
+	
+		vec4 modelViewPosition = modelViewMatrix * vec4(p, 1.0);
+		gl_Position = projectionMatrix * modelViewPosition;
+	}
+	</script>
+	<script type="x-shader/x-fragment" id="fragmentShader2">
+	uniform float delta;
+	varying float vOpacity;
+	varying vec3 vUv;
+	
+	void main() {
+	
+		float r = 1.0 + cos(vUv.x * delta);
+		float g = 0.5 + sin(delta) * 0.5;
+		float b = 0.0;
+		vec3 rgb = vec3(r, g, b);
+	
+		gl_FragColor = vec4(rgb, vOpacity);
+	}
+	</script>
+		 */
+		//这个是我自定义着色器的情况下，系统动态创建后的内容
+		/**
+		 * 
+		 * "
+	uniform float delta;
+	varying float vOpacity;
+	varying vec3 vUv;
+	
+	void main() {
+	
+		float r = 1.0 + cos(vUv.x * delta);
+		float g = 0.5 + sin(delta) * 0.5;
+		float b = 0.0;
+		vec3 rgb = vec3(r, g, b);
+	
+		gl_FragColor = vec4(rgb, vOpacity);
+	}
+	,
+	attribute float vertexDisplacement;
+	uniform float delta;
+	varying float vOpacity;
+	varying vec3 vUv;
+	
+	void main() 
+	{
+		vUv = position;
+		vOpacity = vertexDisplacement;
+	
+		vec3 p = position;
+	
+		p.x += sin(vertexDisplacement) * 50.0;
+		p.y += cos(vertexDisplacement) * 50.0;
+	
+		vec4 modelViewPosition = modelViewMatrix * vec4(p, 1.0);
+		gl_Position = projectionMatrix * modelViewPosition;
+	}
+	,highp,true,false,3000,false,,3000,false,false,false,3000,false,false,false,false,false,
+	false,false,,0,false,false,false,false,,false,false,
+	1018,,false,false,8,4,false,0,1,0,0,false,1,1,false,0,false,false,0,false"
+		 * 
+		 */
 		var code = programCache.getProgramCode(material, parameters);
 
 		var program = materialProperties.program;
@@ -1654,6 +1739,7 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	}
 
+	//根据material来修改webgl状态
 	function setMaterial(material) {
 
 		if (material.side !== THREE.DoubleSide)
@@ -1832,7 +1918,11 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 			var skeleton = object.skeleton;
 
 			if (skeleton) {
-
+				//主要为了判断 蒙皮矩阵列表是存储在纹理中 还是传入uniform
+				//这要取决于 webgl扩展是否支持顶点纹理以及纹理是否支持传入float类型的数据
+				//还取决于用户是否用顶点纹理
+				//https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-skinning.html
+				//这篇文章探讨了 蒙皮的本质 非常棒
 				if (capabilities.floatVertexTextures && skeleton.useVertexTexture) {
 
 					p_uniforms.set(_gl, skeleton, 'boneTexture');

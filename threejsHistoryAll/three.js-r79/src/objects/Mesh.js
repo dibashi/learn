@@ -13,7 +13,45 @@ THREE.Mesh = function ( geometry, material ) {
 
 	this.geometry = geometry !== undefined ? geometry : new THREE.BufferGeometry();
 	this.material = material !== undefined ? material : new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
+	
 
+	/**
+	 * 
+		if (object instanceof THREE.Mesh) {
+
+			if (material.wireframe === true) {
+
+				state.setLineWidth(material.wireframeLinewidth * getTargetPixelRatio());
+				renderer.setMode(_gl.LINES);
+
+			} else {
+
+				switch (object.drawMode) {
+
+					case THREE.TrianglesDrawMode:
+						renderer.setMode(_gl.TRIANGLES);
+						break;
+
+					case THREE.TriangleStripDrawMode:
+						renderer.setMode(_gl.TRIANGLE_STRIP);
+						break;
+
+					case THREE.TriangleFanDrawMode:
+						renderer.setMode(_gl.TRIANGLE_FAN);
+						break;
+
+				}
+
+			}
+	 */
+	//根据WebGLRenderer里的代码可以看到，如果材质的线框属性为true
+	//就会以线条来渲染mesh
+	//否则根据drawMode来以 三角形组 三角形带 三角形扇来渲染
+	/**
+	 * 	TrianglesDrawMode: 0,
+	TriangleStripDrawMode: 1,
+	TriangleFanDrawMode: 2,
+	 */
 	this.drawMode = THREE.TrianglesDrawMode;
 
 	this.updateMorphTargets();
@@ -346,7 +384,7 @@ THREE.Mesh.prototype = Object.assign( Object.create( THREE.Object3D.prototype ),
 	}() ),
 
 	clone: function () {
-
+		//这里的克隆体 指向的 同一个材质和几何对象？？
 		return new this.constructor( this.geometry, this.material ).copy( this );
 
 	}
