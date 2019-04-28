@@ -9,6 +9,11 @@
  * Texture parameters for an auto-generated target texture
  * depthBuffer/stencilBuffer: Booleans to indicate if we should generate these buffers
 */
+/**
+ * A render target is a buffer where the video card draws pixels for a scene that
+ * 	is being rendered in the background. It is used in different effects,
+ *  such as applying postprocessing to a rendered image before displaying it on the screen.
+ */
 THREE.WebGLRenderTarget = function ( width, height, options ) {
 
 	this.uuid = THREE.Math.generateUUID();

@@ -124,10 +124,11 @@ function initTextures(gl, n) {
   return true;
 }
 
+var unit = 8;
 function loadTexture(gl, n, texture, u_Sampler, image) {
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
   // Enable texture unit0
-  gl.activeTexture(gl.TEXTURE0);
+  gl.activeTexture(gl.TEXTURE0 + unit);
   // Bind the texture object to the target
   gl.bindTexture(gl.TEXTURE_2D, texture);
 
@@ -137,9 +138,49 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
   
   // Set the texture unit 0 to the sampler
-  gl.uniform1i(u_Sampler, 0);
+  gl.uniform1i(u_Sampler, unit);
   
   gl.clear(gl.COLOR_BUFFER_BIT);   // Clear <canvas>
 
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
 }
+
+/*
+var getContext = function() {
+  var textureUnits = [
+    { TEXTURE_2D: ??, TEXTURE_CUBE_MAP: ?? },
+    { TEXTURE_2D: ??, TEXTURE_CUBE_MAP: ?? },
+    { TEXTURE_2D: ??, TEXTURE_CUBE_MAP: ?? },
+    { TEXTURE_2D: ??, TEXTURE_CUBE_MAP: ?? },
+    { TEXTURE_2D: ??, TEXTURE_CUBE_MAP: ?? },
+    ...
+  ];
+  var activeTextureUnit = 0;
+ 
+  var activeTexture = function(unit) {
+    // 将纹理单元枚举转换成索引
+    var index = unit - gl.TEXTURE0;
+    // 设置激活纹理单元
+    activeTextureUnit = index;
+  };
+ 
+  var bindTexture = function(target, texture) {
+    // 设置激活纹理单元的目标对象纹理
+    textureUnits[activeTextureUnit][target] = texture;
+  };
+ 
+  var texImage2D = function(target, ... args ...) {
+    // 绑定对应纹理单元调用相应的方法
+    var texture = textureUnits[activeTextureUnit][target];
+    texture.image2D(...args...);
+  };
+ 
+  // 返回 WebGL API
+  return {
+    activeTexture: activeTexture,
+    bindTexture: bindTexture,
+    texImage2D: texImage2D,
+  }
+};
+
+*/

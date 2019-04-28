@@ -1172,12 +1172,14 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 		_infoRender.faces = 0;
 		_infoRender.points = 0;
 
+		//如果renderTarget是undefined 就置为null。。有什么意义呢
 		if (renderTarget === undefined) {
 
 			renderTarget = null;
 
 		}
 
+		//设置 渲染目标，要么他是null  要么就是用户想要输出的WebglRenderTarget
 		this.setRenderTarget(renderTarget);
 
 		//
@@ -2648,11 +2650,16 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 	};
 
 	this.setRenderTarget = function (renderTarget) {
-
+		
+		//内部变量的缓存，当前渲染目标
 		_currentRenderTarget = renderTarget;
 
+		//如果renderTarget 并且内部没有缓存__webglFramebuffer
 		if (renderTarget && properties.get(renderTarget).__webglFramebuffer === undefined) {
-
+			//为渲染目标设置webgl资源
+			//创建帧缓冲好createFramebuffer
+			//帧缓冲关联的 颜色缓冲 framebufferTexture2D
+			//帧缓冲关联的 深度 模板缓冲		_gl.framebufferTexture2D( _gl.FRAMEBUFFER, _gl.DEPTH_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0 );
 			textures.setupRenderTarget(renderTarget);
 
 		}
