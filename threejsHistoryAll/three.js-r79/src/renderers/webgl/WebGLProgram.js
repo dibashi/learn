@@ -1,3 +1,70 @@
+/**
+ * Constructor for the GLSL program sent to vertex and fragment shaders, 
+ * including default uniforms and attributes.
+ * Vertex shader (unconditional):
+// = object.matrixWorld
+uniform mat4 modelMatrix;
+
+// = camera.matrixWorldInverse * object.matrixWorld
+uniform mat4 modelViewMatrix;
+
+// = camera.projectionMatrix
+uniform mat4 projectionMatrix;
+
+// = camera.matrixWorldInverse
+uniform mat4 viewMatrix;
+
+// = inverse transpose of modelViewMatrix
+uniform mat3 normalMatrix;
+
+// = camera position in world space
+uniform vec3 cameraPosition;
+// default vertex attributes provided by Geometry and BufferGeometry
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+Note that you can therefore calculate the position of a vertex in the vertex shader by:
+gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); or alternatively
+gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4( position, 1.0 );
+
+Vertex shader (conditional):
+#ifdef USE_COLOR
+	// vertex color attribute
+	attribute vec3 color;
+#endif
+#ifdef USE_MORPHTARGETS
+
+	attribute vec3 morphTarget0;
+	attribute vec3 morphTarget1;
+	attribute vec3 morphTarget2;
+	attribute vec3 morphTarget3;
+
+	#ifdef USE_MORPHNORMALS
+
+		attribute vec3 morphNormal0;
+		attribute vec3 morphNormal1;
+		attribute vec3 morphNormal2;
+		attribute vec3 morphNormal3;
+
+	#else
+
+		attribute vec3 morphTarget4;
+		attribute vec3 morphTarget5;
+		attribute vec3 morphTarget6;
+		attribute vec3 morphTarget7;
+
+	#endif
+#endif
+#ifdef USE_SKINNING
+	attribute vec4 skinIndex;
+	attribute vec4 skinWeight;
+#endif
+Fragment shader:
+uniform mat4 viewMatrix;
+uniform vec3 cameraPosition;
+ */
+
+
 THREE.WebGLProgram = ( function () {
 
 	var programIdCount = 0;
@@ -186,6 +253,8 @@ THREE.WebGLProgram = ( function () {
 
 	}
 
+
+	//动态创建着色器！！！！！！！！！！！！!!!!!!!!!!!!!!!!!!! 以后详细分析，这是three.js的核心之一
 	return function WebGLProgram( renderer, code, material, parameters ) {
 
 		var gl = renderer.context;
@@ -574,7 +643,7 @@ THREE.WebGLProgram = ( function () {
 		// set up caching for uniform locations
 
 		var cachedUniforms;
-
+		//Returns a name-value mapping of all active uniform locations.
 		this.getUniforms = function() {
 
 			if ( cachedUniforms === undefined ) {
@@ -591,7 +660,7 @@ THREE.WebGLProgram = ( function () {
 		// set up caching for attribute locations
 
 		var cachedAttributes;
-
+		//Returns a name-value mapping of all active vertex attribute locations.
 		this.getAttributes = function() {
 
 			if ( cachedAttributes === undefined ) {

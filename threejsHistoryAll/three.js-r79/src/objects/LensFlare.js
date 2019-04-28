@@ -20,6 +20,7 @@ THREE.LensFlare = function ( texture, size, distance, blending, color ) {
 
 };
 
+
 THREE.LensFlare.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
 
 	constructor: THREE.LensFlare,
@@ -41,6 +42,14 @@ THREE.LensFlare.prototype = Object.assign( Object.create( THREE.Object3D.prototy
 
 	},
 
+	/**
+ * texture -- THREE.Texture (optional) 
+size -- size in pixels (-1 = use texture.width) 
+distance -- (0-1) from light source (0 = at light source) 
+blending -- Blending Mode - Defaults to THREE.NormalBlending 
+color -- The color of the lens flare
+Automatically adds a lens flare to the lensFlares array if a texture is set.
+ */
 	add: function ( texture, size, distance, blending, color, opacity ) {
 
 		if ( size === undefined ) size = - 1;

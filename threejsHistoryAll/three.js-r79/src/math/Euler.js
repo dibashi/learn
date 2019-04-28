@@ -30,6 +30,7 @@ THREE.Euler.prototype = {
 	set x ( value ) {
 
 		this._x = value;
+		//保证了和四元数 在数值上的统一
 		this.onChangeCallback();
 
 	},

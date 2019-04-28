@@ -9,8 +9,17 @@ THREE.Camera = function () {
 	THREE.Object3D.call( this );
 
 	this.type = 'Camera';
-
+	/**
+	 * This is the inverse of matrixWorld. 
+	 * MatrixWorld contains the Matrix which has the world transform of the Camera.
+	 */
+	//camera.matrixWorldInverse.getInverse( camera.matrixWorld );
+	//对象的模型视图矩阵
+	//object.modelViewMatrix.multiplyMatrices( camera.matrixWorldInverse, object.matrixWorld );
 	this.matrixWorldInverse = new THREE.Matrix4();
+	/**
+	 * This is the matrix which contains the projection.
+	 */
 	this.projectionMatrix = new THREE.Matrix4();
 
 };

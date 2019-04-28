@@ -21,6 +21,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 
 	function init() {
 
+		//这是顶点坐标数据，以及uv数据
 		var vertices = new Float32Array( [
 			- 0.5, - 0.5,  0, 0,
 			  0.5, - 0.5,  1, 0,
@@ -28,6 +29,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 			- 0.5,   0.5,  0, 1
 		] );
 
+		//顶点索引数据
 		var faces = new Uint16Array( [
 			0, 1, 2,
 			0, 2, 3
@@ -72,6 +74,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 			alphaTest:			gl.getUniformLocation( program, 'alphaTest' )
 		};
 
+		//下面 是什么鬼。。
 		var canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
 		canvas.width = 8;
 		canvas.height = 8;
@@ -108,6 +111,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 		state.enable( gl.BLEND );
 
 		gl.bindBuffer( gl.ARRAY_BUFFER, vertexBuffer );
+		//2*8 stride 作者把 float类型默认为4字节了
 		gl.vertexAttribPointer( attributes.position, 2, gl.FLOAT, false, 2 * 8, 0 );
 		gl.vertexAttribPointer( attributes.uv, 2, gl.FLOAT, false, 2 * 8, 8 );
 
@@ -253,7 +257,9 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 		var fragmentShader = gl.createShader( gl.FRAGMENT_SHADER );
 
 		gl.shaderSource( vertexShader, [
-
+			//现在想想，数组的拼接来定义着色器确实好
+			//1，可以加注释。。
+			//2，内部可以继续拼接，动态生成
 			'precision ' + renderer.getPrecision() + ' float;',
 
 			'uniform mat4 modelViewMatrix;',
@@ -272,14 +278,16 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 
 				'vUV = uvOffset + uv * uvScale;',
 
+				//缩放
 				'vec2 alignedPosition = position * scale;',
-
+				//....这里为什么不用模型矩阵，计算的如此麻烦
+				//旋转
 				'vec2 rotatedPosition;',
 				'rotatedPosition.x = cos( rotation ) * alignedPosition.x - sin( rotation ) * alignedPosition.y;',
 				'rotatedPosition.y = sin( rotation ) * alignedPosition.x + cos( rotation ) * alignedPosition.y;',
 
 				'vec4 finalPosition;',
-
+				//平移 似乎有点明白为什么不用模型矩阵了，自己的旋转缩放，加上摄像机的平移 就可以永远正对摄像机了？没有详细计算，之后给出推导过程
 				'finalPosition = modelViewMatrix * vec4( 0.0, 0.0, 0.0, 1.0 );',
 				'finalPosition.xy += rotatedPosition;',
 				'finalPosition = projectionMatrix * finalPosition;',
@@ -294,7 +302,9 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 
 			'precision ' + renderer.getPrecision() + ' float;',
 
+			
 			'uniform vec3 color;',
+			//只能单张图片？
 			'uniform sampler2D map;',
 			'uniform float opacity;',
 
@@ -308,15 +318,18 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 			'varying vec2 vUV;',
 
 			'void main() {',
-
+				//获得纹素
 				'vec4 texture = texture2D( map, vUV );',
-
+				//alpha 测试。 也就是不画那部分。
 				'if ( texture.a < alphaTest ) discard;',
-
+				//最终颜色 可以看到是 color和 texture相乘了 可以这样理解 texture是物体表面的颜色，就是反射光的颜色
+				//color是光源颜色，两者相乘就是最终的反射颜色
+				//opacity又乘了一次。。
 				'gl_FragColor = vec4( color * texture.xyz, texture.a * opacity );',
 
+				//这里是有雾了 根据代码 1应该是 线性的雾化， 非1 且大于0 应该是指数雾化，并没有详细研究公式
 				'if ( fogType > 0 ) {',
-
+					//根据里摄像机的矩阵 深度值，进行雾化因子的计算
 					'float depth = gl_FragCoord.z / gl_FragCoord.w;',
 					'float fogFactor = 0.0;',
 
@@ -332,6 +345,7 @@ THREE.SpritePlugin = function ( renderer, sprites ) {
 
 					'}',
 
+					//线性相加 具体雾的颜色 取决于传入的颜色
 					'gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );',
 
 				'}',

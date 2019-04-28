@@ -3,6 +3,15 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
+/**
+ * An efficient representation of mesh, line, or point geometry.
+ *  Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers,
+ *  reducing the cost of passing all this data to the GPU.
+
+To read and edit data in BufferGeometry attributes, see BufferAttribute documentation.
+
+For a less efficient but easier-to-use representation of geometry, see Geometry.
+ */
 THREE.BufferGeometry = function () {
 
 	Object.defineProperty( this, 'id', { value: THREE.GeometryIdCount ++ } );
@@ -17,6 +26,64 @@ THREE.BufferGeometry = function () {
 
 	this.morphAttributes = {};
 
+	//目前的困惑点，为什么Geometry没有groups属性，BUfferGeometry有呢?
+	//groups到底是什么呢？
+	/*
+	可以极其清楚的看到，一个group就是开始顶点索引，以及顶点数量，然后关联上了一个材质索引
+	这就是group。 为什么要这样关联？因为一个geometry可能对应多个材质，有些顶点用这个材质，
+	有些顶点用那个材质，对他们进行了分组，
+addGroup: function ( start, count, materialIndex ) {
+
+		this.groups.push( {
+
+			start: start,
+			count: count,
+			materialIndex: materialIndex !== undefined ? materialIndex : 0
+
+		} );
+
+	},
+
+	//这是webglRenderer的源码
+	if (material instanceof THREE.MultiMaterial) {
+				//这里的groups就是我们这里的成员变量
+				var groups = geometry.groups;
+				//因为material是Multimaterial的实例，所以会是一个材质数组
+				//如果选择其中的材质呢？
+				//就是对顶点进行分组 每个组关联一个材质索引，以下是解析的算法
+				var materials = material.materials;
+
+				for (var i = 0, l = groups.length; i < l; i++) {
+					//遍历每个组
+					var group = groups[i];
+					//根据组的材质索引找到材质
+					var groupMaterial = materials[group.materialIndex];
+					//如果本组的材质是可见的 就加入到了渲染队列
+					if (groupMaterial.visible === true) {
+						pushRenderItem(object, geometry, groupMaterial, _vector3.z, group);
+
+					}
+
+				}
+
+	} 
+
+	*/
+	/**
+	 * 这是官方的解释
+	 
+Split the geometry into groups, 
+each of which will be rendered in a separate WebGL draw call. //每个组一个drawCall..当然了，要是不用MultiMaterial groups也就没有用了
+This allows an array of materials to be used with the bufferGeometry.//使得“一个材质”和“一个几何体”一起使用
+
+Each group is an object of the form:
+{ start: Integer, count: Integer, materialIndex: Integer } //数据结构
+where start specifies the first element in this draw call – the first vertex for non-indexed geometry, 
+otherwise the first triangle index. Count specifies how many vertices (or indices) are included, 
+and materialIndex specifies the material array index to use.
+
+Use .addGroup to add groups, rather than modifying this array directly.
+	 */
 	this.groups = [];
 
 	this.boundingBox = null;

@@ -33128,6 +33128,7 @@ Object.assign( THREE, {
 	},
 	LineStrip: 0,
 	LinePieces: 1,
+	//MeshFaceMaterial就是MultiMaterial
 	MeshFaceMaterial: THREE.MultiMaterial,
 	PointCloud: function ( geometry, material ) {
 		console.warn( 'THREE.PointCloud has been renamed to THREE.Points.' );

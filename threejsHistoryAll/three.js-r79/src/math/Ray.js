@@ -98,7 +98,9 @@ THREE.Ray.prototype = {
 			var directionDistance = v1.subVectors( point, this.origin ).dot( this.direction );
 
 			// point behind the ray
-
+			//这个画图之后就可得出结论，主要是用于处理 球心和射线原点的向量与射线的夹角大于90度的情况
+			//在这个情况下，球心离射线最近的距离为 球心到 射线起点的距离，因为 三角形中 钝角对应的边是最长的
+			//即可证明这个距离是最短的
 			if ( directionDistance < 0 ) {
 
 				return this.origin.distanceToSquared( point );
@@ -276,6 +278,7 @@ THREE.Ray.prototype = {
 
 	}(),
 
+	//计算射线 是否与球相交
 	intersectsSphere: function ( sphere ) {
 
 		return this.distanceToPoint( sphere.center ) <= sphere.radius;
@@ -432,6 +435,10 @@ THREE.Ray.prototype = {
 
 	} )(),
 
+	/**
+	 * https://blog.csdn.net/linolzhang/article/details/55548707
+	 * 这个博客的解释是极好的，三角形与射线求交
+	 */
 	intersectTriangle: function () {
 
 		// Compute the offset origin, edges, and normal.
@@ -454,11 +461,13 @@ THREE.Ray.prototype = {
 			//   |Dot(D,N)|*b2 = sign(Dot(D,N))*Dot(D,Cross(E1,Q))
 			//   |Dot(D,N)|*t = -sign(Dot(D,N))*Dot(Q,N)
 			var DdN = this.direction.dot( normal );
+			//标记着是背面 1 还是正面 -1
 			var sign;
 
 			if ( DdN > 0 ) {
-
+				//如果背面被剪裁，而射线是从背面射入，即无法检测到
 				if ( backfaceCulling ) return null;
+				//如果 它未开启 也就是说 背面也是可以检测的
 				sign = 1;
 
 			} else if ( DdN < 0 ) {
@@ -467,7 +476,7 @@ THREE.Ray.prototype = {
 				DdN = - DdN;
 
 			} else {
-
+				//垂直的。。 那就肯定不算相交了，三角形没有厚度概念
 				return null;
 
 			}

@@ -3,54 +3,61 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.Sprite = function ( material ) {
+/**
+ * A sprite is a plane that always faces towards the camera,
+ *  generally with a partially transparent texture applied.
 
-	THREE.Object3D.call( this );
+Sprites do not cast shadows, setting
+castShadow = true will have no effect.
+ */
+THREE.Sprite = function (material) {
+
+	THREE.Object3D.call(this);
 
 	this.type = 'Sprite';
 
-	this.material = ( material !== undefined ) ? material : new THREE.SpriteMaterial();
+	this.material = (material !== undefined) ? material : new THREE.SpriteMaterial();
 
 };
 
-THREE.Sprite.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
+THREE.Sprite.prototype = Object.assign(Object.create(THREE.Object3D.prototype), {
 
 	constructor: THREE.Sprite,
 
-	raycast: ( function () {
+	raycast: (function () {
 
 		var matrixPosition = new THREE.Vector3();
 
-		return function raycast( raycaster, intersects ) {
+		return function raycast(raycaster, intersects) {
 
-			matrixPosition.setFromMatrixPosition( this.matrixWorld );
+			matrixPosition.setFromMatrixPosition(this.matrixWorld);
 
-			var distanceSq = raycaster.ray.distanceSqToPoint( matrixPosition );
+			var distanceSq = raycaster.ray.distanceSqToPoint(matrixPosition);
 			var guessSizeSq = this.scale.x * this.scale.y / 4;
 
-			if ( distanceSq > guessSizeSq ) {
+			if (distanceSq > guessSizeSq) {
 
 				return;
 
 			}
 
-			intersects.push( {
+			intersects.push({
 
-				distance: Math.sqrt( distanceSq ),
+				distance: Math.sqrt(distanceSq),
 				point: this.position,
 				face: null,
 				object: this
 
-			} );
+			});
 
 		};
 
-	}() ),
+	}()),
 
 	clone: function () {
 
-		return new this.constructor( this.material ).copy( this );
+		return new this.constructor(this.material).copy(this);
 
 	}
 
-} );
+});

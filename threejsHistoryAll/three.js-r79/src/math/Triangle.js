@@ -38,6 +38,7 @@ THREE.Triangle.normal = function () {
 
 // static/instance method to calculate barycentric coordinates
 // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
+//这篇博客不错，
 THREE.Triangle.barycoordFromPoint = function () {
 
 	var v0 = new THREE.Vector3();
