@@ -10,6 +10,12 @@
  * https://www.jianshu.com/p/c6fced212bef
  * OPENGL渲染管线
  */
+//https://threejs.org/docs/index.html#manual/en/introduction/How-to-update-things
+//这是一篇讲解three.js框架内 各种数据更新方式，threejs为了性能需要用户手动开关更新
+//https://threejs.org/docs/index.html#manual/en/introduction/How-to-dispose-of-objects
+//讲解如何删除对象
+//https://threejs.org/docs/index.html#manual/zh/introduction/Useful-links
+//！！！！！这篇文章 是官方推荐的学习链接！！！！！
 THREE.WebGLRenderer = function (parameters) {
 
 	console.log('THREE.WebGLRenderer', THREE.REVISION);

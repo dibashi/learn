@@ -6,6 +6,8 @@
  * @author elephantatwork / www.elephantatwork.ch
  */
 
+ //https://threejs.org/docs/index.html#manual/en/introduction/Matrix-transformations
+ //three.js内部核心矩阵变换 综述
 THREE.Object3D = function () {
 	/**
 	 * 该方法允许精确添加或修改对象的属性。
