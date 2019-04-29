@@ -43,6 +43,7 @@ THREE.Camera.prototype.getWorldDirection = function () {
 
 }();
 
+//Object3D里面有这个函数呀。。。 其实只是旋转 好吧 lookAt传的参数顺序一样 我晕！！！
 THREE.Camera.prototype.lookAt = function () {
 
 	// This routine does not support cameras with rotated and/or translated parent(s)

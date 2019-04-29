@@ -33,7 +33,7 @@ THREE.Matrix4 = function () {
 THREE.Matrix4.prototype = {
 
 	constructor: THREE.Matrix4,
-
+	//webgl是列主序的，可以看到three.js内部表示的时候用行主序，最后set成列主序
 	set: function ( n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44 ) {
 
 		var te = this.elements;
@@ -443,6 +443,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
+	//对一个向量组施以防射变换 3维的向量 默认w为1，这个向量组的数据被改了。
 	applyToVector3Array: function () {
 
 		var v1;

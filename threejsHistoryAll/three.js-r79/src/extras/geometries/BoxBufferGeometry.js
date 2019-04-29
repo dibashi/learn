@@ -29,6 +29,7 @@ THREE.BoxBufferGeometry = function ( width, height, depth, widthSegments, height
 	var indexCount = calculateIndexCount( widthSegments, heightSegments, depthSegments );
 
 	// buffers
+	//js 还能够这样写？ 这里是根据 索引数量 来生成对应的索引Buffer，需要判断是否很大
 	var indices = new ( indexCount > 65535 ? Uint32Array : Uint16Array )( indexCount );
 	var vertices = new Float32Array( vertexCount * 3 );
 	var normals = new Float32Array( vertexCount * 3 );
@@ -62,7 +63,8 @@ THREE.BoxBufferGeometry = function ( width, height, depth, widthSegments, height
 	function calculateVertexCount ( w, h, d ) {
 
 		var vertices = 0;
-
+		//这个是计算顶点数量 矩形框每个面 顶点数据 被共用
+		//我要是想一个三角形一个颜色 作者的这种数据结构 我改怎么办？
 		// calculate the amount of vertices for each side (plane)
 		vertices += (w + 1) * (h + 1) * 2; // xy
 		vertices += (w + 1) * (d + 1) * 2; // xz
@@ -75,7 +77,7 @@ THREE.BoxBufferGeometry = function ( width, height, depth, widthSegments, height
 	function calculateIndexCount ( w, h, d ) {
 
 		var index = 0;
-
+		//先计算长方形数量 一个长方形 需要6个顶点 即可得出索引数量
 		// calculate the amount of squares for each side
 		index += w * h * 2; // xy
 		index += w * d * 2; // xz

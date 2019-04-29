@@ -83,7 +83,10 @@ THREE.Mesh.prototype = Object.assign( Object.create( THREE.Object3D.prototype ),
 		if ( this.geometry.morphTargets !== undefined && this.geometry.morphTargets.length > 0 ) {
 
 			this.morphTargetBase = - 1;
+			//创建了一个数组。内部是对每个变形目标影响的权重，初始化为0
 			this.morphTargetInfluences = [];
+			//内部复制了一份变形目标数据，以键值对的形式 ，也不能称之为复制，
+			//又多了一个指针来引用顶点数据（这里说错了，应该是根据名，获得他在geometry中的索引)
 			this.morphTargetDictionary = {};
 
 			for ( var m = 0, ml = this.geometry.morphTargets.length; m < ml; m ++ ) {
@@ -99,6 +102,9 @@ THREE.Mesh.prototype = Object.assign( Object.create( THREE.Object3D.prototype ),
 
 	getMorphTargetIndexByName: function ( name ) {
 
+		//正如updateMorphTargets函数中创建的字典
+		//this.morphTargetDictionary[ this.geometry.morphTargets[ m ].name ] = m;
+		//返回的是m，也就是变形目标在morphTargets中的索引
 		if ( this.morphTargetDictionary[ name ] !== undefined ) {
 
 			return this.morphTargetDictionary[ name ];

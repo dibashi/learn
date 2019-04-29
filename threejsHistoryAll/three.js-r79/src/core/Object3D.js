@@ -330,6 +330,23 @@ Object.assign(THREE.Object3D.prototype, THREE.EventDispatcher.prototype, {
 
 	}(),
 
+	//在最新版104three.js源码中
+	/**
+	 * camera与object3d的 lookAt整合了
+	 * 
+	 * 
+			if ( this.isCamera || this.isLight ) {
+
+				m1.lookAt( position, target, this.up );
+
+			} else {
+
+				m1.lookAt( target, position, this.up );
+
+			}
+	 */
+
+	 //这个则是专注于对象自身的旋转
 	lookAt: function () {
 
 		// This routine does not support objects with rotated and/or translated parent(s)

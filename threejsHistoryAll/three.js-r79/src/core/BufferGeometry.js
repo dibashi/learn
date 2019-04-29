@@ -21,6 +21,7 @@ THREE.BufferGeometry = function () {
 	this.name = '';
 	this.type = 'BufferGeometry';
 
+	//index 并不是顶点属性，所以分开
 	this.index = null;
 	this.attributes = {};
 
@@ -88,7 +89,30 @@ Use .addGroup to add groups, rather than modifying this array directly.
 
 	this.boundingBox = null;
 	this.boundingSphere = null;
+	//Determines the part of the geometry to render. 
+	//This should not be set directly, instead use .setDrawRange. Default is
+	//{ start: 0, count: Infinity }
+	//For non-indexed BufferGeometry, count is the number of vertices to render. 
+	//For indexed BufferGeometry, count is the number of indices to render.
+	//需要测试
+	/**
+	 * 
+	 * WebGLRnderer源码 部分截取 可以到是怎么用的 还是比较麻烦的
+	 * 	var rangeStart = geometry.drawRange.start;
+		var rangeCount = geometry.drawRange.count;
 
+		var groupStart = group !== null ? group.start : 0;
+		var groupCount = group !== null ? group.count : Infinity;
+
+		var drawStart = Math.max( dataStart, rangeStart, groupStart );
+		var drawEnd = Math.min( dataStart + dataCount, rangeStart + rangeCount, groupStart + groupCount ) - 1;
+
+		var drawCount = Math.max( 0, drawEnd - drawStart + 1 );
+
+		renderer.render( drawStart, drawCount );
+	 */
+	//范围还是取决于 是用index渲染 还是不用，如果用 就是index的范围 不用就是顶点的范围
+	//webglRenderer中 renderBufferDirect可以给出所有答案
 	this.drawRange = { start: 0, count: Infinity };
 
 };
@@ -173,13 +197,33 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 
 	},
 
+	//实际上，对这个几何体施加矩阵后，其顶点不仅改变了，甚至法向量都改变了
+	//问题是：他的法线怎么改变？有两种方式，也是我困惑点，若在着色器中改变，
+	//那就并不需要改变，着色器内部有物体的世界矩阵，有物体的视图矩阵，想怎么改变都ok
+	//现在的情况是 他在本地改变了，传入到着色器的normal值 是他的世界坐标系下的法向量
+	//为什么不在着色器中计算？ TODO!!
+	//包围球 和包围盒也要改变 
 	applyMatrix: function ( matrix ) {
-
+		//直接就是position。。也没说明
 		var position = this.attributes.position;
 
 		if ( position !== undefined ) {
 
 			matrix.applyToVector3Array( position.array );
+			/**
+			 * 
+			 * set needsUpdate(value) {
+				
+					if (value === true) this.version++;
+
+				},
+				//webglObjects.js 中
+				if ( attributeProperties.version !== data.version ) {
+
+					updateBuffer( attributeProperties, data, bufferType );
+
+				}
+			 */
 			position.needsUpdate = true;
 
 		}
@@ -187,7 +231,7 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 		var normal = this.attributes.normal;
 
 		if ( normal !== undefined ) {
-
+			//他直接忽略矩阵的平移，平移并不会改变法向量的方向
 			var normalMatrix = new THREE.Matrix3().getNormalMatrix( matrix );
 
 			normalMatrix.applyToVector3Array( normal.array );
@@ -210,7 +254,16 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 		return this;
 
 	},
-
+	/**
+	 * Rotate the geometry about the X axis. 
+	 * This is typically done as a one time operation,
+	 *  and not during a loop.
+	 *  Use Object3D.rotation for typical real-time mesh rotation.
+	 */
+	//这个和object3D的rotation根本区别 Object3D旋转 缩放平移 不会改变顶点的属性
+	//然而传入着色器中的世界矩阵，意思就是数据不变，而画面变
+	//这个是直接改的数据本身，直接对顶点坐标的修改
+	//这个可能是第一次初始化模型的修改，那种则是物体的顶点不会更改，复原也很容易，想得到显示的顶点坐标，乘以矩阵即可
 	rotateX: function () {
 
 		// rotate geometry around world x-axis
@@ -311,6 +364,13 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 
 	}(),
 
+	/**
+	 * vector - A world vector to look at.
+
+Rotates the geometry to face a point in space. 
+This is typically done as a one time operation, 
+and not during a loop. Use Object3D.lookAt for typical real-time mesh usage.
+	 */
 	lookAt: function () {
 
 		var obj;
@@ -618,6 +678,7 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 
 	},
 
+	//计算包围盒 包围盒可用两个三维向量表示 左下角，右上角
 	computeBoundingBox: function () {
 
 		if ( this.boundingBox === null ) {

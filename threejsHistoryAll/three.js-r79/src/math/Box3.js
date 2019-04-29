@@ -25,6 +25,7 @@ THREE.Box3.prototype = {
 
 	setFromArray: function ( array ) {
 
+		//初始化，便于比较
 		var minX = + Infinity;
 		var minY = + Infinity;
 		var minZ = + Infinity;
@@ -33,6 +34,7 @@ THREE.Box3.prototype = {
 		var maxY = - Infinity;
 		var maxZ = - Infinity;
 
+		//遍历所有顶点 找到6个极值
 		for ( var i = 0, l = array.length; i < l; i += 3 ) {
 
 			var x = array[ i ];
@@ -49,6 +51,7 @@ THREE.Box3.prototype = {
 
 		}
 
+		//生成包围盒的两个关键向量，至此 包围盒生成
 		this.min.set( minX, minY, minZ );
 		this.max.set( maxX, maxY, maxZ );
 

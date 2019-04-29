@@ -71,6 +71,7 @@ THREE.MeshLambertMaterial = function ( parameters ) {
 	this.wireframeLinejoin = 'round';
 
 	this.skinning = false;
+	//为什么只有个别材质才有这个属性？
 	this.morphTargets = false;
 	this.morphNormals = false;
 

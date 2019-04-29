@@ -1,7 +1,7 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
+//并没有透明通道
 THREE.Color = function ( r, g, b ) {
 
 	if ( g === undefined && b === undefined ) {

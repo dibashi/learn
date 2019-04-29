@@ -676,6 +676,9 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	};
 
+	/**
+	 * TODO:必须完全注释这个函数
+	 */
 	this.renderBufferDirect = function (camera, fog, geometry, material, object, group) {
 
 		setMaterial(material);

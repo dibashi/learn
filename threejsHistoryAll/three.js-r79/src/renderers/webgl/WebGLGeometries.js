@@ -6,6 +6,7 @@ THREE.WebGLGeometries = function ( gl, properties, info ) {
 
 	var geometries = {};
 
+	//如果此对象的Geometry不是BufferGeometry，内部将生成一个BufferGeometry实例，并且缓存起来
 	function get( object ) {
 
 		var geometry = object.geometry;

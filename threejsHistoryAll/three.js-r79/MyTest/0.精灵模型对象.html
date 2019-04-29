@@ -41,27 +41,27 @@
     var mesh = new THREE.Mesh(geometry, material); //网格模型对象
     scene.add(mesh); //网格模型添加到场景中
     //启用变形目标并设置变形目标影响权重，范围一般0~1
-    // mesh.morphTargetInfluences[0] = 0.5;
+    mesh.morphTargetInfluences[0] = 1;
     // mesh.morphTargetInfluences[1] = 1;
 
     /**
      * 设置关键帧数据
      */
     // 设置变形目标1对应权重随着时间的变化
-    var Track1 = new THREE.KeyframeTrack('.morphTargetInfluences[0]', [0,10,20], [0,1, 0]);
-    // 设置变形目标2对应权重随着时间的变化
-    var Track2 = new THREE.KeyframeTrack('.morphTargetInfluences[1]', [20,30, 40], [0, 1,0]);
-    // 创建一个剪辑clip对象，命名"default"，持续时间40
-    var clip = new THREE.AnimationClip("default", 40, [Track1,Track2]);
-    /**
-     * 播放编辑好的关键帧数据
-     */
-    var mixer = new THREE.AnimationMixer(mesh); //创建混合器
-    var AnimationAction = mixer.clipAction(clip); //返回动画操作对象
-    AnimationAction.timeScale = 5; //默认1，可以调节播放速度
+    // var Track1 = new THREE.KeyframeTrack('.morphTargetInfluences[0]', [0,10,20], [0,1, 0]);
+    // // 设置变形目标2对应权重随着时间的变化
+    // var Track2 = new THREE.KeyframeTrack('.morphTargetInfluences[1]', [20,30, 40], [0, 1,0]);
+    // // 创建一个剪辑clip对象，命名"default"，持续时间40
+    // var clip = new THREE.AnimationClip("default", 40, [Track1,Track2]);
+    // /**
+    //  * 播放编辑好的关键帧数据
+    //  */
+    // var mixer = new THREE.AnimationMixer(mesh); //创建混合器
+    // var AnimationAction = mixer.clipAction(clip); //返回动画操作对象
+    // AnimationAction.timeScale = 5; //默认1，可以调节播放速度
     // AnimationAction.loop = THREE.LoopOnce; //不循环播放
     // AnimationAction.clampWhenFinished=true;//暂停在最后一帧播放的状态
-    AnimationAction.play(); //开始播放
+    // AnimationAction.play(); //开始播放
 
     //三维坐标系辅助显示
     var AxesHelper = new THREE.AxisHelper(600);

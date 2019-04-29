@@ -21,6 +21,10 @@ THREE.Geometry = function () {
 	this.faces = [];
 	this.faceVertexUvs = [ [] ];
 
+	//变形目标数组 用于变形目标动画 里面每个元素都是一个数组
+	//存储着 所有顶点的坐标
+	//里面有不多见的 变形动画公式http://www.cnblogs.com/yiyezhai/archive/2013/02/22/2863513.html
+	
 	this.morphTargets = [];
 	this.morphNormals = [];
 

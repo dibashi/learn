@@ -244,6 +244,12 @@ THREE.Matrix3.prototype = {
 
 	},
 
+	//逆转置矩阵，
+	//证明起来很简单 之前法线了为n 他垂直的向量为s n转置*s = 0;
+	//法线量变换矩阵为M 向量s 被改变的矩阵为S
+	//则 (M*n)转置 * (S*s) = 0;
+	//n转置*M转置 * S *s = 0;
+	//M转置*S = I；--> M = (S逆)转置；
 	getNormalMatrix: function ( matrix4 ) {
 
 		return this.setFromMatrix4( matrix4 ).getInverse( this ).transpose();

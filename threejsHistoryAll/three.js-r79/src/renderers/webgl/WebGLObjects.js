@@ -14,6 +14,8 @@ THREE.WebGLObjects = function ( gl, properties, info ) {
 
 		var geometry = geometries.get( object );
 
+		//没看明白，geometry必然是BufferGeometry
+		//object.geometry当然可能是THREE.Geometry实例 这里到底想干嘛？
 		if ( object.geometry instanceof THREE.Geometry ) {
 
 			geometry.updateFromObject( object );
