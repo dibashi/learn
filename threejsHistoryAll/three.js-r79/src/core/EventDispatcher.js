@@ -79,7 +79,10 @@ Object.assign( THREE.EventDispatcher.prototype, {
 			var array = [], i = 0;
 			var length = listenerArray.length;
 
-			//为什么复制一遍？？奇怪//！！！官方说法 Support for removing listener on call.
+			//为什么复制一遍？？奇怪//！！！官方说法 Support for removing listener on call. r62修改的
+			//就是说 如果一个消息的接收方，在接收到消息后，取消监听消息 不复制的话，数据结构就会被打乱 消息0,消息1,消息2,消息3遍历 在消息1中删除
+			//数据结构变成 消息0,消息2,消息3 但循环变量 会从1 变为2 也就是会调用消息3 消息2的接收方收不到消息
+			//如果复制一份 发送，有接收方移除自身的消息监听 并不会影响到，这就是为什么复制一份！
 			for ( i = 0; i < length; i ++ ) {
 
 				array[ i ] = listenerArray[ i ];
