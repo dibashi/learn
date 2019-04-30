@@ -21,6 +21,7 @@
 	<script src="../examples/js/controls/OrbitControls.js"></script>
 	<script>
 
+var clock = new THREE.Clock();
 		/**
 		* 创建场景对象Scene
 		*/
@@ -124,8 +125,10 @@
 
 		// 渲染函数
 		function render() {
-
+			console.log(clock.getDelta());
 			renderer.render(scene, camera); //执行渲染操作
+
+			requestAnimationFrame(render);
 		}
 		render();
 		//创建控件对象  相机对象camera作为参数   控件可以监听鼠标的变化，改变相机对象的属性

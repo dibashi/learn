@@ -5,6 +5,7 @@
 <head>
     <title>MultiMaterial</title>
     <script type="text/javascript" src="../build/three.js"></script>
+    <script type="text/javascript" src="../examples/js/controls/OrbitControls.js"></script>
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -32,7 +33,7 @@
 
         // create a camera, which defines where we're looking at.
         var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-
+        var controls = new THREE.OrbitControls(camera);
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
 
@@ -56,8 +57,8 @@
         // scene.add(plane);
 
         // position and point the camera to the center of the scene
-        camera.position.x = -40;
-        camera.position.y = 40;
+        // camera.position.x = -40;
+        // camera.position.y = 40;
         camera.position.z = 40;
         camera.lookAt(scene.position);
 
@@ -77,18 +78,12 @@
         // var group = new THREE.Mesh();
         // add all the rubik cube elements
         var mats = [];
-        mats.push(new THREE.MeshBasicMaterial({color: 0xaa0000}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x00aa00}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x0000aa}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0xaaaa00}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0xaa00aa}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x00aaaa}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0xaaaaaa}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x000000}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x123456}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x654321}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x888888}));
-        mats.push(new THREE.MeshBasicMaterial({color: 0x786987}));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.3 }));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.3 }));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 0.3 }));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0xffff00, transparent: true, opacity: 0.3 }));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0xff00ff, transparent: true, opacity: 0.3 }));
+        mats.push(new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3 }));
 
         var faceMaterial = new THREE.MultiMaterial(mats);
 
@@ -104,7 +99,7 @@
         //     }
         // }
 
-        var cubeGeom = new THREE.BoxGeometry(2.9, 2.9, 2.9);
+        var cubeGeom = new THREE.BoxGeometry(10, 10, 10);
         var cube = new THREE.Mesh(cubeGeom, faceMaterial);
         cube.position.set(0, 0, 0);
         scene.add(cube);
@@ -119,8 +114,8 @@
 
         function render() {
         
-            cube.rotation.y +=0.01;
-            cube.rotation.x +=0.01;
+            // cube.rotation.y +=0.01;
+            // cube.rotation.x +=0.01;
             // group.rotation.y +=0.01;
             // render using requestAnimationFrame
             requestAnimationFrame(render);
