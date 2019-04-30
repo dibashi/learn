@@ -201,7 +201,7 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 	//问题是：他的法线怎么改变？有两种方式，也是我困惑点，若在着色器中改变，
 	//那就并不需要改变，着色器内部有物体的世界矩阵，有物体的视图矩阵，想怎么改变都ok
 	//现在的情况是 他在本地改变了，传入到着色器的normal值 是他的世界坐标系下的法向量
-	//为什么不在着色器中计算？ TODO!!
+	//为什么不在着色器中计算？ TODO!! 现在想想，这是直接改的原始数据，而着色器中只是 显示画面的过程中需要的数据
 	//包围球 和包围盒也要改变 
 	applyMatrix: function ( matrix ) {
 		//直接就是position。。也没说明
