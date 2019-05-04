@@ -5,7 +5,12 @@
  * @author Ben Houston / http://clara.io/
  * @author David Sarno / http://lighthaus.us/
  */
-
+/*
+Each AnimationClip usually holds the data for a certain activity of the object. 
+If the mesh is a character, for example, 
+there may be one AnimationClip for a walkcycle, 
+a second for a jump, a third for sidestepping and so on.
+*/
 THREE.AnimationClip = function ( name, duration, tracks ) {
 
 	this.name = name;

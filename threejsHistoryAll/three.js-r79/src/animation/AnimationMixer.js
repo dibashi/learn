@@ -9,7 +9,7 @@
  */
 
  //学习three.js动画系统必看的三个资料
- //1 https://github.com/mrdoob/three.js/issues/6881 这是最开始设计的讨论
+ //1 https://github.com/mrdoob/three.js/issues/6881 这是最开始设计的讨论!!!!!!!!!!!!!!
  //2 https://threejs.org/docs/index.html#manual/zh/introduction/Animation-system 官方文档的综述
  //3 游戏引擎架构 有一章专门描述动画系统的
  //这是一个非常复杂的系统，以后会对所有细节进行分析
