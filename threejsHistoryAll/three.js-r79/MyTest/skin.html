@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>1</title>
+  <title>第一个three.js文件_WebGL三维场景</title>
   <style>
     body {
       margin: 0;
@@ -28,7 +28,7 @@
      */
     // 创建一个圆柱几何体，高度120，顶点坐标y分量范围[-60,60]
     var geometry = new THREE.CylinderGeometry(5, 10, 120, 50, 300);
-    geometry.translate(0, 60, 0); //平移后，y分量范围[0,120]
+    // geometry.translate(0, 60, 0); //平移后，y分量范围[0,120]
     console.log("name", geometry.vertices); //控制台查看顶点坐标
     //
     /**
@@ -50,7 +50,7 @@
         geometry.skinIndices.push(new THREE.Vector4(1, 0, 0, 0));
         // 影响该顶点关节Bone2对应权重是1-(vertex.y-60)/40
         geometry.skinWeights.push(new THREE.Vector4(1 - (vertex.y - 60) / 40, 0, 0, 0));
-      } else if (60 + 40 < vertex.y) {
+      } else if (60 + 40 < vertex.y && vertex.y <= 60 + 40 + 20) {
         // Vector4(2, 0, 0, 0)表示对应顶点受关节Bone3影响
         geometry.skinIndices.push(new THREE.Vector4(2, 0, 0, 0));
         // 影响该顶点关节Bone3对应权重是1-(vertex.y-100)/20
@@ -83,8 +83,7 @@
     Bone3.position.y = 40; //Bone3相对父对象Bone2位置
 
     // 所有Bone对象插入到Skeleton中，全部设置为.bones属性的元素
-    var bones = [Bone1, Bone2, Bone3];
-    var skeleton = new THREE.Skeleton(bones); //创建骨骼系统
+    var skeleton = new THREE.Skeleton([Bone1, Bone2, Bone3]); //创建骨骼系统
     // console.log(skeleton.bones);
     // 返回所有关节的世界坐标
     // skeleton.bones.forEach(elem => {

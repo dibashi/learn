@@ -938,6 +938,7 @@ THREE.Matrix4.prototype = {
 
 	},
 
+	//Writes the elements of this matrix to an array in column-major format.
 	toArray: function ( array, offset ) {
 
 		if ( array === undefined ) array = [];

@@ -539,6 +539,7 @@ THREE.Vector4.prototype = {
 
 	},
 
+	//计算总数量，目前只在权重计算中用到
 	lengthManhattan: function () {
 
 		return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z ) + Math.abs( this.w );

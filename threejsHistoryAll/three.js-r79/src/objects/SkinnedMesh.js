@@ -70,6 +70,14 @@ THREE.SkinnedMesh.prototype = Object.assign( Object.create( THREE.Mesh.prototype
 
 	constructor: THREE.SkinnedMesh,
 
+	/**
+	 * 
+	 * @param {*} skeleton Skeleton created from a Bones tree.
+	 * @param {*} bindMatrix Matrix4 that represents the base transform of the skeleton.
+	 * 
+	 * Bind a skeleton to the skinned mesh. 
+	 * The bindMatrix gets saved to .bindMatrix property and the .bindMatrixInverse gets calculated.
+	 */
 	bind: function( skeleton, bindMatrix ) {
 
 		this.skeleton = skeleton;

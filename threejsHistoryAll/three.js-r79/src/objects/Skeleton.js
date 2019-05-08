@@ -5,8 +5,13 @@
  * @author ikerr / http://verold.com
  */
 
+ //Use an array of bones to create a skeleton that can be used by a SkinnedMesh.
 THREE.Skeleton = function ( bones, boneInverses, useVertexTexture ) {
 
+	//是否使用纹理来存储矩阵调色板，若是RGBA的话，一个矩阵需要4个像素来存储
+	//加入纹理的长宽为M、 N 则 总的像素数为 MN 可放置的最大矩阵数量为MN/4
+	//由于webgl定点着色器使用的uniform vec4 对象的数量有限 一个mat4又占用4个vec4
+	//three.js默认用纹理来传入骨骼矩阵
 	this.useVertexTexture = useVertexTexture !== undefined ? useVertexTexture : true;
 
 	this.identityMatrix = new THREE.Matrix4();
@@ -15,6 +20,13 @@ THREE.Skeleton = function ( bones, boneInverses, useVertexTexture ) {
 
 	bones = bones || [];
 
+	/**
+	 * The array of bones. Note this is a copy of the original array, not a reference, 
+	 * so you can modify the original array without effecting this one.
+	 * 实际上这是浅拷贝
+	 * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+	 * 删除添加不会影响另一个，但是修改会影响，测试过！
+	 */
 	this.bones = bones.slice( 0 );
 
 	// create a bone texture or an array of floats
@@ -77,6 +89,7 @@ THREE.Skeleton = function ( bones, boneInverses, useVertexTexture ) {
 
 Object.assign( THREE.Skeleton.prototype, {
 
+	//Generates the boneInverses array if not provided in the constructor.
 	calculateInverses: function () {
 
 		this.boneInverses = [];
@@ -142,6 +155,10 @@ Object.assign( THREE.Skeleton.prototype, {
 
 	},
 
+	/**
+	 * Updates the boneMatrices and boneTexture after changing the bones. 
+	 * This is called automatically by the WebGLRenderer if the skeleton is used with a SkinnedMesh.
+	 */
 	update: ( function () {
 
 		var offsetMatrix = new THREE.Matrix4();

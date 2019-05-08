@@ -4,100 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>test1</title>
-    <style>
-        html,
-        body {
-            margin: 0;
-            height: 100%;
-        }
 
-        #c {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-    </style>
-    <!--引入three.js三维引擎-->
-    <script src="../build/three.js"></script>
 
 </head>
 
-<body>
+<body onload="main()">
 
-    <canvas id="c"></canvas>
 
     <script>
-        'use strict';
 
-        function main() {
+        function isPowerOfTwo(value) {
 
-            const canvas = document.querySelector('#c');
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-
-            const fov = 75;
-            const aspect = 2;  // the canvas default
-            const near = 0.1;
-            const far = 5;
-            const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-
-            camera.position.z = 2;
-
-            const scene = new THREE.Scene();
-
-            {
-                const color = 0xffffff;
-                const intensity = 1;
-                const light = new THREE.DirectionalLight(color, intensity);
-                light.position.set(0, 0, 1);
-                scene.add(light);
-            }
-
-            const boxWidth = 1;
-            const boxHeight = 1;
-            const boxDepth = 1;
-            var geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-
-
-            function makeInstance(geometry, color, x) {
-                const material = new THREE.MeshPhongMaterial({ color: color });
-                const cube = new THREE.Mesh(geometry, material);
-                scene.add(cube);
-                cube.position.x = x;
-                return cube;
-            }
-
-            const cubes = [
-                makeInstance(geometry, 0x44aa88, 0),
-                makeInstance(geometry, 0x8844aa, -2),
-                makeInstance(geometry, 0xaa8844, 2),
-            ];
-
-            function render(time) {
-
-                time *= 0.001;
-
-                //geometry.vertices[0] = new THREE.Vector3(5.0,0.0,0.0);
-                const canvas = renderer.domElement;
-                camera.aspect = canvas.clientWidth / canvas.clientHeight;
-                camera.updateProjectionMatrix();
-
-                cubes.forEach((cube, ndx) => {
-
-                    const speed = 1 + ndx * .1;
-                    const rot = time * speed;
-                    cube.rotation.x = rot;
-                    cube.rotation.y = rot;
-                });
-
-
-                renderer.render(scene, camera);
-                requestAnimationFrame(render);
-            }
-
-            requestAnimationFrame(render);
+            return (value & (value - 1)) === 0 && value !== 0;
 
         }
-        main();
+
+        function main() {
+            console.log(isPowerOfTwo(2));
+            console.log(isPowerOfTwo(512));
+            console.log(isPowerOfTwo(1));
+            console.log(isPowerOfTwo(13));
+            console.log(isPowerOfTwo(0));
+            console.log(isPowerOfTwo(-1));
+            console.log(isPowerOfTwo(-2147483648));
+            console.log(1<<31);
+        }
+
+
     </script>
 
 </body>

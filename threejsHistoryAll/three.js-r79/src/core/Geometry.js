@@ -16,6 +16,7 @@ THREE.Geometry = function () {
 	this.name = '';
 	this.type = 'Geometry';
 
+	//
 	this.vertices = [];
 	this.colors = [];
 	this.faces = [];
@@ -28,6 +29,7 @@ THREE.Geometry = function () {
 	this.morphTargets = [];
 	this.morphNormals = [];
 
+	//蒙皮权重 和蒙皮矩阵索引
 	this.skinWeights = [];
 	this.skinIndices = [];
 

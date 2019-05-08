@@ -261,7 +261,7 @@ Object.assign( THREE.BufferGeometry.prototype, THREE.EventDispatcher.prototype, 
 	 *  Use Object3D.rotation for typical real-time mesh rotation.
 	 */
 	//这个和object3D的rotation根本区别 Object3D旋转 缩放平移 不会改变顶点的属性
-	//然而传入着色器中的世界矩阵，意思就是数据不变，而画面变
+	//而是用传入着色器中的模型矩阵，意思就是数据不变，而画面变
 	//这个是直接改的数据本身，直接对顶点坐标的修改
 	//这个可能是第一次初始化模型的修改，那种则是物体的顶点不会更改，复原也很容易，想得到显示的顶点坐标，乘以矩阵即可
 	rotateX: function () {

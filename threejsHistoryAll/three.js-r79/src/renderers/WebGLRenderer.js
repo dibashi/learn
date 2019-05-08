@@ -1415,7 +1415,7 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 				pushRenderItem(object, null, object.material, _vector3.z, null);
 
 			} else if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points) {
-				//如果是蒙皮网格，要先更新骨骼。这个还未看具体细节
+				//如果是蒙皮网格，要先更新骨骼矩阵
 				if (object instanceof THREE.SkinnedMesh) {
 
 					object.skeleton.update();
@@ -2659,7 +2659,7 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 	};
 
 	this.setRenderTarget = function (renderTarget) {
-		
+
 		//内部变量的缓存，当前渲染目标
 		_currentRenderTarget = renderTarget;
 
@@ -2803,6 +2803,8 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	// Map three.js constants to WebGL constants
 
+	//根据three.js常量 返回 webgl常量
+	//用于一对一的映射
 	function paramThreeToGL(p) {
 
 		var extension;
