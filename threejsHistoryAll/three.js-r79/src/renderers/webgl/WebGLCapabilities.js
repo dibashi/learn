@@ -1,11 +1,34 @@
+/*
+
+一个包含当前渲染环境(RenderingContext)的功能细节的对象。
+- floatFragmentTextures: 环境是否支持OES_texture_float扩展。 根据WebGLStats, 截至2016年2月，超过95％的支持WebGL的设备支持此功能
+- floatVertexTextures: 如果floatFragmentTextures和vertexTextures都是true， 则此值为true 
+- getMaxAnisotropy(): 返回最大可用各向异性。
+- getMaxPrecision(): 返回顶点着色器和片元着色器的最大可用精度。 
+- logarithmicDepthBuffer: 如果logarithmicDepthBuffer在构造器中被设为true且 环境支持EXT_frag_depth扩展，则此值为true 根据WebGLStats, 截至2016年2月， 约66%的支持WebGL的设备支持此功能
+- maxAttributes: gl.MAX_VERTEX_ATTRIBS的值
+- maxCubemapSize: gl.MAX_CUBE_MAP_TEXTURE_SIZE 的值，着色器可使用的立方体贴图纹理的最大宽度*高度
+- maxFragmentUniforms: gl.MAX_FRAGMENT_UNIFORM_VECTORS的值，片元着色器可使用的全局变量(uniforms)数量
+- maxTextureSize: gl.MAX_TEXTURE_SIZE的值，着色器可使用纹理的最大宽度*高度
+- maxTextures: *gl.MAX_TEXTURE_IMAGE_UNITS的值，着色器可使用的纹理数量
+- maxVaryings: gl.MAX_VARYING_VECTORS的值，着色器可使用矢量的数量
+- maxVertexTextures: gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS的值，顶点着色器可使用的纹理数量。
+- maxVertexUniforms: gl.MAX_VERTEX_UNIFORM_VECTORS的值，顶点着色器可使用的全局变量(uniforms)数量
+- precision: 渲染器当前使用的着色器的精度
+- vertexTextures: 如果# .maxVertexTextures : Integer大于0，此值为true (即可以使用顶点纹理)
+
+
+*/
+
 THREE.WebGLCapabilities = function ( gl, extensions, parameters ) {
 
 	var maxAnisotropy;
 
+	//在WebGLTextures里有使用
 	function getMaxAnisotropy() {
 
 		if ( maxAnisotropy !== undefined ) return maxAnisotropy;
-
+		//http://www.cnblogs.com/kylegui/p/3855710.html非常好的科普文章
 		var extension = extensions.get( 'EXT_texture_filter_anisotropic' );
 
 		if ( extension !== null ) {

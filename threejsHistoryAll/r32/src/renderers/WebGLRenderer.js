@@ -657,6 +657,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 			object = webGLObject.object;
 			buffer = webGLObject.buffer;
 
+			//可见就画 不可见不画
 			if ( object.visible ) {
 
 				this.setupMatrices( object, camera );
@@ -699,14 +700,15 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	};
 
-	//我并没有自信完全解释这个算法
+	//将three.js的外部数据结构 映射为webgl使用的数据结构
 	this.initWebGLObjects = function( scene ) {
 
 		var o, ol, object, globject, g, geometryChunk, objmap;
 		//第一次执行到这里的话，给他初始了两个集合 之后还是循环遍历这个场景的话 不用再初始化了
 		if ( !scene.__webGLObjects ) {
-			//这两个集合是什么？我还不清楚
+			//webgl内部数据结构
 			scene.__webGLObjects = [];
+			//这个还不清楚是什么用 目前内部 均为{undefined_0: 1}
 			scene.__webGLObjectsMap = {};
 
 		}
@@ -716,6 +718,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 			//取出当前对象
 			object = scene.objects[ o ];
 
+			//将场景中对象 映射为webgl中可以使用的对象
 			if ( scene.__webGLObjectsMap[ object.id ] == undefined ) {
 				
 				scene.__webGLObjectsMap[ object.id ] = {};
@@ -723,7 +726,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 			}
 
 			objmap = scene.__webGLObjectsMap[ object.id ];
-			//可以想象 场景的对象分为三类 除了光，雾等
+			//scene.objects 这里面只会有mesh line particle没有light
 			if ( object instanceof THREE.Mesh ) {
 				//如果是mesh
 				// create separate VBOs per geometry chunk
@@ -794,7 +797,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 		//
 		_normalMatrix = THREE.Matrix4.makeInvert3x3( _modelViewMatrix ).transpose();
 		_normalMatrixArray.set( _normalMatrix.m );
-		//自身的模型矩阵 为什么要弄这个名字？多定义一份
+		//自身的模型矩阵 这是类型化的数组
 		_objectMatrixArray.set( object.matrix.flatten() );
 
 	};
@@ -985,7 +988,12 @@ THREE.WebGLRenderer = function ( parameters ) {
 			"attribute vec2 uv;",
 			""
 		].join("\n");
+/*
 
+		几乎整个WebGL API都是关于如何设置这些成对方法的状态值以及运行它们。 对于想要绘制的每一个对象，都需要先设置一系列状态值，
+		然后通过调用 gl.drawArrays 或 gl.drawElements 运行一个着色方法对，使得你的着色器对能够在GPU上运行。
+
+*/
 		_gl.attachShader( program, getShader( "fragment", prefix_fragment + fragment_shader ) );
 		_gl.attachShader( program, getShader( "vertex", prefix_vertex + vertex_shader ) );
 

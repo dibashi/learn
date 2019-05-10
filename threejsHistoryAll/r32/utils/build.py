@@ -268,7 +268,7 @@ def output(text, filename):
 
 
 def compress(text):
-
+	return
 	in_tuple = tempfile.mkstemp()
 	with os.fdopen(in_tuple[0], 'w') as handle:
 		handle.write(text)
@@ -315,9 +315,9 @@ def buildLib(files, debug, outputFilename):
 
 	outputFilename = outputFilename + '.js'
 
-	print "=" * 40
-	print "Compiling", outputFilename
-	print "=" * 40
+	# print "=" * 40
+	# print "Compiling", outputFilename
+	# print "=" * 40
 
 	output(addHeader(compress(text), outputFilename), outputFilename)
 

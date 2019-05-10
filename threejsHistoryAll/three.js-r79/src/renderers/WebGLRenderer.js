@@ -20,16 +20,26 @@ THREE.WebGLRenderer = function (parameters) {
 
 	console.log('THREE.WebGLRenderer', THREE.REVISION);
 
+	//parameters - (可选) 该对象的属性定义了渲染器的行为。
+	//也可以完全不传参数。在所有情况下，当缺少参数时，它将采用合理的默认值。 以下是合法参数：
+
 	parameters = parameters || {};
 
+	//canvas - 一个供渲染器绘制其输出的canvas 它和下面的domElement属性对应。 如果没有传这个参数，会创建一个新canvas
 	var _canvas = parameters.canvas !== undefined ? parameters.canvas : document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas'),
+		//context - 可用于将渲染器附加到已有的渲染环境(RenderingContext)中。默认值是null	
 		_context = parameters.context !== undefined ? parameters.context : null,
-
+		//alpha - canvas是否包含alpha (透明度)。默认为 false
 		_alpha = parameters.alpha !== undefined ? parameters.alpha : false,
+		//depth - 绘图缓存是否有一个至少6位的深度缓存(depth buffer )。 默认是true.
 		_depth = parameters.depth !== undefined ? parameters.depth : true,
+		//stencil - 绘图缓存是否有一个至少8位的模板缓存(stencil buffer)。默认为true
 		_stencil = parameters.stencil !== undefined ? parameters.stencil : true,
+		//antialias - 是否执行抗锯齿。默认为false.
 		_antialias = parameters.antialias !== undefined ? parameters.antialias : false,
+		//premultipliedAlpha - renderer是否假设颜色有 premultiplied alpha. 默认为true 
 		_premultipliedAlpha = parameters.premultipliedAlpha !== undefined ? parameters.premultipliedAlpha : true,
+		//preserveDrawingBuffer -是否保留缓直到手动清除或被覆盖。 默认false.
 		_preserveDrawingBuffer = parameters.preserveDrawingBuffer !== undefined ? parameters.preserveDrawingBuffer : false;
 
 	var lights = [];
@@ -50,10 +60,13 @@ THREE.WebGLRenderer = function (parameters) {
 	this.context = null;
 
 	// clearing
-
+	//定义渲染器是否在渲染每一帧之前自动清除其输出。
 	this.autoClear = true;
+	//如果autoClear为true, 定义renderer是否清除颜色缓存。 默认是true
 	this.autoClearColor = true;
+	//如果autoClear是true, 定义renderer是否清除深度缓存。 默认是true
 	this.autoClearDepth = true;
+	//如果autoClear是true, 定义renderer是否清除模板缓存. 默认是true
 	this.autoClearStencil = true;
 
 	// scene graph
