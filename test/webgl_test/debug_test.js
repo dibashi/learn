@@ -19,9 +19,9 @@ function main() {
 
     gl = canvas.getContext('webgl');
 
-    var phongProgram = createProgram(gl, VSHADER_SOURCE, FSHADER_SOURCE);
-    gl.useProgram(phongProgram);
 
+
+    var phongProgram = createProgram(gl, VSHADER_SOURCE, FSHADER_SOURCE);
     pwgl.vertexPositionAttributeLoc = gl.getAttribLocation(phongProgram, 'a_Position');
 
     pwgl.cubeVertexPositionBuffer = gl.createBuffer();
@@ -29,7 +29,7 @@ function main() {
 
     var cubeVertexPosition = [
         // 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5
-        0.5, 0.5, -0.5,0.2,
+        0.5, 0.5, -0.5, 0.2,
     ]
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cubeVertexPosition), gl.STATIC_DRAW);
 
@@ -37,8 +37,23 @@ function main() {
     pwgl.CUBE_VERTEX_POS_BUF_ITEM_SIZE = 2;
     pwgl.CUBE_VERTEX_POS_BUF_NUM_ITEMS = 3;
 
+
+
+
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
     gl.enable(gl.DEPTH_TEST);
+
+
+
+    gl.useProgram(phongProgram);
+
+
+
+
+
+
+
+
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -47,12 +62,12 @@ function main() {
     gl.vertexAttribPointer(pwgl.vertexPositionAttributeLoc,
         pwgl.CUBE_VERTEX_POS_BUF_ITEM_SIZE,
         gl.FLOAT, false, 4, 4);
-        
+
     gl.enableVertexAttribArray(pwgl.vertexPositionAttributeLoc);
 
     gl.drawArrays(gl.LINES, 0, 2);
 
-    
+
 
 }
 
