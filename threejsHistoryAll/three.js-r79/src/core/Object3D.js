@@ -133,6 +133,8 @@ o.b = 38;
 	this.matrixWorld = new THREE.Matrix4();
 
 	this.matrixAutoUpdate = THREE.Object3D.DefaultMatrixAutoUpdate;
+
+	//脏模式 需要标记的变量
 	this.matrixWorldNeedsUpdate = false;
 
 	//用于给对象分层，摄像机可以专注拍摄某层的对象，作者的实现方式不错，用极小的数据量和高效的位操作解决了原本复杂的问题
