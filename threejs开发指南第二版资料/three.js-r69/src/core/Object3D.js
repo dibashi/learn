@@ -117,6 +117,9 @@ THREE.Object3D = function () {
 
 	rotation.onChange( onRotationChange );
 	quaternion.onChange( onQuaternionChange );
+	//这些属性不会被删除，不会被修改，可以被for in遍历
+	//是的，没有理由可以删除这些底层数据
+	//不会被修改时出于rotation quaternion已经绑定了修改的回调，如果被替换 就完蛋了
 	Object.defineProperties( this, {
 		position: {
 			enumerable: true,
@@ -135,52 +138,37 @@ THREE.Object3D = function () {
 			value: scale
 		}
 	} );
-	/**
-	 * @desc renderDepth属性,如果设置了值将会覆盖渲染深度.
-	 * @default null
-	 * @type {number}
-	 */
+	//Override depth-sorting order if non null.
+	/*
+
+	if ( object.renderDepth !== null ) {
+		// 指定的深度信息
+		webglObject.z = object.renderDepth;
+	}
+
+	*/
 	this.renderDepth = null;
 	/**
 	 * @desc 每帧是否重新计算旋转rotation
 	 * @default true
 	 * @type {boolean}
 	 */
+	//这个变量似乎没有用
 	this.rotationAutoUpdate = true;
-	/**
-	 * @desc 对象的变换矩阵
-	 * @type {THREE.Matrix4}
-	 */
+	//Local transform.
 	this.matrix = new THREE.Matrix4();
-	/**
-	 * @desc 对象的世界矩阵<br />
-	 * 如果当前对象是子对象,matrixWorld属性为父对象世界矩阵乘以当前对象模型矩阵,否则是自己的变换矩阵
-	 * @type {THREE.Matrix4}
-	 */
+
+	//The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.
 	this.matrixWorld = new THREE.Matrix4();
-	/**
-	 * @desc 每帧是否重新计算对象矩阵
-	 * @default true
-	 * @type {boolean}
-	 */
+
+	//When this is set, it calculates the matrix of position,
+	// (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property.
 	this.matrixAutoUpdate = true;
-	/**
-	 * @desc 每帧是否重新计算世界矩阵
-	 * @default false
-	 * @type {boolean}
-	 */
+	//When this is set, it calculates the matrixWorld in that frame and resets this property to false.
 	this.matrixWorldNeedsUpdate = false;
-	/**
-	 * @desc 是否可见
-	 * @default true
-	 * @type {boolean}
-	 */
+//Object gets rendered if true.
 	this.visible = true;
-	/**
-	 * @desc 是否生成阴影
-	 * @default false
-	 * @type {boolean}
-	 */
+	//Gets rendered into shadow map.
 	this.castShadow = false;
 	/**
 	 * @desc 是否支持阴影覆盖
@@ -188,11 +176,9 @@ THREE.Object3D = function () {
 	 * @type {boolean}
 	 */
 	this.receiveShadow = false;
-	/**
-	 * @desc 是否需要平头界面体裁剪
-	 * @default true
-	 * @type {boolean}
-	 */
+//When this is set, it checks every frame if the object is in the frustum of the camera.
+// Otherwise the object gets drawn every frame even if it isn't visible.
+//if ( webglObjects && ( object.frustumCulled === false || _frustum.intersectsObject( object ) === true ) )
 	this.frustumCulled = true;
 
 	/**
@@ -633,12 +619,7 @@ THREE.Object3D.prototype = {
 		return undefined;
 
 	},
-	/**
-	 * @desc 通过name获得子对象
-	 * @param {String} name
-	 * @param {boolean} recursive 默认为false,表示不才查找子对象的子对象
-	 * @returns {THREE.Object3D}
-	 */
+	
 	/**
 	 * 更加通用的实现
 	 * getObjectByProperty: function ( name, value ) {
@@ -662,6 +643,13 @@ THREE.Object3D.prototype = {
 
 	},
 
+	 */
+
+	 /**
+	 * @desc 通过name获得子对象
+	 * @param {String} name
+	 * @param {boolean} recursive 默认为false,表示不才查找子对象的子对象
+	 * @returns {THREE.Object3D}
 	 */
 	getObjectByName: function ( name, recursive ) {
 		//这个函数实现有问题 recursive没有用过 wtf！
@@ -787,9 +775,7 @@ THREE.Object3D.prototype = {
 		}
 
 	}(),
-	/**
-	 * @desc 光线跟踪 ，未写代码
-	 */
+	
 	raycast: function () {},
 
 	/**
@@ -808,7 +794,7 @@ THREE.Object3D.prototype = {
 
 	},
 	/**
-	 * @desc 遍历当前对象以及子对象，当对象可见时并且应用callback方法
+	 * @desc 遍历当前对象以及子对象，当对象可见时，应用callback方法
 	 * @param {requestCallback} callback
 	 */
 	traverseVisible: function ( callback ) {
@@ -1091,6 +1077,7 @@ THREE.Object3D.prototype = {
 
 		object.frustumCulled = this.frustumCulled;
 
+		//为啥先编码在解码？应该是想做完全另外的一份数据
 		object.userData = JSON.parse( JSON.stringify( this.userData ) );
 
 		if ( recursive === true ) {

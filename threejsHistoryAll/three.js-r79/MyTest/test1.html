@@ -1,35 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>test1</title>
+<body>
 
-
-</head>
-
-<body onload="main()">
-
+    <canvas id="myCanvas" width="300" height="150" style="border:1px solid #00ff00;background:blueviolet;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
 
     <script>
 
-        function isPowerOfTwo(value) {
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "red";
+        ctx.fillRect(0, 0, 300, 150);
+        ctx.fillStyle = "green";
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillRect(50, 50, 75, 50);
+        // ctx.fillStyle = "red";
+        // ctx.fillRect(150, 20, 75, 50);
 
-            return (value & (value - 1)) === 0 && value !== 0;
-
-        }
-
-        function main() {
-            console.log(isPowerOfTwo(2));
-            console.log(isPowerOfTwo(512));
-            console.log(isPowerOfTwo(1));
-            console.log(isPowerOfTwo(13));
-            console.log(isPowerOfTwo(0));
-            console.log(isPowerOfTwo(-1));
-            console.log(isPowerOfTwo(-2147483648));
-            console.log(1<<31);
-        }
-
+        // ctx.globalCompositeOperation = "destination-over";
+        // ctx.fillStyle = "blue";
+        // ctx.fillRect(180, 50, 75, 50);
+        // ctx.globalCompositeOperation = "xor";
+        // ctx.fillStyle = "green";
+        // ctx.fillRect(200, 70, 75, 50);
+        // console.log(ctx.globalCompositeOperation);
 
     </script>
 

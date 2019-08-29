@@ -7,10 +7,29 @@ var VSHADER_SOURCE =
   '  gl_Position = u_ModelMatrix * a_Position;\n' +
   '}\n';
 
-// Fragment shader program
-var FSHADER_SOURCE =
+
+
+// var FSHADER_SOURCE =
+// 'void main() {\n' +
+// '  if(gl_FrontFacing)\n' +
+// '   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
+// '  else \n' +
+// '   gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n' +
+// '}\n';
+
+// var FSHADER_SOURCE =
+//   'void main() {\n' +
+//   '  if(gl_FragCoord.x>200.0)\n' +
+//   '   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
+//   '  else \n' +
+//   '   gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n' +
+//   '}\n';
+  var FSHADER_SOURCE =
   'void main() {\n' +
-  '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
+  '  if(gl_FragCoord.x>200.0)\n' +
+  '  gl_FragColor = vec4(gl_FragCoord.z, 0.0, 0.0, 1.0);\n' +
+  '  else \n' +
+  '   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
   '}\n';
 
 // Rotation angle (degrees/second)
@@ -39,13 +58,21 @@ function main() {
     console.log('Failed to set the positions of the vertices');
     return;
   }
-
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthMask(false);
   // Specify the color for clearing <canvas>
   gl.clearColor(0, 0, 0, 1);
 
+  //正面为逆时针缠绕顺序
+  gl.frontFace(gl.CCW);
+  //剔除背面
+  gl.cullFace(gl.BACK);
+  //启用面剔除
+  // gl.enable(gl.CULL_FACE);
+
   // Get storage location of u_ModelMatrix
   var u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
-  if (!u_ModelMatrix) { 
+  if (!u_ModelMatrix) {
     console.log('Failed to get the storage location of u_ModelMatrix');
     return;
   }
@@ -56,7 +83,7 @@ function main() {
   var modelMatrix = new Matrix4();
 
   // Start drawing
-  var tick = function() {
+  var tick = function () {
     currentAngle = animate(currentAngle);  // Update the rotation angle
     draw(gl, n, currentAngle, modelMatrix, u_ModelMatrix);   // Draw the triangle
     requestAnimationFrame(tick, canvas);   // Request that the browser ?calls tick
@@ -65,8 +92,8 @@ function main() {
 }
 
 function initVertexBuffers(gl) {
-  var vertices = new Float32Array ([
-    0, 0.5,   -0.5, -0.5,   0.5, -0.5
+  var vertices = new Float32Array([
+    0, 0.5, -0.5, -0.5, 0.7, -0.5
   ]);
   var n = 3;   // The number of vertices
 
@@ -84,7 +111,7 @@ function initVertexBuffers(gl) {
 
   // Assign the buffer object to a_Position variable
   var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
-  if(a_Position < 0) {
+  if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');
     return -1;
   }
@@ -98,14 +125,14 @@ function initVertexBuffers(gl) {
 
 function draw(gl, n, currentAngle, modelMatrix, u_ModelMatrix) {
   // Set the rotation matrix
-  modelMatrix.setRotate(currentAngle, 0, 0, 1);
-  modelMatrix.translate(0.35, 0, 0);
- 
+  // modelMatrix.setRotate(currentAngle, 0, 1, 0);
+  // modelMatrix.translate(0.3, 0, 0);
+
   // Pass the rotation matrix to the vertex shader
   gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
 
   // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
 
   // Draw the rectangle
   gl.drawArrays(gl.TRIANGLES, 0, n);
@@ -124,9 +151,9 @@ function animate(angle) {
 }
 
 function up() {
-  ANGLE_STEP += 10; 
+  ANGLE_STEP += 10;
 }
 
 function down() {
-  ANGLE_STEP -= 10; 
+  ANGLE_STEP -= 10;
 }

@@ -43,6 +43,8 @@ function main() {
   // Specify the color for clearing <canvas>
   gl.clearColor(0, 0, 0, 1);
 
+  gl.enable(gl.STENCIL_TEST);
+
   // Get storage location of u_ModelMatrix
   var u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
   if (!u_ModelMatrix) { 
@@ -59,7 +61,7 @@ function main() {
   var tick = function() {
     currentAngle = animate(currentAngle);  // Update the rotation angle
     draw(gl, n, currentAngle, modelMatrix, u_ModelMatrix);   // Draw the triangle
-    requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
+    // requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
   };
   tick();
 }
@@ -105,9 +107,16 @@ function draw(gl, n, currentAngle, modelMatrix, u_ModelMatrix) {
   gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
 
   // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.STENCIL_BUFFER_BIT);
 
+  gl.stencilFunc(gl.ALWAYS,1,0xFF);
+  gl.stencilMask(0xFF);
   // Draw the rectangle
+  gl.drawArrays(gl.TRIANGLES, 0, n);
+
+  gl.stencilFunc(gl.NOTEQUAL,1,0xFF);
+  gl.stencilMask(0x00);
+  gl.disable(gl.STENCIL_TEST);
   gl.drawArrays(gl.TRIANGLES, 0, n);
 }
 

@@ -40,11 +40,7 @@ THREE.LineBasicMaterial = function ( parameters ) {
 	 * @type {THREE.Color}
 	 */
 	this.color = new THREE.Color( 0xffffff );
-	/**
-	 * @desc 线的宽度
-	 * @default
-	 * @type {float}
-	 */
+	//Due to limitations in the ANGLE layer, on Windows platforms linewidth will always be 1 regardless of the set value.
 	this.linewidth = 1;
 	/**
 	 * @desc 线头类型 "round" 圆角	"butt" 平角	"square" 方角

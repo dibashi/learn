@@ -3,13 +3,16 @@
 var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' +
   'void main() {\n' +
-  '  gl_Position = a_Position;\n' +
+  '  gl_Position = vec4(a_Position.xy,0.0,2);\n' +
   '}\n';
 
 // Fragment shader program
 var FSHADER_SOURCE =
   'void main() {\n' +
+  '  if(gl_FragDepth === gl.FragCoord.z)\n'+
   '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
+  '  else\n' +
+  '  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n' +
   '}\n';
 
 var phongProgram = null;
@@ -18,7 +21,7 @@ function main() {
   var canvas = document.getElementById('webgl');
 
   // Get the rendering context for WebGL
-  var gl = getWebGLContext(canvas);
+  var gl = canvas.getContext("webgl");
   if (!gl) {
     console.log('Failed to get the rendering context for WebGL');
     return;

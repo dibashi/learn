@@ -1,15 +1,4 @@
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author alteredq / http://alteredqualia.com/
- */
-/**
- * @classdesc 线性雾效对象<br/>
- * Fog对象的构造函数.用来在场景内创建线性雾效,线性雾效就是从雾效的起始点参数near,到结束点参数far,雾效强度线性递增
- * @param {THREE.Color} color 雾的颜色
- * @param {float} near	雾效的起始点,雾效的near属性大于当前相机的near属性,当前相机才不会受相机影响,可选参数,默认是1
- * @param {float} far 雾效的结束点,雾效的far属性小于当前相机的far属性,当前相机才不会受相机影响,可选参数,默认是1000
- * @constructor
- */
+//This class contains the parameters that define linear fog, i.e., that grows linearly denser with the distance.
 THREE.Fog = function ( color, near, far ) {
 	/**
 	 * @desc 雾的名字
@@ -22,17 +11,10 @@ THREE.Fog = function ( color, near, far ) {
 	 * @type {THREE.Color}
 	 */
 	this.color = new THREE.Color( color );
-	/**
-	 * @desc 雾的最近距离
-	 * @default 1
-	 * @type {float}
-	 */
+//The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.
 	this.near = ( near !== undefined ) ? near : 1;
-	/**
-	 * @desc 雾的最远距离
-	 * @default 1000
-	 * @type {float}
-	 */
+//The maximum distance at which fog stops being calculated and applied. 
+//Objects that are more than 'far' units away from the active camera won't be affected by fog.
 	this.far = ( far !== undefined ) ? far : 1000;
 
 };

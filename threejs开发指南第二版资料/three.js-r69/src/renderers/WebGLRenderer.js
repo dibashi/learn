@@ -713,12 +713,8 @@ THREE.WebGLRenderer = function ( parameters ) {
 		return _precision;
 
 	};
-	/**
-	 * @desc 重新设置画布尺寸
-	 * @param {number} width 画布宽度
-	 * @param {number} height 画布高度
-	 * @param {boolean} updateStyle 是否更新像素
-	 */
+	
+	//Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
 	this.setSize = function ( width, height, updateStyle ) {
 		//画布的 宽 高 像素数 被更新 相应的，viewport也要更新 因为现在是想那啥，呃呃，渲染到完整的画布之中
 		//ratina显示器的devicePixelRatio iphone4 是4， iphone是9 似乎
@@ -3847,7 +3843,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 		// 计算相机世界矩阵的逆
 		camera.matrixWorldInverse.getInverse( camera.matrixWorld );
 
-		// 相机的投影坐标系和世界坐标系相乘
+		// 相机的投影矩阵和视图矩阵相乘
 		_projScreenMatrix.multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse );
 		// 设置平截头坐标系
 		_frustum.setFromMatrix( _projScreenMatrix );
@@ -4001,7 +3997,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 			} else {
 				// 普通渲染对象组
 				var webglObjects = _webglObjects[ object.id ];
-
+				//不剔除就直接画，剔除的话要判断是否在内部
 				if ( webglObjects && ( object.frustumCulled === false || _frustum.intersectsObject( object ) === true ) ) {
 					// 更新对象
 					updateObject( object, scene );

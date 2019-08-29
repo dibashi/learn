@@ -11,15 +11,7 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-/**
- * @classdesc  4×4矩阵
- * @desc 行优先存储<br />
- * 0	1	2	3<br />
- * 4	5	6	7<br />
- * 8	9	10	11<br />
- * 12	13	14	15
- * @class
- */
+
 THREE.Matrix4 = function () {
 	/**
 	 * @desc 矩阵内数组

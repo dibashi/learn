@@ -56,9 +56,10 @@ function main() {
   }
 
   // Set the clear color and enable the depth test
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  gl.clearColor(1.0, 0.3, 0.0, 1.0);
   gl.enable(gl.DEPTH_TEST);
-
+  // gl.colorMask(false,false,true,true);
+  // gl.depthMask(false);
   // Get the storage locations of uniform variables
   var u_MvpMatrix = gl.getUniformLocation(gl.program, 'u_MvpMatrix');
   var u_PickedFace = gl.getUniformLocation(gl.program, 'u_PickedFace');

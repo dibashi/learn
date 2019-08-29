@@ -351,6 +351,7 @@ THREE.Mesh.prototype.raycast = ( function () {
  */
 THREE.Mesh.prototype.clone = function ( object, recursive ) {
 
+	//geometry 和material并没有克隆
 	if ( object === undefined ) object = new THREE.Mesh( this.geometry, this.material );
 
 	THREE.Object3D.prototype.clone.call( this, object, recursive );

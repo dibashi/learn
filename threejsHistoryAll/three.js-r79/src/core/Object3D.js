@@ -129,7 +129,7 @@ o.b = 38;
 	this.matrix = new THREE.Matrix4();
 	//乘以父节点的平移旋转缩放后 得到的世界矩阵，这两个矩阵一定要同步，matrix改变了，matrixWorld就要改变，
 	//问题还没这么简单，matrixWorld改变了，他的子节点的matrixWorld也要改变
-	//如果由系统每帧的自动刷新所有，性能上不太好，所有内部加入了很多变量来标记是否需要更新矩阵
+	//如果由系统每帧的自动刷新所有，性能上不太好，所以内部加入了很多变量来标记是否需要更新矩阵
 	this.matrixWorld = new THREE.Matrix4();
 
 	this.matrixAutoUpdate = THREE.Object3D.DefaultMatrixAutoUpdate;

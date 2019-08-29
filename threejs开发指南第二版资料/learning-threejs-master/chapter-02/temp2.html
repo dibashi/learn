@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Example 02.02 - Foggy Scene</title>
+    <title>Example 02.01 - Basic Scene</title>
     <script type="text/javascript" src="../libs/three.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
@@ -34,17 +34,16 @@
 
         // create a scene, that will hold all our elements such as objects, cameras and lights.
         var scene = new THREE.Scene();
-        // scene.fog=new THREE.FogExp2( 0xffffff, 0.015 );
-        scene.fog = new THREE.Fog(0xffffff, 0.015, 100);
 
         // create a camera, which defines where we're looking at.
         var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        scene.add(camera);
 
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
 
-        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color(0xEEeeee));
+        // renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMapEnabled = true;
 
         // create the ground plane
@@ -104,8 +103,11 @@
                 var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff});
                 var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
                 cube.castShadow = true;
+                cube.name = "cube-" + scene.children.length;
+
 
                 // position the cube randomly in the scene
+
                 cube.position.x = -30 + Math.round((Math.random() * planeGeometry.parameters.width));
                 cube.position.y = Math.round((Math.random() * 5));
                 cube.position.z = -20 + Math.round((Math.random() * planeGeometry.parameters.height));

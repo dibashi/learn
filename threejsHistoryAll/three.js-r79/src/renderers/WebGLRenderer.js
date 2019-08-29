@@ -602,7 +602,9 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	}
 
-	// Buffer rendering
+
+	//ImmediateRenderObject (this is what's rendered via renderBufferImmediate)
+	// is best suited for rendering objects with variable number of triangles.
 
 	this.renderBufferImmediate = function (object, program, material) {
 
@@ -696,7 +698,11 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 	};
 
 	/**
-	 * TODO:必须完全注释这个函数
+	 * BufferGeometry (this is what's rendered via renderBufferDirect) 
+	 * is best suited for rendering large static geometries. 
+	 * You create one huge typed array buffer per attribute and store offsets into JS array. 
+	 * Then renderer renders these as indexed triangles (gl.drawElements), 
+	 * moving attribute pointers according to offsets.
 	 */
 	this.renderBufferDirect = function (camera, fog, geometry, material, object, group) {
 
@@ -1393,6 +1399,8 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	}
 
+	//目的是确定有哪些对象是要被渲染出来的，这个最主要的实现就在 projectObject() 方法中。
+	//场景内的对象分类并生成渲染对象
 	function projectObject(object, camera) {
 
 		//不可见 就不放入待绘制的组里面
@@ -1499,6 +1507,7 @@ Note: Sorting is used to attempt to properly render objects that have some degre
 
 	}
 
+	//renderObjects 就是遍历所有的 Object3D 对象，renderBufferImmediate renderBufferDirect进一步渲染
 	function renderObjects(renderList, camera, fog, overrideMaterial) {
 
 		for (var i = 0, l = renderList.length; i < l; i++) {
