@@ -28,7 +28,7 @@
     "minami": "^1.2.3",
     "minimist": "^0.1.0",
     "moment": "^2.17.0",
-    "mout": "^0.9.1",
+    "mout": "^1.2.3",
     "promise": "^7.0.3",
     "sitemap": "git://github.com/greggman/sitemap.js#multiple-langs",
     "taffydb": "^2.7.3"
